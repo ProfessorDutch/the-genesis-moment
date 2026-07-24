@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Phone } from "lucide-react";
 import { useState } from "react";
+import { SeedMark } from "@/components/seed-mark";
+
 
 export const Route = createFileRoute("/tell-your-story")({
   head: () => ({
@@ -31,44 +32,57 @@ function TellYourStory() {
     <div>
       <section className="bg-cream px-5 pt-16 pb-14 md:px-8 md:pt-24 md:pb-20">
         <div className="mx-auto max-w-4xl">
-          <div className="eyebrow mb-5">Tell your Genesis Moment</div>
-          <h1 className="font-serif font-bold leading-[0.94] tracking-[-0.04em] text-[clamp(2.75rem,8vw,5.5rem)]">
+          <div className="mb-5 flex items-center gap-2 text-ember">
+            <SeedMark size={16} />
+            <span className="eyebrow">Tell your Genesis Moment</span>
+          </div>
+          <h1 className="font-serif font-bold leading-[0.94] tracking-[-0.04em] text-[clamp(2.5rem,7vw,4.75rem)]">
             Maybe your story is the one somebody needs to hear.
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/75 md:text-xl">
-            This is not a pitch interview and not a celebration of perfection. It is a conversation
-            about becoming — where you started, what almost stopped you, who believed in you, and
-            the moment something changed.
+          <p className="drop-cap mt-8 max-w-2xl text-lg leading-relaxed text-ink/80 md:text-xl">
+            This is not a pitch interview and not a celebration of perfection. It is a
+            conversation about becoming — where you started, what almost stopped you, who
+            believed in you, and the moment something changed.
           </p>
         </div>
       </section>
 
-      <section className="bg-ink px-5 py-14 text-cream md:px-8 md:py-20">
-        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-[1.2fr_1fr] md:items-center">
-          <div>
-            <div className="section-label mb-3">Fastest way</div>
-            <h2 className="font-serif text-3xl leading-tight tracking-[-0.03em] md:text-4xl">
-              Pick up the phone.
-            </h2>
-            <p className="mt-4 max-w-md text-cream/75">
-              Call and our assistant can answer questions, gather the information we need, and help
-              coordinate next steps. A founder will follow up personally.
-            </p>
-          </div>
-          <a
-            href="tel:+10000000000"
-            className="flex items-center justify-between gap-3 bg-ember px-6 py-6 text-white transition-transform hover:-translate-y-0.5"
-          >
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/80">
-                Call about being a guest
+      <section className="bg-sand px-5 py-16 md:px-8 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <div className="mono-tag mb-6 text-ember">What to expect</div>
+          <ol className="grid gap-6 md:grid-cols-3">
+            <li>
+              <div className="ep-num text-4xl text-ember">01</div>
+              <div className="mt-2 font-serif text-xl leading-snug tracking-[-0.02em]">
+                A short intro call.
               </div>
-              <div className="mt-1 font-serif text-2xl">(000) 000-0000</div>
-            </div>
-            <Phone size={26} />
-          </a>
+              <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                Fifteen minutes. No script. We listen for the parts of your story most people
+                have not heard.
+              </p>
+            </li>
+            <li>
+              <div className="ep-num text-4xl text-ember">02</div>
+              <div className="mt-2 font-serif text-xl leading-snug tracking-[-0.02em]">
+                One honest conversation.
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                Recorded at your shop or in studio. Long-form. Ninety minutes on average.
+              </p>
+            </li>
+            <li>
+              <div className="ep-num text-4xl text-ember">03</div>
+              <div className="mt-2 font-serif text-xl leading-snug tracking-[-0.02em]">
+                Your Genesis Moment, released.
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                You review before it goes live. Then someone hears it who needed to.
+              </p>
+            </li>
+          </ol>
         </div>
       </section>
+
 
       <section id="form" className="bg-paper px-5 py-20 md:px-8 md:py-28">
         <div className="mx-auto max-w-2xl">
