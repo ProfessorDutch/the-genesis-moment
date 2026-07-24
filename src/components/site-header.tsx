@@ -8,6 +8,7 @@ const nav = [
   { to: "/thoughtcasts", label: "Thoughtcasts" },
   { to: "/mustard-seed", label: "The Mustard Seed" },
   { to: "/tell-your-story", label: "Tell Your Story" },
+  { to: "/tell-your-story", label: "Nominate" },
 ] as const;
 
 export function SiteHeader() {

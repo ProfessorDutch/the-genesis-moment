@@ -7,8 +7,8 @@ export function SiteFooter() {
         <div>
           <div className="font-serif text-2xl text-cream">The Genesis Moment</div>
           <p className="mt-3 max-w-sm text-sm leading-relaxed">
-            A podcast about faith, family, belief, failure, becoming, and the moments that changed
-            everything.
+            Stories of faith-based business owners, the people who believed in them, and what grew
+            from that belief.
           </p>
           <p className="mt-3 text-xs uppercase tracking-[0.16em] text-ember">
             In service of The Mustard Seed.
@@ -26,7 +26,7 @@ export function SiteFooter() {
           <div className="text-xs uppercase tracking-[0.16em] text-cream/60">Be a guest</div>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/tell-your-story" className="hover:text-ember">Tell Your Story</Link></li>
-            <li><Link to="/tell-your-story" className="hover:text-ember">Nominate Someone</Link></li>
+            <li><Link to="/tell-your-story" className="hover:text-ember">Nominate Their Story</Link></li>
             <li><a href="tel:+10000000000" className="hover:text-ember">Call to speak with us</a></li>
           </ul>
         </div>
