@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Play } from "lucide-react";
 import { episodes, thoughtcasts } from "@/lib/content";
+import { SeedMark } from "@/components/seed-mark";
 
 const frameStyle = (url?: string) =>
   url
@@ -40,19 +41,22 @@ function Home() {
 
   return (
     <div>
-      {/* HERO */}
+      {/* HERO — text-only left, typographic pull-quote right (no photo duplication) */}
       <section className="relative overflow-hidden bg-cream">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(circle at 80% 12%, oklch(0.68 0.19 45 / 0.16), transparent 45%)",
+              "radial-gradient(circle at 85% 15%, oklch(0.68 0.19 45 / 0.14), transparent 55%)",
           }}
         />
-        <div className="relative mx-auto max-w-6xl px-5 pt-16 pb-20 md:grid md:grid-cols-[1.15fr_1fr] md:gap-16 md:px-8 md:pt-28 md:pb-32">
+        <div className="relative mx-auto max-w-6xl px-5 pt-16 pb-20 md:grid md:grid-cols-[1.2fr_1fr] md:gap-16 md:px-8 md:pt-24 md:pb-28">
           <div>
-            <div className="eyebrow mb-6">Stories of faith-based business owners</div>
+            <div className="mb-6 flex items-center gap-2 text-ember">
+              <SeedMark size={16} />
+              <span className="eyebrow">Stories of faith-based business owners</span>
+            </div>
             <h1 className="font-serif font-bold text-ink tracking-[-0.03em] leading-[0.95] text-[clamp(2.5rem,7vw,4.75rem)]">
               Who saw<br />
               something in<br />
@@ -77,28 +81,50 @@ function Home() {
               </Link>
             </div>
           </div>
-          <div className="mt-14 md:mt-0">
-            <div className="portrait-frame relative" style={frameStyle(featured.image)}>
-              <div className="absolute bottom-5 left-5 right-5 text-white/85">
-                <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-ember">
-                  Featured Genesis Moment
-                </div>
-                <div className="mt-2 font-serif text-2xl leading-tight md:text-3xl">
-                  “My wife believed in me before I believed in myself.”
-                </div>
-                <div className="mt-2 text-xs uppercase tracking-[0.14em] text-white/70">
-                  [Guest Name] · [Business / City]
-                </div>
+
+          {/* Editorial pull-quote — a stack of three voices, no photo */}
+          <aside className="mt-16 md:mt-2">
+            <div className="border-l-[3px] border-ember bg-sand/70 px-6 py-8 md:px-8 md:py-10">
+              <div className="mono-tag text-ember">Voices on the record</div>
+              <div className="mt-5 space-y-6 font-serif tracking-[-0.02em] text-ink">
+                <blockquote className="text-2xl leading-snug md:text-[1.75rem]">
+                  &ldquo;My wife believed in me before I believed in myself.&rdquo;
+                  <cite className="mt-2 block text-[11px] not-italic uppercase tracking-[0.16em] text-ink/55">
+                    Marcus Hale · Hale &amp; Sons Roofing
+                  </cite>
+                </blockquote>
+                <hr className="rule-ember" />
+                <blockquote className="text-2xl leading-snug md:text-[1.75rem]">
+                  &ldquo;My dad bought me my first toolbox.&rdquo;
+                  <cite className="mt-2 block text-[11px] not-italic uppercase tracking-[0.16em] text-ink/55">
+                    Ray Delgado · Delgado Custom Millwork
+                  </cite>
+                </blockquote>
+                <hr className="rule-ember" />
+                <blockquote className="text-2xl leading-snug md:text-[1.75rem]">
+                  &ldquo;One phone call. One yes. A whole different life.&rdquo;
+                  <cite className="mt-2 block text-[11px] not-italic uppercase tracking-[0.16em] text-ink/55">
+                    Jonah Reyes · Reyes Electric
+                  </cite>
+                </blockquote>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </section>
 
-      {/* FEATURED GENESIS MOMENT */}
+      {/* LATEST GENESIS MOMENT — the single visual featured story, distinct from hero */}
       <section className="bg-paper px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <div className="section-label mb-4">Featured Genesis Moment</div>
+          <div className="flex items-end justify-between gap-6">
+            <div>
+              <div className="section-label mb-4">Latest Genesis Moment · Episode 01</div>
+              <h2 className="font-serif text-3xl leading-tight tracking-[-0.03em] md:text-5xl">
+                The first toolbox my father ever bought me.
+              </h2>
+            </div>
+          </div>
+
           <div className="mt-12 grid gap-10 md:grid-cols-[1fr_1.2fr] md:items-center md:gap-16">
             <Link
               to="/podcast/$slug"
@@ -108,19 +134,22 @@ function Home() {
             />
             <div>
               <blockquote className="font-serif text-3xl leading-[1.05] tracking-[-0.03em] md:text-4xl">
-                “My wife believed in me before I believed in myself.”
+                &ldquo;Before the shop, before the crew, before anyone knew his name — Ray was
+                living with his mother and did not believe he was going to make it.&rdquo;
               </blockquote>
               <div className="mt-4 text-sm uppercase tracking-[0.12em] text-ink/60">
-                [Guest Name] · [Business / City]
+                Ray Delgado · Founder, Delgado Custom Millwork
               </div>
-              <p className="mt-6 text-lg leading-relaxed text-ink/80">
-                Before the company became successful, there was uncertainty, sacrifice, and someone
-                willing to keep believing. This is the story behind what came next.
+              <p className="drop-cap mt-8 text-lg leading-relaxed text-ink/85">
+                A conversation about the years before the business existed. About the father who
+                bought a set of tools when there was no reason yet to believe they would matter.
+                About the wife who kept praying while Ray still questioned whether he was the man
+                for the job.
               </p>
               <Link
                 to="/podcast/$slug"
                 params={{ slug: featured.slug }}
-                className="mt-8 inline-flex items-center gap-2 bg-ink px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-transform hover:-translate-y-0.5"
+                className="mt-8 inline-flex items-center gap-2 bg-ink-deep px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-transform hover:-translate-y-0.5"
               >
                 <Play size={14} /> Watch Episode
               </Link>
@@ -129,145 +158,107 @@ function Home() {
         </div>
       </section>
 
-      {/* THE PEOPLE BEHIND THE STORY */}
-      <section className="bg-[oklch(0.19_0.012_55)] px-5 py-24 text-cream md:px-8 md:py-32">
+      {/* THE PEOPLE BEHIND THE STORY — dark editorial band */}
+      <section className="bg-ink-deep px-5 py-24 text-cream md:px-8 md:py-32">
         <div className="mx-auto max-w-4xl">
-          <div className="section-label mb-5 text-ember">The People Behind the Story</div>
+          <div className="mb-5 flex items-center gap-2 text-ember">
+            <SeedMark size={16} />
+            <span className="section-label">The People Behind the Story</span>
+          </div>
           <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
             Most people can tell you what they built.
           </h2>
-          <div className="mt-10 space-y-6 text-lg leading-relaxed text-cream/75 md:text-xl">
-            <p>
-              We want to know who helped them become the person who could build it.
-            </p>
-          </div>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-cream/75 md:text-xl">
+            We want to know who helped them become the person who could build it.
+          </p>
 
-          <div className="mt-14 border-y border-white/12 py-8">
-            <p className="font-serif text-2xl leading-snug text-cream md:text-3xl">
-              The father who bought the tools.
-              <br />
-              The wife who carried the bills.
-              <br />
-              The friend who gave the first opportunity.
-              <br />
-              The mentor who made the introduction.
-              <br />
-              The person who prayed.
-              <br />
-              The person who stayed.
-              <br />
-              The person who saw something worth believing in.
-            </p>
-          </div>
+          <ol className="mt-14 space-y-4 border-l-[3px] border-ember pl-6 font-serif text-2xl leading-snug tracking-[-0.02em] text-cream md:text-3xl">
+            <li>The father who bought the tools.</li>
+            <li>The wife who carried the bills.</li>
+            <li>The friend who gave the first opportunity.</li>
+            <li>The mentor who made the introduction.</li>
+            <li>The person who prayed.</li>
+            <li>The person who stayed.</li>
+            <li>The person who saw something worth believing in.</li>
+          </ol>
 
-          <div className="mt-10">
-            <p className="font-serif text-2xl leading-snug text-cream md:text-3xl">
-              Where would you be if they hadn’t?
-            </p>
-          </div>
+          <p className="mt-14 font-serif italic text-3xl leading-snug text-cream/90 md:text-4xl">
+            Where would you be if they hadn&rsquo;t?
+          </p>
         </div>
       </section>
 
-      {/* MORE GENESIS MOMENTS */}
+      {/* MORE GENESIS MOMENTS — real guests only, no placeholders */}
       <section className="bg-cream px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <div className="section-label mb-4">More Genesis Moments</div>
-          <h2 className="font-serif text-3xl leading-tight tracking-[-0.035em] md:text-5xl">
-            The story behind the person.
-          </h2>
+          <div className="flex items-end justify-between gap-6">
+            <div>
+              <div className="section-label mb-4">More Genesis Moments</div>
+              <h2 className="font-serif text-3xl leading-tight tracking-[-0.035em] md:text-5xl">
+                The story behind the person.
+              </h2>
+            </div>
+            <Link
+              to="/podcast"
+              className="hidden shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember hover:underline md:inline-flex"
+            >
+              All episodes <ArrowRight size={14} />
+            </Link>
+          </div>
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {[
-              {
-                quote: "My dad bought me my first toolbox.",
-                guest: "[Guest Name]",
-                role: "[Business / City]",
-                story:
-                  "A story about finding direction when he had very little confidence in where his life was going.",
-                episode: moreEpisodes[0],
-              },
-              {
-                quote: "Someone gave me a chance I had not earned yet.",
-                guest: "[Guest Name]",
-                role: "[Business / City]",
-                story:
-                  "One opportunity changed how he saw himself—and eventually changed everything that followed.",
-                episode: moreEpisodes[1],
-              },
-              {
-                quote: "I was living with my mother when I started.",
-                guest: "[Guest Name]",
-                role: "[Business / City]",
-                story:
-                  "The business people see today started in a season he rarely talks about.",
-                episode: moreEpisodes[2],
-              },
-            ].map((item) =>
-              item.episode ? (
-                <Link
-                  key={item.quote}
-                  to="/podcast/$slug"
-                  params={{ slug: item.episode.slug }}
-                  className="group flex flex-col border border-line bg-paper p-6 transition-colors hover:border-ember"
-                >
-                  <div
-                    className="portrait-frame mb-6"
-                    style={{ aspectRatio: "4/5", ...frameStyle(item.episode.image) }}
-                  />
-                  <blockquote className="font-serif text-2xl leading-tight tracking-[-0.02em]">
-                    “{item.quote.replace(/^“|”$/g, "")}”
-                  </blockquote>
-                  <div className="mt-3 text-xs uppercase tracking-[0.12em] text-ink/60">
-                    {item.guest} · {item.role}
-                  </div>
-                  <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink/70">
-                    {item.story}
-                  </p>
-                  <div className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember">
-                    Watch <ArrowRight size={12} />
-                  </div>
-                </Link>
-              ) : (
+            {moreEpisodes.map((ep) => (
+              <Link
+                key={ep.slug}
+                to="/podcast/$slug"
+                params={{ slug: ep.slug }}
+                className="group flex flex-col border border-line bg-paper p-6 transition-colors hover:border-ember"
+              >
                 <div
-                  key={item.quote}
-                  className="flex flex-col border border-line bg-paper p-6"
-                >
-                  <div
-                    className="portrait-frame mb-6"
-                    style={{ aspectRatio: "4/5" }}
-                  />
-                  <blockquote className="font-serif text-2xl leading-tight tracking-[-0.02em]">
-                    “{item.quote.replace(/^“|”$/g, "")}”
-                  </blockquote>
-                  <div className="mt-3 text-xs uppercase tracking-[0.12em] text-ink/60">
-                    {item.guest} · {item.role}
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-ink/70">{item.story}</p>
+                  className="portrait-frame mb-6"
+                  style={{ aspectRatio: "4/5", ...frameStyle(ep.image) }}
+                />
+                <div className="mono-tag text-ember">
+                  Ep. {String(ep.number).padStart(2, "0")} · {ep.duration}
                 </div>
-              )
-            )}
+                <div className="mt-3 font-serif text-2xl leading-tight tracking-[-0.02em]">
+                  {ep.title}
+                </div>
+                <div className="mt-2 text-xs uppercase tracking-[0.12em] text-ink/60">
+                  {ep.guest} · {ep.role}
+                </div>
+                <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink/70">
+                  {ep.excerpt}
+                </p>
+                <div className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember">
+                  Watch <ArrowRight size={12} />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* THE STORY BEFORE THE SUCCESS */}
-      <section className="bg-paper px-5 py-24 md:px-8 md:py-32">
-        <div className="mx-auto max-w-4xl">
+      {/* THE STORY BEFORE THE SUCCESS — sand surface, drop cap */}
+      <section className="bg-sand px-5 py-24 md:px-8 md:py-32">
+        <div className="mx-auto max-w-3xl">
           <div className="section-label mb-4">The Story Before the Success</div>
           <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
             Success is easy to see.
           </h2>
-          <div className="mt-8 space-y-6 text-lg leading-relaxed text-ink/80 md:text-xl">
-            <p>The beginning usually is not.</p>
-            <p>
+          <p className="mt-8 font-serif italic text-2xl leading-snug text-ink/80 md:text-3xl">
+            The beginning usually is not.
+          </p>
+          <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/85 md:text-xl">
+            <p className="drop-cap">
               The Genesis Moment goes back to the seasons when people felt unsure, behind,
               embarrassed, rejected, or simply unable to imagine what their life might eventually
               become.
             </p>
             <p>Those are often the parts of the story people need most.</p>
             <p>
-              Because the successful business owner may feel impossible to relate to. The person they
-              used to be usually does not.
+              Because the successful business owner may feel impossible to relate to. The person
+              they used to be usually does not.
             </p>
           </div>
         </div>
@@ -283,76 +274,44 @@ function Home() {
                 One idea worth stopping for.
               </h2>
               <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink/80">
-                Short spoken pieces about faith, identity, failure, relationships, grief, belief, and
-                the things that shape who we become.
+                Short spoken pieces about faith, identity, failure, relationships, grief, belief,
+                and the things that shape who we become.
               </p>
             </div>
             <Link
               to="/thoughtcasts"
               className="hidden shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember hover:underline md:inline-flex"
             >
-              Watch All Thoughtcasts <ArrowRight size={14} />
+              All Thoughtcasts <ArrowRight size={14} />
             </Link>
           </div>
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {[
-              {
-                title: "[Thoughtcast Title]",
-                quote: "When you measure good decisions by good outcomes, your compass is a ruler.",
-                thoughtcast: featuredThoughts[0],
-              },
-              {
-                title: "[Thoughtcast Title]",
-                quote: "A starving man can’t think of anything but bread.",
-                thoughtcast: featuredThoughts[1],
-              },
-              {
-                title: "[Thoughtcast Title]",
-                quote:
-                  "Most people spend years trying to become the person they believe they are supposed to be.",
-                thoughtcast: featuredThoughts[2],
-              },
-            ].map((item) =>
-              item.thoughtcast ? (
-                <Link
-                  key={item.quote}
-                  to="/thoughtcasts/$slug"
-                  params={{ slug: item.thoughtcast.slug }}
-                  className="group flex flex-col border border-line bg-paper p-6 transition-colors hover:border-ember"
-                >
-                  <div
-                    className="portrait-frame mb-6"
-                    style={{ aspectRatio: "16/10", ...frameStyle(item.thoughtcast.image) }}
-                  />
-                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-ember">
-                    {item.thoughtcast.topic} · {item.thoughtcast.duration}
-                  </div>
-                  <div className="mt-3 font-serif text-2xl leading-tight tracking-[-0.02em]">
-                    {item.title}
-                  </div>
-                  <blockquote className="mt-3 text-sm leading-relaxed text-ink/70">
-                    “{item.quote}”
-                  </blockquote>
-                  <div className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember">
-                    Watch <ArrowRight size={12} />
-                  </div>
-                </Link>
-              ) : (
-                <div key={item.quote} className="flex flex-col border border-line bg-paper p-6">
-                  <div className="portrait-frame mb-6" style={{ aspectRatio: "16/10" }} />
-                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-ember">
-                    Thoughtcast
-                  </div>
-                  <div className="mt-3 font-serif text-2xl leading-tight tracking-[-0.02em]">
-                    {item.title}
-                  </div>
-                  <blockquote className="mt-3 text-sm leading-relaxed text-ink/70">
-                    “{item.quote}”
-                  </blockquote>
+            {featuredThoughts.map((t) => (
+              <Link
+                key={t.slug}
+                to="/thoughtcasts/$slug"
+                params={{ slug: t.slug }}
+                className="group flex flex-col border border-line bg-paper p-6 transition-colors hover:border-ember"
+              >
+                <div
+                  className="portrait-frame mb-6"
+                  style={{ aspectRatio: "16/10", ...frameStyle(t.image) }}
+                />
+                <div className="mono-tag text-ember">
+                  {t.topic} · {t.duration}
                 </div>
-              )
-            )}
+                <div className="mt-3 font-serif text-2xl leading-tight tracking-[-0.02em]">
+                  {t.title}
+                </div>
+                <blockquote className="mt-3 text-sm leading-relaxed text-ink/70">
+                  &ldquo;{t.thesis}&rdquo;
+                </blockquote>
+                <div className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember">
+                  Watch <ArrowRight size={12} />
+                </div>
+              </Link>
+            ))}
           </div>
 
           <div className="mt-12 md:hidden">
@@ -360,55 +319,42 @@ function Home() {
               to="/thoughtcasts"
               className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember hover:underline"
             >
-              Watch All Thoughtcasts <ArrowRight size={14} />
+              All Thoughtcasts <ArrowRight size={14} />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* THE MUSTARD SEED */}
+      {/* THE MUSTARD SEED — poem-typeset quote block */}
       <section className="relative bg-mustard px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-4xl">
-          <div className="mb-8 h-3 w-3 rounded-full bg-ember shadow-[0_0_0_12px_oklch(0.68_0.19_45_/_0.14)]" />
-          <div className="section-label mb-4">The Mustard Seed</div>
+          <div className="mb-6 flex items-center gap-2 text-ember">
+            <SeedMark size={18} />
+            <span className="section-label">The Mustard Seed</span>
+          </div>
           <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
             Your beginning may be the part a kid needs to hear.
           </h2>
-          <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/80 md:text-xl">
-            <p>
-              A young person may look at a successful owner and see someone completely different from
-              themselves.
-            </p>
-            <p>Then they hear the beginning.</p>
-          </div>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/85 md:text-xl">
+            A young person may look at a successful owner and see someone completely different
+            from themselves. Then they hear the beginning.
+          </p>
 
-          <div className="mt-12 border-l-[3px] border-ember bg-soft/60 px-6 py-8">
-            <p className="font-serif text-2xl leading-snug tracking-[-0.02em] md:text-3xl">
-              “I struggled in school.”
-              <br />
-              “I had already failed.”
-              <br />
-              “We had no money.”
-              <br />
-              “My dad bought me the tools.”
-              <br />
-              “My wife kept believing.”
-              <br />
-              “Someone gave me one chance.”
-            </p>
-          </div>
+          <figure className="mt-14 text-center">
+            <blockquote className="mx-auto max-w-2xl font-serif tracking-[-0.02em] text-ink">
+              <p className="text-2xl leading-tight md:text-3xl">&ldquo;I struggled in school.&rdquo;</p>
+              <p className="mt-3 text-xl leading-tight text-ink/85 md:text-2xl">&ldquo;I had already failed.&rdquo;</p>
+              <p className="mt-3 text-2xl leading-tight md:text-3xl">&ldquo;We had no money.&rdquo;</p>
+              <p className="mt-3 text-xl leading-tight text-ink/85 md:text-2xl">&ldquo;My dad bought me the tools.&rdquo;</p>
+              <p className="mt-3 text-2xl leading-tight md:text-3xl">&ldquo;My wife kept believing.&rdquo;</p>
+              <p className="mt-3 text-xl leading-tight italic text-ink/85 md:text-2xl">&ldquo;Someone gave me one chance.&rdquo;</p>
+            </blockquote>
+          </figure>
 
-          <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/80 md:text-xl">
-            <p>Now the distance is smaller.</p>
-            <p>
-              We are not showing young people successful people so they can admire them. We are
-              showing them where successful people started so they can recognize themselves.
-            </p>
-            <p>
-              The Mustard Seed exists to turn those stories into belief, mentorship, exposure,
-              education, and pathways into the skilled trades.
-            </p>
-          </div>
+          <p className="mt-14 max-w-2xl text-lg leading-relaxed text-ink/85 md:text-xl">
+            We are not showing young people successful people so they can admire them. We are
+            showing them where successful people started so they can recognize themselves.
+          </p>
 
           <div className="mt-10">
             <Link
@@ -421,28 +367,8 @@ function Home() {
         </div>
       </section>
 
-      {/* SOMEONE PLANTED SOMETHING IN YOU */}
-      <section className="bg-paper px-5 py-24 md:px-8 md:py-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
-            Someone planted something in you.
-          </h2>
-          <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/80 md:text-xl">
-            <p>Maybe it was money.</p>
-            <p>Maybe it was a room.</p>
-            <p>A prayer. A job. An introduction. A toolbox. A second chance.</p>
-            <p>
-              Or maybe it was simply another person refusing to let you believe that where you were
-              was all you could ever become.
-            </p>
-            <p>Whatever it was, something grew from it.</p>
-            <p className="font-semibold">That is the story we want to preserve.</p>
-          </div>
-        </div>
-      </section>
-
       {/* TELL / NOMINATE */}
-      <section className="bg-[oklch(0.19_0.012_55)] px-5 py-24 text-cream md:px-8 md:py-32">
+      <section className="bg-ink-deep px-5 py-24 text-cream md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-16 md:grid-cols-2">
             <div>
@@ -454,8 +380,8 @@ function Home() {
                 <p>Not only what you built.</p>
                 <p>Who helped you build the person behind it.</p>
                 <p>
-                  Who believed in you. What life looked like then. What you were struggling with. What
-                  they gave you. And what became possible because they did.
+                  Who believed in you. What life looked like then. What you were struggling with.
+                  What they gave you. And what became possible because they did.
                 </p>
               </div>
               <Link
@@ -474,8 +400,8 @@ function Home() {
               <div className="mt-8 space-y-4 text-lg leading-relaxed text-cream/75">
                 <p>Your husband. Your father. A friend. A mentor.</p>
                 <p>
-                  A business owner whose customers know the company—but may have never heard the story
-                  behind the person who built it.
+                  A business owner whose customers know the company — but may have never heard the
+                  story behind the person who built it.
                 </p>
               </div>
               <Link
@@ -489,20 +415,20 @@ function Home() {
         </div>
       </section>
 
-      {/* CLOSING SCRIPTURE + CTA */}
+      {/* CLOSING SCRIPTURE */}
       <section className="bg-cream px-5 py-24 md:px-8 md:py-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="font-serif text-2xl italic leading-relaxed text-ink/85 md:text-3xl">
-            “Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be opened
-            unto you.”
-            <span className="ml-3 not-italic text-[11px] font-bold uppercase tracking-[0.16em] text-ink/50">
-              — Matthew 7:7
-            </span>
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto mb-8 text-ember">
+            <SeedMark size={28} />
+          </div>
+          <p className="font-serif text-2xl italic leading-relaxed text-ink/90 md:text-3xl">
+            &ldquo;Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be
+            opened unto you.&rdquo;
           </p>
-          <p className="mt-6 text-lg leading-relaxed text-ink/70">
+          <div className="mt-4 mono-tag text-ink/55">Matthew 7:7</div>
+          <p className="mt-8 text-lg leading-relaxed text-ink/70">
             Sometimes the door opens because somebody on the other side chooses to open it.
-          </p>
-          <p className="mt-3 text-lg leading-relaxed text-ink/70">
+            <br />
             Maybe your story becomes their mustard seed.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -519,7 +445,6 @@ function Home() {
               Tell Your Story
             </Link>
           </div>
-          <div className="mt-16 font-serif text-xl text-ink/60">TheGenesisMoment.com</div>
         </div>
       </section>
     </div>
