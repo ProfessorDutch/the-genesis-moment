@@ -53,7 +53,7 @@ function Home() {
         <div className="relative mx-auto max-w-6xl px-5 pt-16 pb-20 md:grid md:grid-cols-[1.15fr_1fr] md:gap-16 md:px-8 md:pt-28 md:pb-32">
           <div>
             <div className="eyebrow mb-6">Stories of faith-based business owners</div>
-            <h1 className="font-serif font-bold text-ink tracking-[-0.045em] leading-[0.92] text-[clamp(3rem,10vw,6.5rem)]">
+            <h1 className="font-serif font-bold text-ink tracking-[-0.03em] leading-[0.95] text-[clamp(2.5rem,7vw,4.75rem)]">
               Who saw<br />
               something in<br />
               you first?
