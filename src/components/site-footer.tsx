@@ -7,8 +7,8 @@ export function SiteFooter() {
         <div>
           <div className="font-serif text-2xl text-cream">The Genesis Moment</div>
           <p className="mt-3 max-w-sm text-sm leading-relaxed">
-            A podcast about faith, family, belief, failure, becoming, and the moments that changed
-            everything.
+            Stories of faith-based business owners, the people who believed in them, and what grew
+            from that belief.
           </p>
           <p className="mt-3 text-xs uppercase tracking-[0.16em] text-ember">
             In service of The Mustard Seed.
