@@ -220,3 +220,44 @@
     pointer-events: none;
   }
 }
+
+@utility hairline {
+  height: 1px;
+  background: linear-gradient(90deg, var(--ember), transparent);
+  border: 0;
+}
+
+@utility rule-ember {
+  border: 0;
+  border-top: 1px solid var(--ember);
+  opacity: 0.55;
+}
+
+@utility drop-cap {
+  &::first-letter {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    float: left;
+    font-size: 4.5em;
+    line-height: 0.85;
+    padding: 0.15em 0.12em 0 0;
+    color: var(--ember);
+    font-style: italic;
+  }
+}
+
+@utility mono-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@utility ep-num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ember);
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+}
