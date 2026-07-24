@@ -26,7 +26,7 @@ export function SiteFooter() {
           <div className="text-xs uppercase tracking-[0.16em] text-cream/60">Be a guest</div>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/tell-your-story" className="hover:text-ember">Tell Your Story</Link></li>
-            <li><Link to="/tell-your-story" className="hover:text-ember">Nominate Someone</Link></li>
+            <li><Link to="/tell-your-story" className="hover:text-ember">Nominate Their Story</Link></li>
             <li><a href="tel:+10000000000" className="hover:text-ember">Call to speak with us</a></li>
           </ul>
         </div>
