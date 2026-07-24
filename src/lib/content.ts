@@ -3,6 +3,9 @@ import tcHands from "@/assets/tc-hands.jpg";
 import tcPrayer from "@/assets/tc-prayer.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import mustardYouth from "@/assets/mustard-youth.jpg";
+import guestMarcus from "@/assets/guest-marcus.jpg";
+import guestJonah from "@/assets/guest-jonah.jpg";
+import guestElias from "@/assets/guest-elias.jpg";
 
 export const images = {
   heroCraftsman,
@@ -10,6 +13,9 @@ export const images = {
   tcPrayer,
   tcMentor,
   mustardYouth,
+  guestMarcus,
+  guestJonah,
+  guestElias,
 };
 
 export type Episode = {
@@ -76,7 +82,7 @@ export const episodes: Episode[] = [
     duration: "1 hr 4 min",
     publishedAt: "2025-02-02",
     tags: ["Marriage", "Failure", "Second Chances"],
-    image: tcPrayer,
+    image: guestMarcus,
     youtubeId: "dQw4w9WgXcQ",
     relatedThoughtcasts: ["the-prayer-she-never-told-me-about"],
   },
@@ -93,7 +99,7 @@ export const episodes: Episode[] = [
     duration: "47 min",
     publishedAt: "2025-02-21",
     tags: ["Mentorship", "Trades", "Redemption"],
-    image: tcMentor,
+    image: guestJonah,
     youtubeId: "dQw4w9WgXcQ",
   },
   {
@@ -109,7 +115,7 @@ export const episodes: Episode[] = [
     duration: "58 min",
     publishedAt: "2025-03-10",
     tags: ["Faith", "Calling", "Community"],
-    image: mustardYouth,
+    image: guestElias,
     youtubeId: "dQw4w9WgXcQ",
   },
 ];
