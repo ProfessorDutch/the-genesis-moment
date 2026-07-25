@@ -73,7 +73,19 @@ function ThoughtcastsIndex() {
               params={{ slug: t.slug }}
               className="group flex flex-col border border-line bg-paper p-6 transition-colors hover:border-ember"
             >
-              <div className="story-plate mb-6 aspect-[9/14]" />
+              <div
+                className="portrait-frame mb-6"
+                style={{
+                  aspectRatio: "9/14",
+                  ...(t.image
+                    ? {
+                        backgroundImage: `linear-gradient(180deg, transparent 45%, oklch(0.12 0.012 55 / 0.78)), url(${t.image})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }
+                    : {}),
+                }}
+              />
               <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-ember">
                 {t.topic} · {t.duration}
               </div>
