@@ -1,5 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import heroBelief from "@/assets/hero-belief.jpg";
+import seedHand from "@/assets/seed-hand.jpg";
+import pillarReason from "@/assets/pillar-reason.jpg";
+import msMentor from "@/assets/ms-mentor-hands.jpg";
+import tcPrayer from "@/assets/tc-prayer.jpg";
 
 
 
@@ -28,11 +33,33 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <div>
-      {/* HERO — mission-first, image-free editorial stage */}
-      <section className="field-map grain relative isolate overflow-hidden bg-ink-deep text-cream">
-        <div aria-hidden className="absolute inset-y-0 right-0 hidden w-1/2 border-l border-cream/10 md:block" />
-        <div aria-hidden className="absolute right-[10%] top-24 h-72 w-72 rounded-full border border-ember/60 opacity-70" />
-        <div aria-hidden className="absolute right-[18%] top-40 h-32 w-32 rounded-full border border-cream/25 opacity-70" />
+      {/* HERO — mission-first, full-bleed editorial photo */}
+      <section className="relative isolate overflow-hidden bg-ink-deep text-cream">
+        <div className="absolute inset-0">
+          <img
+            src={heroBelief}
+            alt="An older craftsman rests his hand on the shoulder of a younger man in a workshop, lit by warm window light."
+            className="h-full w-full object-cover object-center ken-burns"
+            width={1600}
+            height={1200}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, oklch(0.135 0.012 55 / 0.92) 0%, oklch(0.135 0.012 55 / 0.78) 45%, oklch(0.135 0.012 55 / 0.35) 100%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 88% 12%, oklch(0.68 0.19 45 / 0.28), transparent 55%)",
+            }}
+          />
+        </div>
 
         <div className="relative mx-auto grid max-w-6xl gap-16 px-5 pt-24 pb-28 md:grid-cols-[1.25fr_1fr] md:gap-20 md:px-8 md:pt-36 md:pb-40">
           <div className="rise-in">
@@ -90,7 +117,7 @@ function Home() {
       </section>
 
 
-      {/* THE MUSTARD SEED — the reason */}
+      {/* THE MUSTARD SEED — the reason (with imagery) */}
       <section className="relative overflow-hidden bg-mustard">
         <div
           aria-hidden
@@ -99,10 +126,15 @@ function Home() {
         />
         <div className="relative mx-auto grid max-w-6xl gap-14 px-5 py-24 md:grid-cols-[1fr_1.2fr] md:items-center md:gap-20 md:px-8 md:py-32">
           <figure className="relative">
-            <div className="seed-orbit relative aspect-[4/5] overflow-hidden shadow-[0_30px_60px_-20px_oklch(0.135_0.012_55/0.45)]">
-              <div className="absolute inset-x-8 bottom-10 font-serif text-5xl italic leading-none text-ink/20 md:text-7xl">
-                seed
-              </div>
+            <div className="relative aspect-[4/5] overflow-hidden bg-ink-deep shadow-[0_30px_60px_-20px_oklch(0.135_0.012_55/0.45)]">
+              <img
+                src={seedHand}
+                alt="A single open hand cradles a mustard seed, lit by a warm shaft of light against darkness."
+                className="h-full w-full object-cover object-center"
+                loading="lazy"
+                width={1400}
+                height={1600}
+              />
             </div>
             <figcaption className="mt-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.18em] text-ink/60">
               <span className="h-px w-8 bg-ember" />
@@ -157,6 +189,8 @@ function Home() {
                 copy: "Why any of this matters. Business owners share their stories so kids have someone to both relate to and look up to.",
                 cta: "Read the mission",
                 to: "/mustard-seed" as const,
+                img: pillarReason,
+                alt: "A father's hand on a young son's shoulder at golden hour.",
               },
               {
                 num: "02 · The How",
@@ -164,6 +198,8 @@ function Home() {
                 copy: "How it happened for them. Long-form conversations about the seasons before anyone knew — and the person who believed first.",
                 cta: "See what's coming",
                 to: "/podcast" as const,
+                img: msMentor,
+                alt: "Older, weathered hands guiding a younger pair of hands.",
               },
               {
                 num: "03 · The Healing",
@@ -171,15 +207,25 @@ function Home() {
                 copy: "How to heal the wounds underneath. Short spoken pieces on faith, identity, failure, forgiveness — the work between the stories.",
                 cta: "Listen to a Thoughtcast",
                 to: "/thoughtcasts" as const,
+                img: tcPrayer,
+                alt: "Hands folded in quiet prayer under warm light.",
               },
-            ].map((p, index) => (
+            ].map((p) => (
               <article
                 key={p.title}
                 className="group flex flex-col border border-line bg-cream transition-all duration-300 hover:-translate-y-1 hover:border-ember hover:shadow-[0_20px_40px_-20px_oklch(0.68_0.19_45/0.35)]"
               >
-                <div className="chapter-tile relative aspect-[4/3] overflow-hidden" data-num={`0${index + 1}`}>
-                  <div className="absolute left-6 top-6 h-10 w-10 border border-ember/60" />
-                  <div className="absolute bottom-6 left-6 h-px w-20 bg-ember" />
+                <div className="relative aspect-[4/3] overflow-hidden bg-ink-deep">
+                  <img
+                    src={p.img}
+                    alt={p.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-t from-ink-deep/50 to-transparent"
+                  />
                 </div>
                 <div className="flex flex-1 flex-col p-8">
                   <div className="mono-tag text-ember">{p.num}</div>

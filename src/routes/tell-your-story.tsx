@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { SeedMark } from "@/components/seed-mark";
 
 
 export const Route = createFileRoute("/tell-your-story")({
@@ -32,6 +33,7 @@ function TellYourStory() {
       <section className="bg-cream px-5 pt-16 pb-14 md:px-8 md:pt-24 md:pb-20">
         <div className="mx-auto max-w-4xl">
           <div className="mb-5 flex items-center gap-2 text-ember">
+            <SeedMark size={16} />
             <span className="eyebrow">Tell your Genesis Moment</span>
           </div>
           <h1 className="font-serif font-bold leading-[0.94] tracking-[-0.04em] text-[clamp(2.5rem,7vw,4.75rem)]">
