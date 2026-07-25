@@ -33,52 +33,70 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <div>
-      {/* HERO — mission-first, no fake featured episode */}
-      <section className="relative overflow-hidden bg-cream">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at 85% 15%, oklch(0.68 0.19 45 / 0.14), transparent 55%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pt-16 pb-20 md:grid md:grid-cols-[1.2fr_1fr] md:gap-16 md:px-8 md:pt-24 md:pb-28">
-          <div>
+      {/* HERO — mission-first, full-bleed editorial photo */}
+      <section className="relative isolate overflow-hidden bg-ink-deep text-cream">
+        <div className="absolute inset-0">
+          <img
+            src={heroBelief}
+            alt="An older craftsman rests his hand on the shoulder of a younger man in a workshop, lit by warm window light."
+            className="h-full w-full object-cover object-center ken-burns"
+            width={1600}
+            height={1200}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, oklch(0.135 0.012 55 / 0.92) 0%, oklch(0.135 0.012 55 / 0.78) 45%, oklch(0.135 0.012 55 / 0.35) 100%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 88% 12%, oklch(0.68 0.19 45 / 0.28), transparent 55%)",
+            }}
+          />
+        </div>
+
+        <div className="relative mx-auto grid max-w-6xl gap-16 px-5 pt-24 pb-28 md:grid-cols-[1.25fr_1fr] md:gap-20 md:px-8 md:pt-36 md:pb-40">
+          <div className="rise-in">
             <div className="mb-6 flex items-center gap-2 text-ember">
               <SeedMark size={16} />
               <span className="eyebrow">A mission being built — one story at a time</span>
             </div>
-            <h1 className="font-serif font-bold text-ink tracking-[-0.03em] leading-[0.95] text-[clamp(2.5rem,7vw,4.75rem)]">
+            <h1 className="font-serif font-bold tracking-[-0.03em] leading-[0.95] text-[clamp(2.5rem,7vw,4.75rem)]">
               Who saw<br />
               something in<br />
-              you first?
+              <span className="italic text-ember">you</span> first?
             </h1>
-            <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink/80 md:text-xl">
+            <p className="mt-8 max-w-lg text-lg leading-relaxed text-cream/80 md:text-xl">
               Faith-based business owners telling the story of who they were before anyone knew —
               so a kid somewhere can finally see himself in the beginning of it.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 to="/mustard-seed"
-                className="inline-flex items-center gap-2 bg-ember px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2 bg-ember px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-[0_10px_30px_-10px_oklch(0.68_0.19_45/0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_oklch(0.68_0.19_45/0.8)]"
               >
-                Start with the reason <ArrowRight size={14} />
+                Start with the reason
+                <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/tell-your-story"
-                className="inline-flex items-center gap-2 border border-ink/25 px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-ink transition-colors hover:border-ember hover:text-ember"
+                className="inline-flex items-center gap-2 border border-cream/30 px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-colors duration-300 hover:border-ember hover:text-ember"
               >
                 Tell Your Story
               </Link>
             </div>
           </div>
 
-          {/* Editorial pull-quote — voices on the record */}
-          <aside className="mt-16 md:mt-2">
-            <div className="border-l-[3px] border-ember bg-sand/70 px-6 py-8 md:px-8 md:py-10">
+          <aside className="fade-in-slow mt-4 md:mt-2">
+            <div className="border-l-[3px] border-ember bg-ink-deep/50 px-6 py-8 backdrop-blur-sm md:px-8 md:py-10">
               <div className="mono-tag text-ember">Voices we are gathering</div>
-              <div className="mt-5 space-y-6 font-serif tracking-[-0.02em] text-ink">
+              <div className="mt-5 space-y-6 font-serif tracking-[-0.02em] text-cream">
                 <blockquote className="text-2xl leading-snug md:text-[1.75rem]">
                   &ldquo;My wife believed in me before I believed in myself.&rdquo;
                 </blockquote>
@@ -91,13 +109,14 @@ function Home() {
                   &ldquo;One phone call. One yes. A whole different life.&rdquo;
                 </blockquote>
               </div>
-              <div className="mt-6 text-[11px] uppercase tracking-[0.16em] text-ink/55">
+              <div className="mt-6 text-[11px] uppercase tracking-[0.16em] text-cream/55">
                 Sentences carried quietly for years — soon spoken out loud.
               </div>
             </div>
           </aside>
         </div>
       </section>
+
 
       {/* THE MUSTARD SEED — the reason (moved forward, given weight) */}
       <section className="relative bg-mustard px-5 py-24 md:px-8 md:py-32">
