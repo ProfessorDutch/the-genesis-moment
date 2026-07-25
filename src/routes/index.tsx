@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { SeedMark } from "@/components/seed-mark";
 import heroBelief from "@/assets/hero-belief.jpg";
 import seedHand from "@/assets/seed-hand.jpg";
 import pillarReason from "@/assets/pillar-reason.jpg";
 import msMentor from "@/assets/ms-mentor-hands.jpg";
 import tcPrayer from "@/assets/tc-prayer.jpg";
+
 
 
 export const Route = createFileRoute("/")({
