@@ -52,10 +52,15 @@ function MustardSeed() {
           </div>
           <div className="md:col-span-5">
             <figure className="relative">
-              <div className="seed-orbit relative aspect-[4/5] w-full overflow-hidden shadow-[0_30px_60px_-30px_oklch(0.20_0.015_55_/_0.35)]">
-                <div className="absolute inset-x-8 bottom-10 font-serif text-5xl italic leading-none text-ink/20 md:text-7xl">
-                  seed
-                </div>
+              <div className="relative aspect-[4/5] w-full overflow-hidden shadow-[0_30px_60px_-30px_oklch(0.20_0.015_55_/_0.35)]">
+                <img
+                  src={stillBible}
+                  alt="An open Bible and a ceramic mug on a rough wooden workbench, lit by morning window light."
+                  loading="lazy"
+                  width={1280}
+                  height={1600}
+                  className="h-full w-full object-cover"
+                />
               </div>
               <figcaption className="mt-3 max-w-xs text-xs italic leading-relaxed text-ink/60">
                 "The kingdom of heaven is like a mustard seed — the smallest of all
