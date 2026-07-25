@@ -76,21 +76,6 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#191512" },
-      { title: "The Genesis Moment — Stories of faith, belief, and becoming" },
-      {
-        name: "description",
-        content:
-          "A podcast and short-form series about the moments after which life was never the same — faith, family, failure, and the people who believed before there was proof.",
-      },
-      { name: "author", content: "The Genesis Moment" },
-      { property: "og:site_name", content: "The Genesis Moment" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
     links: [
       {
         rel: "stylesheet",
