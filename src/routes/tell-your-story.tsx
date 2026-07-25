@@ -102,6 +102,25 @@ function TellYourStory() {
         </div>
       </section>
 
+      <section className="relative bg-ink-deep">
+        <img
+          src={pewLight}
+          alt="Empty wooden church pew with warm sunlight streaming through a tall arched window."
+          loading="lazy"
+          width={1600}
+          height={1200}
+          className="h-[45vh] min-h-[280px] w-full object-cover opacity-90 sm:h-[55vh]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-deep via-ink-deep/40 to-transparent" />
+        <figcaption className="absolute inset-x-0 bottom-0 px-5 pb-10 md:px-8 md:pb-16">
+          <p className="mx-auto max-w-3xl font-serif text-xl leading-snug tracking-[-0.02em] text-cream sm:text-2xl md:text-4xl">
+            Someone somewhere is waiting for the sentence you've been carrying quietly.
+          </p>
+        </figcaption>
+      </section>
+
+
+
 
       <section id="form" className="bg-paper px-5 py-20 md:px-8 md:py-28">
         <div className="mx-auto max-w-2xl">
