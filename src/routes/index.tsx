@@ -127,10 +127,15 @@ function Home() {
         />
         <div className="relative mx-auto grid max-w-6xl gap-14 px-5 py-24 md:grid-cols-[1fr_1.2fr] md:items-center md:gap-20 md:px-8 md:py-32">
           <figure className="relative">
-            <div className="seed-orbit relative aspect-[4/5] overflow-hidden shadow-[0_30px_60px_-20px_oklch(0.135_0.012_55/0.45)]">
-              <div className="absolute inset-x-8 bottom-10 font-serif text-5xl italic leading-none text-ink/20 md:text-7xl">
-                seed
-              </div>
+            <div className="relative aspect-[4/5] overflow-hidden shadow-[0_30px_60px_-20px_oklch(0.135_0.012_55/0.45)]">
+              <img
+                src={stillBible}
+                alt="An open Bible and a ceramic mug on a rough wooden workbench, lit by morning window light."
+                loading="lazy"
+                width={1280}
+                height={1600}
+                className="h-full w-full object-cover"
+              />
             </div>
             <figcaption className="mt-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.18em] text-ink/60">
               <span className="h-px w-8 bg-ember" />
