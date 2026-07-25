@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import stillMic from "@/assets/still-mic.jpg";
+import pewLight from "@/assets/pew-light.jpg";
+
 
 
 export const Route = createFileRoute("/tell-your-story")({
