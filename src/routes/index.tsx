@@ -118,39 +118,62 @@ function Home() {
       </section>
 
 
-      {/* THE MUSTARD SEED — the reason (moved forward, given weight) */}
-      <section className="relative bg-mustard px-5 py-24 md:px-8 md:py-32">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-6 flex items-center gap-2 text-ember">
-            <SeedMark size={18} />
-            <span className="section-label">The Mustard Seed · The Reason</span>
-          </div>
-          <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
-            This did not begin as a podcast.
-          </h2>
-          <p className="mt-8 font-serif italic text-2xl leading-snug text-ink/85 md:text-3xl">
-            It began with a kid who needed to hear a beginning that looked like his own.
-          </p>
-          <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/85 md:text-xl">
-            <p className="drop-cap">
-              The Mustard Seed is why we are doing any of this. A young person looks at a
-              successful owner and sees someone completely different from themselves. Then they
-              hear the beginning — and something in them shifts.
+      {/* THE MUSTARD SEED — the reason (with imagery) */}
+      <section className="relative overflow-hidden bg-mustard">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full opacity-40 blur-3xl"
+          style={{ background: "radial-gradient(circle, oklch(0.68 0.19 45 / 0.55), transparent 70%)" }}
+        />
+        <div className="relative mx-auto grid max-w-6xl gap-14 px-5 py-24 md:grid-cols-[1fr_1.2fr] md:items-center md:gap-20 md:px-8 md:py-32">
+          <figure className="relative">
+            <div className="relative aspect-[4/5] overflow-hidden bg-ink-deep shadow-[0_30px_60px_-20px_oklch(0.135_0.012_55/0.45)]">
+              <img
+                src={seedHand}
+                alt="A single open hand cradles a mustard seed, lit by a warm shaft of light against darkness."
+                className="h-full w-full object-cover object-center"
+                loading="lazy"
+                width={1400}
+                height={1600}
+              />
+            </div>
+            <figcaption className="mt-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.18em] text-ink/60">
+              <span className="h-px w-8 bg-ember" />
+              The smallest of all seeds
+            </figcaption>
+          </figure>
+          <div>
+            <div className="mb-6 flex items-center gap-2 text-ember">
+              <SeedMark size={18} />
+              <span className="section-label">The Mustard Seed · The Reason</span>
+            </div>
+            <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
+              This did not begin as a podcast.
+            </h2>
+            <p className="mt-8 font-serif italic text-2xl leading-snug text-ink/85 md:text-3xl">
+              It began with a kid who needed to hear a beginning that looked like his own.
             </p>
-            <p>
-              Everything else on this site exists to serve that one moment.
-            </p>
-          </div>
-          <div className="mt-10">
-            <Link
-              to="/mustard-seed"
-              className="inline-flex items-center gap-2 bg-ink-deep px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-transform hover:-translate-y-0.5"
-            >
-              Read The Mustard Seed <ArrowRight size={14} />
-            </Link>
+            <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/85 md:text-xl">
+              <p className="drop-cap">
+                The Mustard Seed is why we are doing any of this. A young person looks at a
+                successful owner and sees someone completely different from themselves. Then they
+                hear the beginning — and something in them shifts.
+              </p>
+              <p>Everything else on this site exists to serve that one moment.</p>
+            </div>
+            <div className="mt-10">
+              <Link
+                to="/mustard-seed"
+                className="group inline-flex items-center gap-2 bg-ink-deep px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-all duration-300 hover:-translate-y-0.5 hover:bg-ember"
+              >
+                Read The Mustard Seed
+                <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* THREE PILLARS — the architecture of the mission */}
       <section className="bg-paper px-5 py-24 md:px-8 md:py-32">
