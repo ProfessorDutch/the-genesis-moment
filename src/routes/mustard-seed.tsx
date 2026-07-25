@@ -4,7 +4,9 @@ import doorway from "@/assets/ms-doorway.jpg";
 import mustardYouth from "@/assets/mustard-youth.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import heroBelief from "@/assets/hero-belief.jpg";
-import heroCraftsman from "@/assets/hero-craftsman.jpg";
+import stillBible from "@/assets/still-bible.jpg";
+import workshopDusk from "@/assets/workshop-dusk.jpg";
+import pewLight from "@/assets/pew-light.jpg";
 
 export const Route = createFileRoute("/mustard-seed")({
   head: () => ({
@@ -50,10 +52,15 @@ function MustardSeed() {
           </div>
           <div className="md:col-span-5">
             <figure className="relative">
-              <div className="seed-orbit relative aspect-[4/5] w-full overflow-hidden shadow-[0_30px_60px_-30px_oklch(0.20_0.015_55_/_0.35)]">
-                <div className="absolute inset-x-8 bottom-10 font-serif text-5xl italic leading-none text-ink/20 md:text-7xl">
-                  seed
-                </div>
+              <div className="relative aspect-[4/5] w-full overflow-hidden shadow-[0_30px_60px_-30px_oklch(0.20_0.015_55_/_0.35)]">
+                <img
+                  src={stillBible}
+                  alt="An open Bible and a ceramic mug on a rough wooden workbench, lit by morning window light."
+                  loading="lazy"
+                  width={1280}
+                  height={1600}
+                  className="h-full w-full object-cover"
+                />
               </div>
               <figcaption className="mt-3 max-w-xs text-xs italic leading-relaxed text-ink/60">
                 "The kingdom of heaven is like a mustard seed — the smallest of all
@@ -177,8 +184,8 @@ function MustardSeed() {
             <article className="group">
               <div className="mb-6 overflow-hidden">
                 <img
-                  src={heroCraftsman}
-                  alt="A carpenter at his workbench, lit by warm afternoon light through the shop window."
+                  src={workshopDusk}
+                  alt="An empty small-town workshop at dusk, hand tools laid out in a row on a rough wooden bench under a single warm bulb."
                   loading="lazy"
                   width={1600}
                   height={1200}
@@ -231,8 +238,8 @@ function MustardSeed() {
             <article className="group sm:col-span-2 md:col-span-1">
               <div className="mb-6 overflow-hidden">
                 <img
-                  src={mustardYouth}
-                  alt="A young apprentice in work clothes standing in a small workshop."
+                  src={pewLight}
+                  alt="An empty wooden church pew lit by golden sunlight streaming through a tall arched window."
                   loading="lazy"
                   width={1600}
                   height={1200}

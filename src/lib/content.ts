@@ -2,6 +2,9 @@ import heroCraftsman from "@/assets/hero-craftsman.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import mustardYouth from "@/assets/mustard-youth.jpg";
 import msDoorway from "@/assets/ms-doorway.jpg";
+import stillBible from "@/assets/still-bible.jpg";
+import pewLight from "@/assets/pew-light.jpg";
+import workshopDusk from "@/assets/workshop-dusk.jpg";
 import guestMarcus from "@/assets/guest-marcus.jpg";
 import guestJonah from "@/assets/guest-jonah.jpg";
 import guestElias from "@/assets/guest-elias.jpg";
@@ -11,6 +14,10 @@ export const images = {
   tcMentor,
   mustardYouth,
   msDoorway,
+  stillBible,
+  pewLight,
+  workshopDusk,
+
   guestMarcus,
   guestJonah,
   guestElias,
@@ -128,7 +135,7 @@ export const thoughtcasts: Thoughtcast[] = [
     topic: "Belief",
     duration: "1:12",
     publishedAt: "2025-01-20",
-    image: heroCraftsman,
+    image: stillBible,
     youtubeId: "dQw4w9WgXcQ",
     relatedEpisode: "the-first-toolbox",
   },
@@ -141,7 +148,7 @@ export const thoughtcasts: Thoughtcast[] = [
     topic: "Perseverance",
     duration: "0:54",
     publishedAt: "2025-01-27",
-    image: msDoorway,
+    image: workshopDusk,
     youtubeId: "dQw4w9WgXcQ",
     relatedEpisode: "the-first-toolbox",
   },
@@ -154,7 +161,7 @@ export const thoughtcasts: Thoughtcast[] = [
     topic: "Prayer",
     duration: "1:06",
     publishedAt: "2025-02-05",
-    image: mustardYouth,
+    image: pewLight,
     youtubeId: "dQw4w9WgXcQ",
     relatedEpisode: "she-believed-before-i-did",
   },
@@ -179,7 +186,7 @@ export const thoughtcasts: Thoughtcast[] = [
     topic: "Identity",
     duration: "1:04",
     publishedAt: "2025-02-25",
-    image: mustardYouth,
+    image: msDoorway,
     youtubeId: "dQw4w9WgXcQ",
   },
   {
