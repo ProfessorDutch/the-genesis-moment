@@ -238,8 +238,8 @@ function MustardSeed() {
             <article className="group sm:col-span-2 md:col-span-1">
               <div className="mb-6 overflow-hidden">
                 <img
-                  src={mustardYouth}
-                  alt="A young apprentice in work clothes standing in a small workshop."
+                  src={pewLight}
+                  alt="An empty wooden church pew lit by golden sunlight streaming through a tall arched window."
                   loading="lazy"
                   width={1600}
                   height={1200}
