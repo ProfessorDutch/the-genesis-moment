@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play } from "lucide-react";
 import { episodes } from "@/lib/content";
-import { SeedMark } from "@/components/seed-mark";
 
 export const Route = createFileRoute("/podcast")({
   head: () => ({
@@ -31,7 +30,6 @@ function PodcastIndex() {
       <section className="bg-cream px-5 pt-16 pb-14 md:px-8 md:pt-24 md:pb-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-5 flex items-center gap-2 text-ember">
-            <SeedMark size={16} />
             <span className="eyebrow">The Genesis Moment · Podcast</span>
           </div>
           <h1 className="font-serif font-bold leading-[0.94] tracking-[-0.04em] text-[clamp(2.5rem,7vw,4.75rem)]">
