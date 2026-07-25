@@ -1,6 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { SeedMark } from "@/components/seed-mark";
+import heroBelief from "@/assets/hero-belief.jpg";
+import seedHand from "@/assets/seed-hand.jpg";
+import pillarReason from "@/assets/pillar-reason.jpg";
+import msMentor from "@/assets/ms-mentor-hands.jpg";
+import tcPrayer from "@/assets/tc-prayer.jpg";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,52 +33,70 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <div>
-      {/* HERO — mission-first, no fake featured episode */}
-      <section className="relative overflow-hidden bg-cream">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at 85% 15%, oklch(0.68 0.19 45 / 0.14), transparent 55%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pt-16 pb-20 md:grid md:grid-cols-[1.2fr_1fr] md:gap-16 md:px-8 md:pt-24 md:pb-28">
-          <div>
+      {/* HERO — mission-first, full-bleed editorial photo */}
+      <section className="relative isolate overflow-hidden bg-ink-deep text-cream">
+        <div className="absolute inset-0">
+          <img
+            src={heroBelief}
+            alt="An older craftsman rests his hand on the shoulder of a younger man in a workshop, lit by warm window light."
+            className="h-full w-full object-cover object-center ken-burns"
+            width={1600}
+            height={1200}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, oklch(0.135 0.012 55 / 0.92) 0%, oklch(0.135 0.012 55 / 0.78) 45%, oklch(0.135 0.012 55 / 0.35) 100%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 88% 12%, oklch(0.68 0.19 45 / 0.28), transparent 55%)",
+            }}
+          />
+        </div>
+
+        <div className="relative mx-auto grid max-w-6xl gap-16 px-5 pt-24 pb-28 md:grid-cols-[1.25fr_1fr] md:gap-20 md:px-8 md:pt-36 md:pb-40">
+          <div className="rise-in">
             <div className="mb-6 flex items-center gap-2 text-ember">
               <SeedMark size={16} />
               <span className="eyebrow">A mission being built — one story at a time</span>
             </div>
-            <h1 className="font-serif font-bold text-ink tracking-[-0.03em] leading-[0.95] text-[clamp(2.5rem,7vw,4.75rem)]">
+            <h1 className="font-serif font-bold tracking-[-0.03em] leading-[0.95] text-[clamp(2.5rem,7vw,4.75rem)]">
               Who saw<br />
               something in<br />
-              you first?
+              <span className="italic text-ember">you</span> first?
             </h1>
-            <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink/80 md:text-xl">
+            <p className="mt-8 max-w-lg text-lg leading-relaxed text-cream/80 md:text-xl">
               Faith-based business owners telling the story of who they were before anyone knew —
               so a kid somewhere can finally see himself in the beginning of it.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 to="/mustard-seed"
-                className="inline-flex items-center gap-2 bg-ember px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2 bg-ember px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-[0_10px_30px_-10px_oklch(0.68_0.19_45/0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_oklch(0.68_0.19_45/0.8)]"
               >
-                Start with the reason <ArrowRight size={14} />
+                Start with the reason
+                <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/tell-your-story"
-                className="inline-flex items-center gap-2 border border-ink/25 px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-ink transition-colors hover:border-ember hover:text-ember"
+                className="inline-flex items-center gap-2 border border-cream/30 px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-colors duration-300 hover:border-ember hover:text-ember"
               >
                 Tell Your Story
               </Link>
             </div>
           </div>
 
-          {/* Editorial pull-quote — voices on the record */}
-          <aside className="mt-16 md:mt-2">
-            <div className="border-l-[3px] border-ember bg-sand/70 px-6 py-8 md:px-8 md:py-10">
+          <aside className="fade-in-slow mt-4 md:mt-2">
+            <div className="border-l-[3px] border-ember bg-ink-deep/50 px-6 py-8 backdrop-blur-sm md:px-8 md:py-10">
               <div className="mono-tag text-ember">Voices we are gathering</div>
-              <div className="mt-5 space-y-6 font-serif tracking-[-0.02em] text-ink">
+              <div className="mt-5 space-y-6 font-serif tracking-[-0.02em] text-cream">
                 <blockquote className="text-2xl leading-snug md:text-[1.75rem]">
                   &ldquo;My wife believed in me before I believed in myself.&rdquo;
                 </blockquote>
@@ -85,7 +109,7 @@ function Home() {
                   &ldquo;One phone call. One yes. A whole different life.&rdquo;
                 </blockquote>
               </div>
-              <div className="mt-6 text-[11px] uppercase tracking-[0.16em] text-ink/55">
+              <div className="mt-6 text-[11px] uppercase tracking-[0.16em] text-cream/55">
                 Sentences carried quietly for years — soon spoken out loud.
               </div>
             </div>
@@ -93,39 +117,63 @@ function Home() {
         </div>
       </section>
 
-      {/* THE MUSTARD SEED — the reason (moved forward, given weight) */}
-      <section className="relative bg-mustard px-5 py-24 md:px-8 md:py-32">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-6 flex items-center gap-2 text-ember">
-            <SeedMark size={18} />
-            <span className="section-label">The Mustard Seed · The Reason</span>
-          </div>
-          <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
-            This did not begin as a podcast.
-          </h2>
-          <p className="mt-8 font-serif italic text-2xl leading-snug text-ink/85 md:text-3xl">
-            It began with a kid who needed to hear a beginning that looked like his own.
-          </p>
-          <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/85 md:text-xl">
-            <p className="drop-cap">
-              The Mustard Seed is why we are doing any of this. A young person looks at a
-              successful owner and sees someone completely different from themselves. Then they
-              hear the beginning — and something in them shifts.
+
+      {/* THE MUSTARD SEED — the reason (with imagery) */}
+      <section className="relative overflow-hidden bg-mustard">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full opacity-40 blur-3xl"
+          style={{ background: "radial-gradient(circle, oklch(0.68 0.19 45 / 0.55), transparent 70%)" }}
+        />
+        <div className="relative mx-auto grid max-w-6xl gap-14 px-5 py-24 md:grid-cols-[1fr_1.2fr] md:items-center md:gap-20 md:px-8 md:py-32">
+          <figure className="relative">
+            <div className="relative aspect-[4/5] overflow-hidden bg-ink-deep shadow-[0_30px_60px_-20px_oklch(0.135_0.012_55/0.45)]">
+              <img
+                src={seedHand}
+                alt="A single open hand cradles a mustard seed, lit by a warm shaft of light against darkness."
+                className="h-full w-full object-cover object-center"
+                loading="lazy"
+                width={1400}
+                height={1600}
+              />
+            </div>
+            <figcaption className="mt-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.18em] text-ink/60">
+              <span className="h-px w-8 bg-ember" />
+              The smallest of all seeds
+            </figcaption>
+          </figure>
+          <div>
+            <div className="mb-6 flex items-center gap-2 text-ember">
+              <SeedMark size={18} />
+              <span className="section-label">The Mustard Seed · The Reason</span>
+            </div>
+            <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
+              This did not begin as a podcast.
+            </h2>
+            <p className="mt-8 font-serif italic text-2xl leading-snug text-ink/85 md:text-3xl">
+              It began with a kid who needed to hear a beginning that looked like his own.
             </p>
-            <p>
-              Everything else on this site exists to serve that one moment.
-            </p>
-          </div>
-          <div className="mt-10">
-            <Link
-              to="/mustard-seed"
-              className="inline-flex items-center gap-2 bg-ink-deep px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-transform hover:-translate-y-0.5"
-            >
-              Read The Mustard Seed <ArrowRight size={14} />
-            </Link>
+            <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/85 md:text-xl">
+              <p className="drop-cap">
+                The Mustard Seed is why we are doing any of this. A young person looks at a
+                successful owner and sees someone completely different from themselves. Then they
+                hear the beginning — and something in them shifts.
+              </p>
+              <p>Everything else on this site exists to serve that one moment.</p>
+            </div>
+            <div className="mt-10">
+              <Link
+                to="/mustard-seed"
+                className="group inline-flex items-center gap-2 bg-ink-deep px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-all duration-300 hover:-translate-y-0.5 hover:bg-ember"
+              >
+                Read The Mustard Seed
+                <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* THREE PILLARS — the architecture of the mission */}
       <section className="bg-paper px-5 py-24 md:px-8 md:py-32">
@@ -136,57 +184,68 @@ function Home() {
           </h2>
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
-            <article className="flex flex-col border border-line bg-cream p-8">
-              <div className="mono-tag text-ember">01 · The Reason</div>
-              <h3 className="mt-4 font-serif text-2xl leading-tight tracking-[-0.02em] md:text-3xl">
-                The Mustard Seed
-              </h3>
-              <p className="mt-4 flex-1 text-base leading-relaxed text-ink/75">
-                Why any of this matters. Business owners share their stories so kids have someone
-                to both relate to and look up to.
-              </p>
-              <Link
-                to="/mustard-seed"
-                className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember hover:underline"
+            {[
+              {
+                num: "01 · The Reason",
+                title: "The Mustard Seed",
+                copy: "Why any of this matters. Business owners share their stories so kids have someone to both relate to and look up to.",
+                cta: "Read the mission",
+                to: "/mustard-seed" as const,
+                img: pillarReason,
+                alt: "A father's hand on a young son's shoulder at golden hour.",
+              },
+              {
+                num: "02 · The How",
+                title: "The Genesis Moment",
+                copy: "How it happened for them. Long-form conversations about the seasons before anyone knew — and the person who believed first.",
+                cta: "See what's coming",
+                to: "/podcast" as const,
+                img: msMentor,
+                alt: "Older, weathered hands guiding a younger pair of hands.",
+              },
+              {
+                num: "03 · The Healing",
+                title: "Thoughtcasts",
+                copy: "How to heal the wounds underneath. Short spoken pieces on faith, identity, failure, forgiveness — the work between the stories.",
+                cta: "Listen to a Thoughtcast",
+                to: "/thoughtcasts" as const,
+                img: tcPrayer,
+                alt: "Hands folded in quiet prayer under warm light.",
+              },
+            ].map((p) => (
+              <article
+                key={p.title}
+                className="group flex flex-col border border-line bg-cream transition-all duration-300 hover:-translate-y-1 hover:border-ember hover:shadow-[0_20px_40px_-20px_oklch(0.68_0.19_45/0.35)]"
               >
-                Read the mission <ArrowRight size={12} />
-              </Link>
-            </article>
-
-            <article className="flex flex-col border border-line bg-cream p-8">
-              <div className="mono-tag text-ember">02 · The How</div>
-              <h3 className="mt-4 font-serif text-2xl leading-tight tracking-[-0.02em] md:text-3xl">
-                The Genesis Moment
-              </h3>
-              <p className="mt-4 flex-1 text-base leading-relaxed text-ink/75">
-                How it happened for them. Long-form conversations about the seasons before anyone
-                knew — and the person who believed first.
-              </p>
-              <Link
-                to="/podcast"
-                className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember hover:underline"
-              >
-                See what&rsquo;s coming <ArrowRight size={12} />
-              </Link>
-            </article>
-
-            <article className="flex flex-col border border-line bg-cream p-8">
-              <div className="mono-tag text-ember">03 · The Healing</div>
-              <h3 className="mt-4 font-serif text-2xl leading-tight tracking-[-0.02em] md:text-3xl">
-                Thoughtcasts
-              </h3>
-              <p className="mt-4 flex-1 text-base leading-relaxed text-ink/75">
-                How to heal the wounds underneath. Short spoken pieces on faith, identity,
-                failure, forgiveness — the work between the stories.
-              </p>
-              <Link
-                to="/thoughtcasts"
-                className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember hover:underline"
-              >
-                Listen to a Thoughtcast <ArrowRight size={12} />
-              </Link>
-            </article>
+                <div className="relative aspect-[4/3] overflow-hidden bg-ink-deep">
+                  <img
+                    src={p.img}
+                    alt={p.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-t from-ink-deep/50 to-transparent"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-8">
+                  <div className="mono-tag text-ember">{p.num}</div>
+                  <h3 className="mt-4 font-serif text-2xl leading-tight tracking-[-0.02em] md:text-3xl">
+                    {p.title}
+                  </h3>
+                  <p className="mt-4 flex-1 text-base leading-relaxed text-ink/75">{p.copy}</p>
+                  <Link
+                    to={p.to}
+                    className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember transition-all duration-300 hover:gap-3"
+                  >
+                    {p.cta} <ArrowRight size={12} />
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
+
         </div>
       </section>
 

@@ -261,3 +261,40 @@
   letter-spacing: -0.02em;
   line-height: 0.85;
 }
+
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+}
+
+@keyframes gm-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes gm-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes gm-kenburns {
+  from { transform: scale(1.02) translate3d(0,0,0); }
+  to   { transform: scale(1.12) translate3d(-1%, -1%, 0); }
+}
+
+@utility rise-in {
+  animation: gm-rise 900ms cubic-bezier(.2,.7,.2,1) both;
+}
+@utility fade-in-slow {
+  animation: gm-fade 1400ms ease-out both;
+}
+@utility ken-burns {
+  animation: gm-kenburns 22s ease-in-out infinite alternate;
+}
+
