@@ -231,8 +231,8 @@ function MustardSeed() {
             <article className="group sm:col-span-2 md:col-span-1">
               <div className="mb-6 overflow-hidden">
                 <img
-                  src={mentorHands}
-                  alt="A tradesman guiding a boy's hand across a piece of wood."
+                  src={mustardYouth}
+                  alt="A young apprentice in work clothes standing in a small workshop."
                   loading="lazy"
                   width={1600}
                   height={1200}
