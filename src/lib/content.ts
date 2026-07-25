@@ -2,6 +2,9 @@ import heroCraftsman from "@/assets/hero-craftsman.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import mustardYouth from "@/assets/mustard-youth.jpg";
 import msDoorway from "@/assets/ms-doorway.jpg";
+import stillBible from "@/assets/still-bible.jpg";
+import pewLight from "@/assets/pew-light.jpg";
+import workshopDusk from "@/assets/workshop-dusk.jpg";
 import guestMarcus from "@/assets/guest-marcus.jpg";
 import guestJonah from "@/assets/guest-jonah.jpg";
 import guestElias from "@/assets/guest-elias.jpg";
@@ -11,6 +14,10 @@ export const images = {
   tcMentor,
   mustardYouth,
   msDoorway,
+  stillBible,
+  pewLight,
+  workshopDusk,
+
   guestMarcus,
   guestJonah,
   guestElias,
