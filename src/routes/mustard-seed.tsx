@@ -118,11 +118,11 @@ function MustardSeed() {
         </div>
       </section>
 
-      {/* IMAGE BREAK — MENTOR HANDS */}
+      {/* IMAGE BREAK — MENTOR SCENE */}
       <section className="relative bg-[oklch(0.19_0.012_55)]">
         <img
-          src={mentorHands}
-          alt="A tradesman's hand guiding a boy's hand across a hand plane on a wooden workbench."
+          src={heroBelief}
+          alt="An older carpenter and a younger man in a workshop, mid-conversation over a workbench."
           loading="lazy"
           width={1600}
           height={1200}
