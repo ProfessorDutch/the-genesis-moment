@@ -50,13 +50,11 @@ function MustardSeed() {
           </div>
           <div className="md:col-span-5">
             <figure className="relative">
-              <img
-                src={seed}
-                alt="A single mustard seed sprouting in a young hand full of soil."
-                width={1600}
-                height={1200}
-                className="aspect-[4/5] w-full object-cover shadow-[0_30px_60px_-30px_oklch(0.20_0.015_55_/_0.35)]"
-              />
+              <div className="seed-orbit relative aspect-[4/5] w-full overflow-hidden shadow-[0_30px_60px_-30px_oklch(0.20_0.015_55_/_0.35)]">
+                <div className="absolute inset-x-8 bottom-10 font-serif text-5xl italic leading-none text-ink/20 md:text-7xl">
+                  seed
+                </div>
+              </div>
               <figcaption className="mt-3 max-w-xs text-xs italic leading-relaxed text-ink/60">
                 "The kingdom of heaven is like a mustard seed — the smallest of all
                 seeds, yet it grows into the largest of garden plants."
