@@ -4,6 +4,8 @@ import heroBelief from "@/assets/hero-belief.jpg";
 import heroCraftsman from "@/assets/hero-craftsman.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import msDoorway from "@/assets/ms-doorway.jpg";
+import stillBible from "@/assets/still-bible.jpg";
+
 
 
 
