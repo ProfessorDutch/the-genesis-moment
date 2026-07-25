@@ -198,10 +198,80 @@
 @utility portrait-frame {
   aspect-ratio: 4/5;
   background:
-    linear-gradient(145deg, oklch(0.68 0.19 45 / 0.28), transparent 55%),
-    linear-gradient(180deg, oklch(0.42 0.03 55), oklch(0.18 0.015 55));
+    linear-gradient(145deg, color-mix(in oklch, var(--ember) 28%, transparent), transparent 55%),
+    linear-gradient(180deg, color-mix(in oklch, var(--ink) 72%, var(--cream)), var(--ink-deep));
   position: relative;
   overflow: hidden;
+}
+
+@utility story-plate {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, color-mix(in oklch, var(--ember) 16%, transparent), transparent 42%),
+    linear-gradient(180deg, var(--ink-deep), color-mix(in oklch, var(--ink-deep) 76%, var(--ember)));
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 1.25rem;
+    border: 1px solid color-mix(in oklch, var(--cream) 18%, transparent);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: auto 1.75rem 1.75rem auto;
+    width: min(42%, 15rem);
+    aspect-ratio: 1;
+    border: 1px solid color-mix(in oklch, var(--ember) 62%, transparent);
+    border-radius: 999px;
+    box-shadow:
+      -2.5rem -2.5rem 0 -2.42rem color-mix(in oklch, var(--cream) 72%, transparent),
+      -5rem -5rem 0 -4.9rem color-mix(in oklch, var(--cream) 34%, transparent);
+  }
+}
+
+@utility field-map {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, color-mix(in oklch, var(--ink-deep) 92%, transparent), color-mix(in oklch, var(--ink-deep) 64%, transparent)),
+    repeating-linear-gradient(90deg, color-mix(in oklch, var(--cream) 12%, transparent) 0 1px, transparent 1px 72px),
+    repeating-linear-gradient(0deg, color-mix(in oklch, var(--cream) 10%, transparent) 0 1px, transparent 1px 72px),
+    var(--ink-deep);
+}
+
+@utility seed-orbit {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, var(--ember) 0 0.35rem, transparent 0.38rem),
+    radial-gradient(circle at 50% 50%, transparent 0 22%, color-mix(in oklch, var(--ember) 55%, transparent) 22.2% 22.55%, transparent 22.75%),
+    radial-gradient(circle at 50% 50%, transparent 0 36%, color-mix(in oklch, var(--ink) 28%, transparent) 36.2% 36.5%, transparent 36.75%),
+    linear-gradient(145deg, var(--mustard), var(--sand));
+}
+
+@utility chapter-tile {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, color-mix(in oklch, var(--ember) 12%, transparent), transparent 46%),
+    repeating-linear-gradient(90deg, color-mix(in oklch, var(--ink) 9%, transparent) 0 1px, transparent 1px 18px),
+    var(--cream);
+
+  &::after {
+    content: attr(data-num);
+    position: absolute;
+    right: -0.08em;
+    bottom: -0.22em;
+    font-family: var(--font-serif);
+    font-size: clamp(5rem, 18vw, 11rem);
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1;
+    color: color-mix(in oklch, var(--ember) 18%, transparent);
+  }
 }
 
 @utility portrait-image {

@@ -1,11 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import mentorHands from "@/assets/ms-mentor-hands.jpg";
-import seed from "@/assets/ms-seed.jpg";
-import doorway from "@/assets/ms-doorway.jpg";
-import mustardYouth from "@/assets/mustard-youth.jpg";
-import tcMentor from "@/assets/tc-mentor.jpg";
-import tcHands from "@/assets/tc-hands.jpg";
 
 export const Route = createFileRoute("/mustard-seed")({
   head: () => ({
@@ -51,13 +45,7 @@ function MustardSeed() {
           </div>
           <div className="md:col-span-5">
             <figure className="relative">
-              <img
-                src={seed}
-                alt="A single mustard seed sprouting in a young hand full of soil."
-                width={1600}
-                height={1200}
-                className="aspect-[4/5] w-full object-cover shadow-[0_30px_60px_-30px_oklch(0.20_0.015_55_/_0.35)]"
-              />
+              <div className="seed-orbit aspect-[4/5] w-full shadow-[0_30px_60px_-30px_oklch(0.20_0.015_55_/_0.35)]" />
               <figcaption className="mt-3 max-w-xs text-xs italic leading-relaxed text-ink/60">
                 "The kingdom of heaven is like a mustard seed — the smallest of all
                 seeds, yet it grows into the largest of garden plants."
@@ -79,14 +67,7 @@ function MustardSeed() {
               The storytelling comes first. The mission becomes evident through it.
             </p>
             <figure className="mt-10">
-              <img
-                src={mustardYouth}
-                alt="A teenage boy in work clothes lit by afternoon sun in a small workshop."
-                loading="lazy"
-                width={1280}
-                height={1600}
-                className="aspect-[4/5] w-full object-cover"
-              />
+              <div className="story-plate aspect-[4/5] w-full" />
               <figcaption className="mt-3 text-xs italic leading-relaxed text-ink/60">
                 Every man in this room started as a boy in that one.
               </figcaption>
@@ -121,16 +102,9 @@ function MustardSeed() {
         </div>
       </section>
 
-      {/* IMAGE BREAK — MENTOR HANDS */}
-      <section className="relative bg-[oklch(0.19_0.012_55)]">
-        <img
-          src={mentorHands}
-          alt="A tradesman's hand guiding a boy's hand across a hand plane on a wooden workbench."
-          loading="lazy"
-          width={1600}
-          height={1200}
-          className="h-[55vh] min-h-[320px] w-full object-cover opacity-90 sm:h-[60vh] sm:min-h-[380px]"
-        />
+      {/* EDITORIAL BREAK */}
+      <section className="field-map relative bg-[oklch(0.19_0.012_55)]">
+        <div className="h-[55vh] min-h-[320px] w-full sm:h-[60vh] sm:min-h-[380px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[oklch(0.15_0.012_55)] via-[oklch(0.15_0.012_55_/_0.35)] to-transparent" />
         <figcaption className="absolute inset-x-0 bottom-0 px-5 pb-8 sm:pb-10 md:px-8 md:pb-14">
           <p className="mx-auto max-w-3xl font-serif text-xl leading-snug tracking-[-0.02em] text-cream sm:text-2xl md:text-4xl">
@@ -156,14 +130,7 @@ function MustardSeed() {
             </p>
           </div>
           <div className="md:col-span-5">
-            <img
-              src={doorway}
-              alt="A young apprentice standing in the warm lamplight of a small kitchen doorway."
-              loading="lazy"
-              width={1200}
-              height={1500}
-              className="aspect-[4/5] w-full object-cover"
-            />
+            <div className="story-plate aspect-[4/5] w-full" />
           </div>
         </div>
       </section>
@@ -179,14 +146,7 @@ function MustardSeed() {
           <div className="mt-12 grid gap-10 sm:grid-cols-2 md:mt-14 md:grid-cols-3 md:gap-8">
             <article className="group">
               <div className="mb-6 overflow-hidden">
-                <img
-                  src={tcHands}
-                  alt="Weathered hands holding a set of small hand tools."
-                  loading="lazy"
-                  width={1600}
-                  height={1200}
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                />
+                <div className="chapter-tile aspect-[4/3] w-full transition-transform duration-700 group-hover:scale-[1.03]" data-num="01" />
               </div>
               <div className="eyebrow mb-3">01 — Tell a story</div>
               <h3 className="font-serif text-xl leading-tight tracking-[-0.02em] sm:text-2xl md:text-3xl">
@@ -206,14 +166,7 @@ function MustardSeed() {
 
             <article className="group">
               <div className="mb-6 overflow-hidden">
-                <img
-                  src={tcMentor}
-                  alt="An older mentor speaking quietly with a younger worker."
-                  loading="lazy"
-                  width={1600}
-                  height={1200}
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                />
+                <div className="chapter-tile aspect-[4/3] w-full transition-transform duration-700 group-hover:scale-[1.03]" data-num="02" />
               </div>
               <div className="eyebrow mb-3">02 — Mentor a kid</div>
               <h3 className="font-serif text-xl leading-tight tracking-[-0.02em] sm:text-2xl md:text-3xl">
@@ -233,14 +186,7 @@ function MustardSeed() {
 
             <article className="group sm:col-span-2 md:col-span-1">
               <div className="mb-6 overflow-hidden">
-                <img
-                  src={mentorHands}
-                  alt="A tradesman guiding a boy's hand across a piece of wood."
-                  loading="lazy"
-                  width={1600}
-                  height={1200}
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] sm:aspect-[16/7] md:aspect-[4/3]"
-                />
+                <div className="chapter-tile aspect-[4/3] w-full transition-transform duration-700 group-hover:scale-[1.03] sm:aspect-[16/7] md:aspect-[4/3]" data-num="03" />
               </div>
               <div className="eyebrow mb-3">03 — Partner with us</div>
               <h3 className="font-serif text-xl leading-tight tracking-[-0.02em] sm:text-2xl md:text-3xl">
