@@ -1,18 +1,16 @@
 import heroCraftsman from "@/assets/hero-craftsman.jpg";
-import tcHands from "@/assets/tc-hands.jpg";
-import tcPrayer from "@/assets/tc-prayer.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import mustardYouth from "@/assets/mustard-youth.jpg";
+import msDoorway from "@/assets/ms-doorway.jpg";
 import guestMarcus from "@/assets/guest-marcus.jpg";
 import guestJonah from "@/assets/guest-jonah.jpg";
 import guestElias from "@/assets/guest-elias.jpg";
 
 export const images = {
   heroCraftsman,
-  tcHands,
-  tcPrayer,
   tcMentor,
   mustardYouth,
+  msDoorway,
   guestMarcus,
   guestJonah,
   guestElias,
