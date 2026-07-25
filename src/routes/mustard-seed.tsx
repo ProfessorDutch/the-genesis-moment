@@ -4,7 +4,9 @@ import doorway from "@/assets/ms-doorway.jpg";
 import mustardYouth from "@/assets/mustard-youth.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import heroBelief from "@/assets/hero-belief.jpg";
-import heroCraftsman from "@/assets/hero-craftsman.jpg";
+import stillBible from "@/assets/still-bible.jpg";
+import workshopDusk from "@/assets/workshop-dusk.jpg";
+import pewLight from "@/assets/pew-light.jpg";
 
 export const Route = createFileRoute("/mustard-seed")({
   head: () => ({
