@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import heroBelief from "@/assets/hero-belief.jpg";
-import seedHand from "@/assets/seed-hand.jpg";
-import pillarReason from "@/assets/pillar-reason.jpg";
-import msMentor from "@/assets/ms-mentor-hands.jpg";
-import tcPrayer from "@/assets/tc-prayer.jpg";
+import heroCraftsman from "@/assets/hero-craftsman.jpg";
+import tcMentor from "@/assets/tc-mentor.jpg";
+import msDoorway from "@/assets/ms-doorway.jpg";
 
 
 
