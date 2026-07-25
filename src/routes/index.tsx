@@ -183,8 +183,8 @@ function Home() {
                 copy: "Why any of this matters. Business owners share their stories so kids have someone to both relate to and look up to.",
                 cta: "Read the mission",
                 to: "/mustard-seed" as const,
-                img: pillarReason,
-                alt: "A father's hand on a young son's shoulder at golden hour.",
+                img: heroCraftsman,
+                alt: "A carpenter pauses at his workbench beside a window of warm afternoon light.",
               },
               {
                 num: "02 · The How",
@@ -192,8 +192,8 @@ function Home() {
                 copy: "How it happened for them. Long-form conversations about the seasons before anyone knew — and the person who believed first.",
                 cta: "See what's coming",
                 to: "/podcast" as const,
-                img: msMentor,
-                alt: "Older, weathered hands guiding a younger pair of hands.",
+                img: tcMentor,
+                alt: "A veteran contractor and a young apprentice on a jobsite at golden hour.",
               },
               {
                 num: "03 · The Healing",
@@ -201,8 +201,8 @@ function Home() {
                 copy: "How to heal the wounds underneath. Short spoken pieces on faith, identity, failure, forgiveness — the work between the stories.",
                 cta: "Listen to a Thoughtcast",
                 to: "/thoughtcasts" as const,
-                img: tcPrayer,
-                alt: "Hands folded in quiet prayer under warm light.",
+                img: msDoorway,
+                alt: "A young apprentice standing quietly in a doorway of warm lamplight.",
               },
             ].map((p) => (
               <article
