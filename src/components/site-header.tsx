@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { SeedMark } from "./seed-mark";
 
 const nav = [
   { to: "/podcast", label: "Podcast" },
@@ -18,11 +17,8 @@ export function SiteHeader() {
         <Link
           to="/"
           onClick={() => setOpen(false)}
-          className="flex min-w-0 items-center gap-2.5 text-ink"
+          className="flex min-w-0 items-center text-ink"
         >
-          <span className="grid h-8 w-8 shrink-0 place-items-center text-ember">
-            <SeedMark size={22} />
-          </span>
           <span className="truncate font-serif text-lg font-bold tracking-tight md:text-xl">
             The Genesis Moment
           </span>
