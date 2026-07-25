@@ -177,8 +177,8 @@ function MustardSeed() {
             <article className="group">
               <div className="mb-6 overflow-hidden">
                 <img
-                  src={tcHands}
-                  alt="Weathered hands holding a set of small hand tools."
+                  src={heroCraftsman}
+                  alt="A carpenter at his workbench, lit by warm afternoon light through the shop window."
                   loading="lazy"
                   width={1600}
                   height={1200}
