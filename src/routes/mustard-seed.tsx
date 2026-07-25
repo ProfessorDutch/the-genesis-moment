@@ -1,11 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import mentorHands from "@/assets/ms-mentor-hands.jpg";
-import seed from "@/assets/ms-seed.jpg";
 import doorway from "@/assets/ms-doorway.jpg";
 import mustardYouth from "@/assets/mustard-youth.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
-import tcHands from "@/assets/tc-hands.jpg";
+import heroBelief from "@/assets/hero-belief.jpg";
+import heroCraftsman from "@/assets/hero-craftsman.jpg";
 
 export const Route = createFileRoute("/mustard-seed")({
   head: () => ({
