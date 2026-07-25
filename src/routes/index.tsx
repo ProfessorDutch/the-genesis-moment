@@ -184,57 +184,68 @@ function Home() {
           </h2>
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
-            <article className="flex flex-col border border-line bg-cream p-8">
-              <div className="mono-tag text-ember">01 · The Reason</div>
-              <h3 className="mt-4 font-serif text-2xl leading-tight tracking-[-0.02em] md:text-3xl">
-                The Mustard Seed
-              </h3>
-              <p className="mt-4 flex-1 text-base leading-relaxed text-ink/75">
-                Why any of this matters. Business owners share their stories so kids have someone
-                to both relate to and look up to.
-              </p>
-              <Link
-                to="/mustard-seed"
-                className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember hover:underline"
+            {[
+              {
+                num: "01 · The Reason",
+                title: "The Mustard Seed",
+                copy: "Why any of this matters. Business owners share their stories so kids have someone to both relate to and look up to.",
+                cta: "Read the mission",
+                to: "/mustard-seed" as const,
+                img: pillarReason,
+                alt: "A father's hand on a young son's shoulder at golden hour.",
+              },
+              {
+                num: "02 · The How",
+                title: "The Genesis Moment",
+                copy: "How it happened for them. Long-form conversations about the seasons before anyone knew — and the person who believed first.",
+                cta: "See what's coming",
+                to: "/podcast" as const,
+                img: msMentor,
+                alt: "Older, weathered hands guiding a younger pair of hands.",
+              },
+              {
+                num: "03 · The Healing",
+                title: "Thoughtcasts",
+                copy: "How to heal the wounds underneath. Short spoken pieces on faith, identity, failure, forgiveness — the work between the stories.",
+                cta: "Listen to a Thoughtcast",
+                to: "/thoughtcasts" as const,
+                img: tcPrayer,
+                alt: "Hands folded in quiet prayer under warm light.",
+              },
+            ].map((p) => (
+              <article
+                key={p.title}
+                className="group flex flex-col border border-line bg-cream transition-all duration-300 hover:-translate-y-1 hover:border-ember hover:shadow-[0_20px_40px_-20px_oklch(0.68_0.19_45/0.35)]"
               >
-                Read the mission <ArrowRight size={12} />
-              </Link>
-            </article>
-
-            <article className="flex flex-col border border-line bg-cream p-8">
-              <div className="mono-tag text-ember">02 · The How</div>
-              <h3 className="mt-4 font-serif text-2xl leading-tight tracking-[-0.02em] md:text-3xl">
-                The Genesis Moment
-              </h3>
-              <p className="mt-4 flex-1 text-base leading-relaxed text-ink/75">
-                How it happened for them. Long-form conversations about the seasons before anyone
-                knew — and the person who believed first.
-              </p>
-              <Link
-                to="/podcast"
-                className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember hover:underline"
-              >
-                See what&rsquo;s coming <ArrowRight size={12} />
-              </Link>
-            </article>
-
-            <article className="flex flex-col border border-line bg-cream p-8">
-              <div className="mono-tag text-ember">03 · The Healing</div>
-              <h3 className="mt-4 font-serif text-2xl leading-tight tracking-[-0.02em] md:text-3xl">
-                Thoughtcasts
-              </h3>
-              <p className="mt-4 flex-1 text-base leading-relaxed text-ink/75">
-                How to heal the wounds underneath. Short spoken pieces on faith, identity,
-                failure, forgiveness — the work between the stories.
-              </p>
-              <Link
-                to="/thoughtcasts"
-                className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember hover:underline"
-              >
-                Listen to a Thoughtcast <ArrowRight size={12} />
-              </Link>
-            </article>
+                <div className="relative aspect-[4/3] overflow-hidden bg-ink-deep">
+                  <img
+                    src={p.img}
+                    alt={p.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-t from-ink-deep/50 to-transparent"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-8">
+                  <div className="mono-tag text-ember">{p.num}</div>
+                  <h3 className="mt-4 font-serif text-2xl leading-tight tracking-[-0.02em] md:text-3xl">
+                    {p.title}
+                  </h3>
+                  <p className="mt-4 flex-1 text-base leading-relaxed text-ink/75">{p.copy}</p>
+                  <Link
+                    to={p.to}
+                    className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember transition-all duration-300 hover:gap-3"
+                  >
+                    {p.cta} <ArrowRight size={12} />
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
+
         </div>
       </section>
 
