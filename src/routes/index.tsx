@@ -64,7 +64,6 @@ function Home() {
         <div className="relative mx-auto grid max-w-6xl gap-16 px-5 pt-24 pb-28 md:grid-cols-[1.25fr_1fr] md:gap-20 md:px-8 md:pt-36 md:pb-40">
           <div className="rise-in">
             <div className="mb-6 flex items-center gap-2 text-ember">
-              <SeedMark size={16} />
               <span className="eyebrow">A mission being built — one story at a time</span>
             </div>
             <h1 className="font-serif font-bold tracking-[-0.03em] leading-[0.95] text-[clamp(2.5rem,7vw,4.75rem)]">
@@ -144,7 +143,6 @@ function Home() {
           </figure>
           <div>
             <div className="mb-6 flex items-center gap-2 text-ember">
-              <SeedMark size={18} />
               <span className="section-label">The Mustard Seed · The Reason</span>
             </div>
             <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
@@ -253,7 +251,6 @@ function Home() {
       <section className="bg-ink-deep px-5 py-24 text-cream md:px-8 md:py-32">
         <div className="mx-auto max-w-4xl">
           <div className="mb-5 flex items-center gap-2 text-ember">
-            <SeedMark size={16} />
             <span className="section-label">The People Behind the Story</span>
           </div>
           <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
@@ -318,7 +315,6 @@ function Home() {
       <section className="bg-cream px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mx-auto mb-8 text-ember">
-            <SeedMark size={28} />
           </div>
           <p className="font-serif text-2xl italic leading-relaxed text-ink/90 md:text-3xl">
             &ldquo;Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be
