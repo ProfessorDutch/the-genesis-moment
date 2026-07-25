@@ -184,8 +184,8 @@ function MustardSeed() {
             <article className="group">
               <div className="mb-6 overflow-hidden">
                 <img
-                  src={heroCraftsman}
-                  alt="A carpenter at his workbench, lit by warm afternoon light through the shop window."
+                  src={workshopDusk}
+                  alt="An empty small-town workshop at dusk, hand tools laid out in a row on a rough wooden bench under a single warm bulb."
                   loading="lazy"
                   width={1600}
                   height={1200}
