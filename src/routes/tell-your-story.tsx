@@ -32,21 +32,39 @@ function TellYourStory() {
 
   return (
     <div>
-      <section className="bg-cream px-5 pt-16 pb-14 md:px-8 md:pt-24 md:pb-20">
-        <div className="mx-auto max-w-4xl">
+      <section className="relative isolate overflow-hidden bg-ink-deep text-cream">
+        <div className="absolute inset-0">
+          <img
+            src={stillMic}
+            alt="A vintage silver ribbon microphone lit by warm tungsten light in a small recording room."
+            className="h-full w-full object-cover object-center"
+            width={1600}
+            height={1200}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, oklch(0.135 0.012 55 / 0.92) 0%, oklch(0.135 0.012 55 / 0.72) 55%, oklch(0.135 0.012 55 / 0.25) 100%)",
+            }}
+          />
+        </div>
+        <div className="relative mx-auto max-w-4xl px-5 pt-20 pb-16 md:px-8 md:pt-32 md:pb-24">
           <div className="mb-5 flex items-center gap-2 text-ember">
             <span className="eyebrow">Tell your Genesis Moment</span>
           </div>
           <h1 className="font-serif font-bold leading-[0.94] tracking-[-0.04em] text-[clamp(2.5rem,7vw,4.75rem)]">
-            Maybe your story is the one somebody needs to hear.
+            Maybe your story is the one <span className="italic text-ember">somebody</span> needs to hear.
           </h1>
-          <p className="drop-cap mt-8 max-w-2xl text-lg leading-relaxed text-ink/80 md:text-xl">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-cream/85 md:text-xl">
             This is not a pitch interview and not a celebration of perfection. It is a
             conversation about becoming — where you started, what almost stopped you, who
             believed in you, and the moment something changed.
           </p>
         </div>
       </section>
+
 
       <section className="bg-sand px-5 py-16 md:px-8 md:py-20">
         <div className="mx-auto max-w-4xl">
