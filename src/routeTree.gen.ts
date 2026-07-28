@@ -14,6 +14,7 @@ import { Route as TellYourStoryRouteImport } from './routes/tell-your-story'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PodcastRouteImport } from './routes/podcast'
 import { Route as MustardSeedRouteImport } from './routes/mustard-seed'
+import { Route as DonateRouteImport } from './routes/donate'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ThoughtcastsSlugRouteImport } from './routes/thoughtcasts.$slug'
 import { Route as PodcastSlugRouteImport } from './routes/podcast.$slug'
@@ -43,6 +44,11 @@ const MustardSeedRoute = MustardSeedRouteImport.update({
   path: '/mustard-seed',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DonateRoute = DonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -61,6 +67,7 @@ const PodcastSlugRoute = PodcastSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/donate': typeof DonateRoute
   '/mustard-seed': typeof MustardSeedRoute
   '/podcast': typeof PodcastRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/donate': typeof DonateRoute
   '/mustard-seed': typeof MustardSeedRoute
   '/podcast': typeof PodcastRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -82,6 +90,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/donate': typeof DonateRoute
   '/mustard-seed': typeof MustardSeedRoute
   '/podcast': typeof PodcastRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/donate'
     | '/mustard-seed'
     | '/podcast'
     | '/sitemap.xml'
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/donate'
     | '/mustard-seed'
     | '/podcast'
     | '/sitemap.xml'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/donate'
     | '/mustard-seed'
     | '/podcast'
     | '/sitemap.xml'
@@ -125,6 +137,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DonateRoute: typeof DonateRoute
   MustardSeedRoute: typeof MustardSeedRoute
   PodcastRoute: typeof PodcastRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/mustard-seed'
       fullPath: '/mustard-seed'
       preLoaderRoute: typeof MustardSeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donate': {
+      id: '/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof DonateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -218,6 +238,7 @@ const ThoughtcastsRouteWithChildren = ThoughtcastsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DonateRoute: DonateRoute,
   MustardSeedRoute: MustardSeedRoute,
   PodcastRoute: PodcastRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
