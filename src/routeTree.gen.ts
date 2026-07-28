@@ -13,6 +13,8 @@ import { Route as ThoughtcastsRouteImport } from './routes/thoughtcasts'
 import { Route as TellYourStoryRouteImport } from './routes/tell-your-story'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PodcastRouteImport } from './routes/podcast'
+import { Route as PaymentSuccessRouteImport } from './routes/payment-success'
+import { Route as PaymentCanceledRouteImport } from './routes/payment-canceled'
 import { Route as MustardSeedRouteImport } from './routes/mustard-seed'
 import { Route as DonateRouteImport } from './routes/donate'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -42,6 +44,16 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const PodcastRoute = PodcastRouteImport.update({
   id: '/podcast',
   path: '/podcast',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentSuccessRoute = PaymentSuccessRouteImport.update({
+  id: '/payment-success',
+  path: '/payment-success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentCanceledRoute = PaymentCanceledRouteImport.update({
+  id: '/payment-canceled',
+  path: '/payment-canceled',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MustardSeedRoute = MustardSeedRouteImport.update({
@@ -101,6 +113,8 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/donate': typeof DonateRoute
   '/mustard-seed': typeof MustardSeedRoute
+  '/payment-canceled': typeof PaymentCanceledRoute
+  '/payment-success': typeof PaymentSuccessRoute
   '/podcast': typeof PodcastRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
@@ -116,6 +130,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/donate': typeof DonateRoute
   '/mustard-seed': typeof MustardSeedRoute
+  '/payment-canceled': typeof PaymentCanceledRoute
+  '/payment-success': typeof PaymentSuccessRoute
   '/podcast': typeof PodcastRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
@@ -133,6 +149,8 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/donate': typeof DonateRoute
   '/mustard-seed': typeof MustardSeedRoute
+  '/payment-canceled': typeof PaymentCanceledRoute
+  '/payment-success': typeof PaymentSuccessRoute
   '/podcast': typeof PodcastRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
@@ -150,6 +168,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/donate'
     | '/mustard-seed'
+    | '/payment-canceled'
+    | '/payment-success'
     | '/podcast'
     | '/sitemap.xml'
     | '/tell-your-story'
@@ -165,6 +185,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/donate'
     | '/mustard-seed'
+    | '/payment-canceled'
+    | '/payment-success'
     | '/podcast'
     | '/sitemap.xml'
     | '/tell-your-story'
@@ -181,6 +203,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/donate'
     | '/mustard-seed'
+    | '/payment-canceled'
+    | '/payment-success'
     | '/podcast'
     | '/sitemap.xml'
     | '/tell-your-story'
@@ -198,6 +222,8 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   DonateRoute: typeof DonateRoute
   MustardSeedRoute: typeof MustardSeedRoute
+  PaymentCanceledRoute: typeof PaymentCanceledRoute
+  PaymentSuccessRoute: typeof PaymentSuccessRoute
   PodcastRoute: typeof PodcastRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TellYourStoryRoute: typeof TellYourStoryRoute
@@ -232,6 +258,20 @@ declare module '@tanstack/react-router' {
       path: '/podcast'
       fullPath: '/podcast'
       preLoaderRoute: typeof PodcastRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment-success': {
+      id: '/payment-success'
+      path: '/payment-success'
+      fullPath: '/payment-success'
+      preLoaderRoute: typeof PaymentSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment-canceled': {
+      id: '/payment-canceled'
+      path: '/payment-canceled'
+      fullPath: '/payment-canceled'
+      preLoaderRoute: typeof PaymentCanceledRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mustard-seed': {
@@ -361,6 +401,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   DonateRoute: DonateRoute,
   MustardSeedRoute: MustardSeedRoute,
+  PaymentCanceledRoute: PaymentCanceledRoute,
+  PaymentSuccessRoute: PaymentSuccessRoute,
   PodcastRoute: PodcastRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TellYourStoryRoute: TellYourStoryRoute,
@@ -369,13 +411,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
