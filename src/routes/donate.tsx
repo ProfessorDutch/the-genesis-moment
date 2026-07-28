@@ -140,30 +140,39 @@ function Donate() {
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {[
               {
-                num: "01",
                 title: "We find the story.",
                 copy: "Nominations, phone calls, an intro conversation that finds the part most people have never heard out loud.",
               },
               {
-                num: "02",
                 title: "We record it honestly.",
                 copy: "On location or in studio. Long-form. Time enough for the whole truth to come out — not just the highlight reel.",
               },
               {
-                num: "03",
                 title: "We put it where a kid can find it.",
                 copy: "Edited, released, and paired with a Thoughtcast so a young person somewhere can recognize themselves in the beginning.",
               },
             ].map((s) => (
-              <div key={s.num} className="border-t-2 border-ember pt-5">
-                <div className="mono-tag text-ember">{s.num}</div>
-                <h3 className="mt-3 font-serif text-2xl leading-tight tracking-[-0.02em]">
+              <div key={s.title} className="border-t-2 border-ember pt-5">
+                <h3 className="font-serif text-2xl leading-tight tracking-[-0.02em]">
                   {s.title}
                 </h3>
                 <p className="mt-3 text-base leading-relaxed text-ink/75">{s.copy}</p>
               </div>
             ))}
           </div>
+          <p className="mt-10 max-w-2xl text-sm leading-relaxed text-ink/65">
+            The Genesis Moment is in service of{" "}
+            <a
+              href="https://www.themustardseed.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ember underline-offset-4 hover:underline"
+            >
+              The Mustard Seed
+            </a>
+            . Monthly giving is what actually keeps the microphone on — it's how we plan the next
+            conversation before we know whose it will be.
+          </p>
         </div>
       </section>
 
