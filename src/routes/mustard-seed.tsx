@@ -75,7 +75,7 @@ function MustardSeed() {
             <div className="section-label mb-5">Where the money goes</div>
             <p className="font-serif text-2xl leading-[1.1] tracking-[-0.03em] text-ink sm:text-3xl md:text-4xl">
               Trade education for the next plumber, electrician, and roofer
-              who needs someone to go first for them.
+              who needs someone to open the door before the work speaks for them.
             </p>
             <figure className="mt-10">
               <img
