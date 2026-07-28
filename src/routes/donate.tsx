@@ -225,8 +225,9 @@ function Donate() {
               </h3>
               <p className="mt-3 text-ink/75">
                 We&rsquo;ll reach you at {form.email} within one business day with a secure
-                giving link for ${amount}. If you&rsquo;d rather give right now, just reply
-                to that email and we&rsquo;ll get you set up.
+                giving link for ${amount}
+                {frequency === "monthly" ? " / month" : ""}. If you&rsquo;d rather give right now,
+                just reply to that email and we&rsquo;ll get you set up.
               </p>
               <Link
                 to="/mustard-seed"
