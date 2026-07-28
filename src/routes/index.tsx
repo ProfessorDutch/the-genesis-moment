@@ -65,30 +65,32 @@ function Home() {
         <div className="relative mx-auto grid max-w-6xl gap-16 px-5 pt-24 pb-28 md:grid-cols-[1.25fr_1fr] md:gap-20 md:px-8 md:pt-36 md:pb-40">
           <div className="rise-in">
             <div className="mb-6 flex items-center gap-2 text-ember">
-              <span className="eyebrow">A mission being built — one story at a time</span>
+              <span className="eyebrow">The story before the success</span>
             </div>
             <h1 className="font-serif font-bold tracking-[-0.03em] leading-[0.95] text-[clamp(2.5rem,7vw,4.75rem)]">
-              Who saw<br />
-              something in<br />
-              <span className="italic text-ember">you</span> first?
+              Who saw something<br />
+              in <span className="italic text-ember">you</span> before<br />
+              you could see it<br />
+              in yourself?
             </h1>
             <p className="mt-8 max-w-lg text-lg leading-relaxed text-cream/80 md:text-xl">
-              Faith-based business owners telling the story of who they were before anyone knew —
-              so a kid somewhere can finally see himself in the beginning of it.
+              Before the confidence. Before the company. Before your life looked like proof.
+              There was a person, a moment, or a small act of faith that changed what you
+              believed was possible.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
-                to="/mustard-seed"
+                to="/tell-your-story"
                 className="group inline-flex items-center gap-2 bg-ember px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-[0_10px_30px_-10px_oklch(0.68_0.19_45/0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_oklch(0.68_0.19_45/0.8)]"
               >
-                Start with the reason
+                Tell your story
                 <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <Link
-                to="/tell-your-story"
+                to="/mustard-seed"
                 className="inline-flex items-center gap-2 border border-cream/30 px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-colors duration-300 hover:border-ember hover:text-ember"
               >
-                Tell Your Story
+                Start with the reason
               </Link>
             </div>
           </div>
@@ -312,11 +314,34 @@ function Home() {
         </div>
       </section>
 
+      {/* BELIEF TAKES A FORM */}
+      <section className="bg-ink-deep px-5 py-24 text-cream md:px-8 md:py-32">
+        <div className="mx-auto max-w-5xl">
+          <div className="section-label mb-4 text-ember">Belief is not an idea</div>
+          <h2 className="max-w-3xl font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-6xl">
+            It takes a form. Usually a person.
+          </h2>
+          <div className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-2">
+            {[
+              { k: "A father", v: "who handed over the first tool without a lecture." },
+              { k: "A wife", v: "who carried the bills the year nothing came in." },
+              { k: "A mentor", v: "who made a phone call that opened a door." },
+              { k: "A friend", v: "who kept saying your name in rooms you weren’t in." },
+            ].map((b) => (
+              <div key={b.k} className="border-t border-cream/15 pt-6">
+                <div className="mono-tag text-ember">{b.k}</div>
+                <p className="mt-3 font-serif text-2xl leading-snug tracking-[-0.02em] md:text-3xl">
+                  {b.v}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CLOSING SCRIPTURE */}
       <section className="bg-cream px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="mx-auto mb-8 text-ember">
-          </div>
           <p className="font-serif text-2xl italic leading-relaxed text-ink/90 md:text-3xl">
             &ldquo;Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be
             opened unto you.&rdquo;
@@ -329,16 +354,22 @@ function Home() {
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link
-              to="/mustard-seed"
+              to="/tell-your-story"
               className="inline-flex items-center gap-2 bg-ember px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-white transition-transform hover:-translate-y-0.5"
             >
-              Read The Mustard Seed <ArrowRight size={14} />
+              Tell your story <ArrowRight size={14} />
             </Link>
             <Link
-              to="/tell-your-story"
+              to="/donate"
+              className="inline-flex items-center gap-2 bg-ink-deep px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-cream transition-transform hover:-translate-y-0.5"
+            >
+              Support the work <ArrowRight size={14} />
+            </Link>
+            <Link
+              to="/mustard-seed"
               className="inline-flex items-center gap-2 border border-ink/25 px-6 py-4 text-xs font-bold uppercase tracking-[0.14em] text-ink transition-colors hover:border-ember hover:text-ember"
             >
-              Tell Your Story
+              Read The Mustard Seed
             </Link>
           </div>
         </div>
