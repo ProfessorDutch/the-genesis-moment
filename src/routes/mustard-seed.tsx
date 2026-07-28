@@ -181,26 +181,31 @@ function MustardSeed() {
         </div>
       </section>
 
-      {/* WHO WE'RE BETTING ON */}
+      {/* WHO WE GO FIRST FOR */}
       <section className="bg-paper px-5 py-16 sm:py-20 md:px-8 md:py-28">
         <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-7">
-            <div className="section-label mb-4">Who we are betting on</div>
+            <div className="section-label mb-4">Who we go first for</div>
             <h2 className="font-serif text-3xl leading-[1.06] tracking-[-0.035em] sm:text-4xl md:text-6xl md:leading-[1.02]">
-              The kid who hasn't earned it yet — and needs somebody to go
-              first anyway.
+              The kid standing at the door of a trade he hasn't been invited into yet.
             </h2>
+            <p className="mt-6 max-w-2xl font-serif text-xl leading-snug tracking-[-0.02em] text-ink/80 sm:text-2xl md:mt-8 md:text-3xl">
+              He isn't asking for a handout. He's asking for a door.
+            </p>
             <div className="mt-8 max-w-2xl space-y-5 text-base leading-relaxed text-ink/80 sm:text-lg md:mt-10 md:text-xl">
               <p>
-                Every owner on this feed can name the person who bet on
-                them before there was proof. A dad. A boss. A pastor. A
-                stranger who handed them a set of keys and said figure it out.
+                Every owner on this feed can name the person who went first for
+                them before there was proof. A dad who cosigned. A boss who
+                looked past the résumé. A stranger who handed over a set of keys
+                and said, "Figure it out."
               </p>
               <p>
-                The Mustard Seed is us doing the same thing on their
-                behalf — pointing money and mentorship at the next kid who
-                needs it, before they've done anything to deserve it except
-                show up.
+                The Mustard Seed is us becoming that person for the next kid —
+                the one who showed up early, tool bag empty, hoping somebody
+                would read the want in his eyes as worthiness.
+              </p>
+              <p className="font-semibold text-ink">
+                We open the door before the work speaks for him.
               </p>
             </div>
           </div>
