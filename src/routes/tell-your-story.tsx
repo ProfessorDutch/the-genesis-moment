@@ -72,9 +72,8 @@ function TellYourStory() {
         <div className="mx-auto max-w-4xl">
           <div className="mono-tag mb-6 text-ember">What to expect</div>
           <ol className="grid gap-6 md:grid-cols-3">
-            <li>
-              <div className="ep-num text-4xl text-ember">01</div>
-              <div className="mt-2 font-serif text-xl leading-snug tracking-[-0.02em]">
+            <li className="border-t-2 border-ember pt-5">
+              <div className="font-serif text-xl leading-snug tracking-[-0.02em]">
                 A short intro call.
               </div>
               <p className="mt-2 text-sm leading-relaxed text-ink/70">
@@ -82,18 +81,16 @@ function TellYourStory() {
                 have not heard.
               </p>
             </li>
-            <li>
-              <div className="ep-num text-4xl text-ember">02</div>
-              <div className="mt-2 font-serif text-xl leading-snug tracking-[-0.02em]">
+            <li className="border-t-2 border-ember pt-5">
+              <div className="font-serif text-xl leading-snug tracking-[-0.02em]">
                 One honest conversation.
               </div>
               <p className="mt-2 text-sm leading-relaxed text-ink/70">
                 Recorded at your shop or in studio. Long-form. Ninety minutes on average.
               </p>
             </li>
-            <li>
-              <div className="ep-num text-4xl text-ember">03</div>
-              <div className="mt-2 font-serif text-xl leading-snug tracking-[-0.02em]">
+            <li className="border-t-2 border-ember pt-5">
+              <div className="font-serif text-xl leading-snug tracking-[-0.02em]">
                 Your Genesis Moment, released.
               </div>
               <p className="mt-2 text-sm leading-relaxed text-ink/70">
