@@ -1,15 +1,21 @@
 import { Link } from "@tanstack/react-router";
+import wordmark from "@/assets/genesis-moment-wordmark.png.asset.json";
 
 export function SiteFooter() {
   return (
     <footer className="bg-ink-deep px-5 py-14 text-[oklch(0.72_0.02_65)] md:px-8 md:py-20">
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <div className="font-serif text-2xl text-cream">The Genesis Moment</div>
-
-          <p className="mt-4 max-w-sm text-sm leading-relaxed">
-            Stories of faith-based business owners, the people who believed in them, and what grew
-            from that belief.
+          <img
+            src={wordmark.url}
+            alt="The Genesis Moment Podcast"
+            width={430}
+            height={140}
+            className="h-16 w-auto md:h-20"
+          />
+          <p className="mt-5 max-w-sm text-sm leading-relaxed">
+            Stories of faith-driven business owners, the people who believed in them, and what
+            grew from that belief.
           </p>
           <p className="mt-4 text-xs uppercase tracking-[0.16em] text-ember">
             In service of The Mustard Seed.
