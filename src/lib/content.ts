@@ -1,4 +1,5 @@
 import heroCraftsman from "@/assets/hero-craftsman.jpg";
+import epFirstToolbox from "@/assets/ep-first-toolbox.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import mustardYouth from "@/assets/mustard-youth.jpg";
 import msDoorway from "@/assets/ms-doorway.jpg";
@@ -69,7 +70,7 @@ export const episodes: Episode[] = [
     duration: "52 min",
     publishedAt: "2025-01-14",
     tags: ["Fatherhood", "Trades", "First Believers"],
-    image: heroCraftsman,
+    image: epFirstToolbox,
     youtubeId: "dQw4w9WgXcQ",
     website: "https://example.com",
     relatedThoughtcasts: ["the-thought-you-almost-quit-on", "belief-before-proof"],
