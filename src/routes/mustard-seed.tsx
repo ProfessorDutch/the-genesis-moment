@@ -192,7 +192,7 @@ function MustardSeed() {
                   className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
               </div>
-              <div className="eyebrow mb-3">01 — Tell a story</div>
+              <div className="eyebrow mb-3">Tell a story</div>
               <h3 className="font-serif text-xl leading-tight tracking-[-0.02em] sm:text-2xl md:text-3xl">
                 Sit with us for one honest conversation.
               </h3>
