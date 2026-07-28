@@ -191,6 +191,24 @@ function Donate() {
               This is a builder-funded, listener-supported project. There is no ad break
               and no sponsor telling us what a story is worth. You give — we go record another one.
             </p>
+
+            <div className="mt-8 border border-ember/40 bg-cream p-5">
+              <div className="section-label mb-2 text-ember">Rather talk than type?</div>
+              <div className="font-serif text-xl leading-snug tracking-[-0.02em]">
+                Have Emmy call you.
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                Prefer to give over the phone, or want to talk through monthly options first? Call
+                and Emmy will help you get set up.
+              </p>
+              <a
+                href="tel:+18443213669"
+                className="mt-4 inline-flex items-center gap-2 bg-ink-deep px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] text-cream hover:-translate-y-0.5 transition-transform"
+              >
+                Call Emmy · 844-321-3669
+              </a>
+            </div>
+
             <blockquote className="mt-10 border-l-[3px] border-ember pl-6 font-serif italic text-2xl leading-snug tracking-[-0.02em] text-ink/85 md:text-3xl">
               &ldquo;Give, and it shall be given unto you.&rdquo;
               <span className="mt-3 block text-xs not-italic uppercase tracking-[0.18em] text-ink/50">
