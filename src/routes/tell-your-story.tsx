@@ -231,7 +231,13 @@ function TellYourStory() {
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Business or organization" name="business" />
-                <Field label="Website (optional)" name="website" type="url" />
+                <Field
+                  label="Website (optional)"
+                  name="website"
+                  type="text"
+                  pattern="^\s*(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?\s*$"
+                  title="Enter a website (e.g. example.com, example.co, example.net)"
+                />
               </div>
               {mode === "nominate" && (
                 <>
@@ -278,11 +284,15 @@ function Field({
   name,
   type = "text",
   required,
+  pattern,
+  title,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
+  pattern?: string;
+  title?: string;
 }) {
   return (
     <div>
@@ -294,6 +304,8 @@ function Field({
         type={type}
         name={name}
         required={required}
+        pattern={pattern}
+        title={title}
         className="w-full border border-line bg-cream px-4 py-3 text-base text-ink outline-none focus:border-ember"
       />
     </div>
