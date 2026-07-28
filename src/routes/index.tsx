@@ -187,7 +187,7 @@ function Home() {
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {[
               {
-                num: "01 · The Reason",
+                num: "The Reason",
                 title: "The Mustard Seed",
                 copy: "Why any of this matters. Business owners share their stories so kids have someone to both relate to and look up to.",
                 cta: "Read the mission",
