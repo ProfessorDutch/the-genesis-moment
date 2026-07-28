@@ -8,17 +8,17 @@ import chapelQuiet from "@/assets/chapel-quiet.jpg";
 export const Route = createFileRoute("/mustard-seed")({
   head: () => ({
     meta: [
-      { title: "The Mustard Seed — Betting on the next kid" },
+      { title: "The Mustard Seed — Opening the door" },
       {
         name: "description",
         content:
-          "A percentage of everything this show generates funds trade education — scholarships and training for the next plumber, electrician, roofer who needs someone to go first for them.",
+          "A percentage of everything this show generates funds trade education — scholarships and training for the next plumber, electrician, roofer who needs someone to open the door before the work speaks for them.",
       },
       { property: "og:title", content: "The Mustard Seed — The Reason" },
       {
         property: "og:description",
         content:
-          "Somebody bet on the guest sitting across from us. This is us betting on the next one.",
+          "We open the door before the work speaks for him. We open the door, and invest in people who don't totally believe in themselves.",
       },
       { property: "og:url", content: "/mustard-seed" },
     ],
