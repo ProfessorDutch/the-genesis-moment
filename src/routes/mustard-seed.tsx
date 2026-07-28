@@ -144,8 +144,8 @@ function MustardSeed() {
               <h3 className="font-serif text-2xl leading-tight tracking-[-0.02em]">The Genesis Moment</h3>
               <p className="mt-3 text-base leading-relaxed text-ink/75">
                 Long-form conversations with faith-driven owners about the
-                exact moment someone bet on them — and what grew from that
-                bet.
+                exact moment someone opened the door for them — and what grew
+                from that yes.
               </p>
             </div>
             <div className="border-t-2 border-ink/25 pt-5">
