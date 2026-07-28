@@ -115,31 +115,32 @@ function PodcastIndex() {
             <div className="mono-tag text-ink/50">{episodes.length} recorded</div>
           </div>
           <hr className="rule-ember" />
-          <ul>
+          <ul className="mt-8 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {rest.map((ep) => (
-              <li key={ep.slug} className="border-b border-line last:border-b-0">
-                <Link
-                  to="/podcast/$slug"
-                  params={{ slug: ep.slug }}
-                  className="group grid gap-4 py-10 md:grid-cols-[110px_1fr_auto] md:items-baseline md:gap-10"
-                >
-                  <div className="ep-num text-6xl md:text-7xl">
-                    {String(ep.number).padStart(2, "0")}
+              <li key={ep.slug}>
+                <Link to="/podcast/$slug" params={{ slug: ep.slug }} className="group block">
+                  <div
+                    className="aspect-[4/5] w-full overflow-hidden bg-sand transition-transform duration-500 group-hover:-translate-y-1"
+                    style={
+                      ep.image
+                        ? {
+                            backgroundImage: `linear-gradient(180deg, transparent 55%, oklch(0.12 0.012 55 / 0.55)), url(${ep.image})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                          }
+                        : undefined
+                    }
+                  />
+                  <div className="mt-4 mono-tag text-ember">
+                    Episode {String(ep.number).padStart(2, "0")} · {ep.duration}
                   </div>
-                  <div>
-                    <div className="font-serif text-2xl leading-tight tracking-[-0.02em] group-hover:text-ember md:text-4xl">
-                      {ep.title}
-                    </div>
-                    <div className="mt-3 mono-tag text-ink/55">
-                      {ep.guest} — {ep.role}
-                    </div>
-                    <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink/75">
-                      {ep.excerpt}
-                    </p>
+                  <div className="mt-2 font-serif text-2xl leading-tight tracking-[-0.02em] group-hover:text-ember">
+                    {ep.title}
                   </div>
-                  <div className="mono-tag whitespace-nowrap text-ink/60 md:text-right">
-                    {ep.duration}
+                  <div className="mt-2 mono-tag text-ink/55">
+                    {ep.guest} — {ep.role}
                   </div>
+                  <p className="mt-3 text-base leading-relaxed text-ink/75">{ep.excerpt}</p>
                 </Link>
               </li>
             ))}
