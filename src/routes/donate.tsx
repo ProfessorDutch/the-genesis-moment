@@ -30,7 +30,8 @@ export const Route = createFileRoute("/donate")({
 });
 
 function Donate() {
-  const [selected, setSelected] = useState<number | "other">(100);
+  const [frequency, setFrequency] = useState<"monthly" | "once">("monthly");
+  const [selected, setSelected] = useState<number | "other">(25);
   const [custom, setCustom] = useState("");
   const [form, setForm] = useState({
     name: "",
@@ -76,10 +77,12 @@ function Donate() {
           email,
           phone: form.phone.trim(),
           business_name: "The Genesis Moment — Donation",
-          website: `https://thegenesismoment.com/donate?amount=${amount}`,
+          website: `https://thegenesismoment.com/donate?amount=${amount}&freq=${frequency}`,
           message: form.message.trim(),
           amount,
-          source: "genesis-moment-donate",
+          frequency,
+          gift_type: frequency === "monthly" ? "recurring_monthly" : "one_time",
+          source: `genesis-moment-donate-${frequency}`,
         }),
       });
       if (!res.ok) {
@@ -140,30 +143,39 @@ function Donate() {
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {[
               {
-                num: "01",
                 title: "We find the story.",
                 copy: "Nominations, phone calls, an intro conversation that finds the part most people have never heard out loud.",
               },
               {
-                num: "02",
                 title: "We record it honestly.",
                 copy: "On location or in studio. Long-form. Time enough for the whole truth to come out — not just the highlight reel.",
               },
               {
-                num: "03",
                 title: "We put it where a kid can find it.",
                 copy: "Edited, released, and paired with a Thoughtcast so a young person somewhere can recognize themselves in the beginning.",
               },
             ].map((s) => (
-              <div key={s.num} className="border-t-2 border-ember pt-5">
-                <div className="mono-tag text-ember">{s.num}</div>
-                <h3 className="mt-3 font-serif text-2xl leading-tight tracking-[-0.02em]">
+              <div key={s.title} className="border-t-2 border-ember pt-5">
+                <h3 className="font-serif text-2xl leading-tight tracking-[-0.02em]">
                   {s.title}
                 </h3>
                 <p className="mt-3 text-base leading-relaxed text-ink/75">{s.copy}</p>
               </div>
             ))}
           </div>
+          <p className="mt-10 max-w-2xl text-sm leading-relaxed text-ink/65">
+            The Genesis Moment is in service of{" "}
+            <a
+              href="https://www.themustardseed.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ember underline-offset-4 hover:underline"
+            >
+              The Mustard Seed
+            </a>
+            . Monthly giving is what actually keeps the microphone on — it's how we plan the next
+            conversation before we know whose it will be.
+          </p>
         </div>
       </section>
 
@@ -179,6 +191,24 @@ function Donate() {
               This is a builder-funded, listener-supported project. There is no ad break
               and no sponsor telling us what a story is worth. You give — we go record another one.
             </p>
+
+            <div className="mt-8 border border-ember/40 bg-cream p-5">
+              <div className="section-label mb-2 text-ember">Rather talk than type?</div>
+              <div className="font-serif text-xl leading-snug tracking-[-0.02em]">
+                Have Emmy call you.
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                Prefer to give over the phone, or want to talk through monthly options first? Call
+                and Emmy will help you get set up.
+              </p>
+              <a
+                href="tel:+18443213669"
+                className="mt-4 inline-flex items-center gap-2 bg-ink-deep px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] text-cream hover:-translate-y-0.5 transition-transform"
+              >
+                Call Emmy · 844-321-3669
+              </a>
+            </div>
+
             <blockquote className="mt-10 border-l-[3px] border-ember pl-6 font-serif italic text-2xl leading-snug tracking-[-0.02em] text-ink/85 md:text-3xl">
               &ldquo;Give, and it shall be given unto you.&rdquo;
               <span className="mt-3 block text-xs not-italic uppercase tracking-[0.18em] text-ink/50">
@@ -195,8 +225,9 @@ function Donate() {
               </h3>
               <p className="mt-3 text-ink/75">
                 We&rsquo;ll reach you at {form.email} within one business day with a secure
-                giving link for ${amount}. If you&rsquo;d rather give right now, just reply
-                to that email and we&rsquo;ll get you set up.
+                giving link for ${amount}
+                {frequency === "monthly" ? " / month" : ""}. If you&rsquo;d rather give right now,
+                just reply to that email and we&rsquo;ll get you set up.
               </p>
               <Link
                 to="/mustard-seed"
@@ -210,7 +241,37 @@ function Donate() {
               onSubmit={onSubmit}
               className="border border-line bg-cream p-6 md:p-8"
             >
-              <div className="mono-tag text-ember">Choose an amount</div>
+              <div className="mono-tag text-ember">Giving frequency</div>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                {(
+                  [
+                    { id: "monthly" as const, label: "Monthly", sub: "Keeps it going" },
+                    { id: "once" as const, label: "One time", sub: "A single gift" },
+                  ]
+                ).map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => setFrequency(f.id)}
+                    className={`flex flex-col items-start border px-4 py-3 text-left transition-colors ${
+                      frequency === f.id
+                        ? "border-ember bg-ember text-white"
+                        : "border-line text-ink hover:border-ember"
+                    }`}
+                  >
+                    <span className="text-sm font-bold tracking-tight">{f.label}</span>
+                    <span
+                      className={`text-[10px] uppercase tracking-[0.12em] ${
+                        frequency === f.id ? "text-white/80" : "text-ink/55"
+                      }`}
+                    >
+                      {f.sub}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              <div className="mono-tag mt-6 text-ember">Choose an amount</div>
               <div className="mt-4 grid grid-cols-3 gap-2">
                 {AMOUNTS.map((a) => (
                   <button
@@ -312,7 +373,7 @@ function Donate() {
               >
                 {status === "sending"
                   ? "Sending…"
-                  : `Give $${amount || "—"}`}
+                  : `Give $${amount || "—"}${frequency === "monthly" ? " / month" : ""}`}
                 {status !== "sending" && <ArrowRight size={14} />}
               </button>
               <p className="mt-3 text-center text-[11px] uppercase tracking-[0.14em] text-ink/50">

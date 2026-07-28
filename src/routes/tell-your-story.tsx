@@ -72,9 +72,8 @@ function TellYourStory() {
         <div className="mx-auto max-w-4xl">
           <div className="mono-tag mb-6 text-ember">What to expect</div>
           <ol className="grid gap-6 md:grid-cols-3">
-            <li>
-              <div className="ep-num text-4xl text-ember">01</div>
-              <div className="mt-2 font-serif text-xl leading-snug tracking-[-0.02em]">
+            <li className="border-t-2 border-ember pt-5">
+              <div className="font-serif text-xl leading-snug tracking-[-0.02em]">
                 A short intro call.
               </div>
               <p className="mt-2 text-sm leading-relaxed text-ink/70">
@@ -82,18 +81,16 @@ function TellYourStory() {
                 have not heard.
               </p>
             </li>
-            <li>
-              <div className="ep-num text-4xl text-ember">02</div>
-              <div className="mt-2 font-serif text-xl leading-snug tracking-[-0.02em]">
+            <li className="border-t-2 border-ember pt-5">
+              <div className="font-serif text-xl leading-snug tracking-[-0.02em]">
                 One honest conversation.
               </div>
               <p className="mt-2 text-sm leading-relaxed text-ink/70">
                 Recorded at your shop or in studio. Long-form. Ninety minutes on average.
               </p>
             </li>
-            <li>
-              <div className="ep-num text-4xl text-ember">03</div>
-              <div className="mt-2 font-serif text-xl leading-snug tracking-[-0.02em]">
+            <li className="border-t-2 border-ember pt-5">
+              <div className="font-serif text-xl leading-snug tracking-[-0.02em]">
                 Your Genesis Moment, released.
               </div>
               <p className="mt-2 text-sm leading-relaxed text-ink/70">
@@ -126,10 +123,31 @@ function TellYourStory() {
 
       <section id="form" className="bg-paper px-5 py-20 md:px-8 md:py-28">
         <div className="mx-auto max-w-2xl">
+          <div className="mb-8 border border-ember/40 bg-cream p-6 md:p-7">
+            <div className="section-label mb-2 text-ember">Rather talk than type?</div>
+            <div className="font-serif text-2xl leading-snug tracking-[-0.02em]">
+              Have Emmy call you and hear your nomination story.
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-ink/70">
+              Emmy is our intake voice. She'll listen, take notes, and pass the story to a founder.
+              No pitch. No script. Just talk.
+            </p>
+            <a
+              href="tel:+18443213669"
+              className="mt-5 inline-flex items-center gap-2 bg-ink-deep px-5 py-3 text-xs font-bold uppercase tracking-[0.14em] text-cream hover:-translate-y-0.5 transition-transform"
+            >
+              Call Emmy · 844-321-3669
+            </a>
+            <p className="mt-3 text-[11px] uppercase tracking-[0.12em] text-ink/50">
+              Or fill out the form below
+            </p>
+          </div>
+
           <div className="section-label mb-4">Or write to us</div>
           <h2 className="font-serif text-3xl leading-tight tracking-[-0.03em] md:text-4xl">
             Send your information.
           </h2>
+
 
           <div className="mt-8 inline-flex border border-line bg-cream">
             {[

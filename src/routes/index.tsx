@@ -187,7 +187,7 @@ function Home() {
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {[
               {
-                num: "01 · The Reason",
+                num: "The Reason",
                 title: "The Mustard Seed",
                 copy: "Why any of this matters. Business owners share their stories so kids have someone to both relate to and look up to.",
                 cta: "Read the mission",
@@ -196,7 +196,7 @@ function Home() {
                 alt: "A carpenter pauses at his workbench beside a window of warm afternoon light.",
               },
               {
-                num: "02 · The How",
+                num: "The How",
                 title: "The Genesis Moment",
                 copy: "How it happened for them. Long-form conversations about the seasons before anyone knew — and the person who believed first.",
                 cta: "See what's coming",
@@ -205,7 +205,7 @@ function Home() {
                 alt: "A veteran contractor and a young apprentice on a jobsite at golden hour.",
               },
               {
-                num: "03 · The Healing",
+                num: "The Healing",
                 title: "Thoughtcasts",
                 copy: "How to heal the wounds underneath. Short spoken pieces on faith, identity, failure, forgiveness — the work between the stories.",
                 cta: "Listen to a Thoughtcast",
