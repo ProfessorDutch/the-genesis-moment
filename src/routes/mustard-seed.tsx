@@ -61,9 +61,9 @@ function MustardSeed() {
             We did.
           </p>
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-cream/85 md:text-xl">
-            Every episode of this show exists because somebody bet on somebody else before there was
-            proof it would pay off. That's the whole premise — the moment where belief showed up
-            before the evidence did. The Mustard Seed is that same bet, pointed at a kid.
+            Every episode of this show exists because somebody opened a door for somebody else before
+            the work spoke for them. That's the whole premise — the moment where belief showed up
+            before the evidence did. The Mustard Seed is that same door, held open for a kid.
           </p>
         </div>
       </section>
