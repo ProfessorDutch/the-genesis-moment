@@ -14,16 +14,190 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      episodes: {
+        Row: {
+          created_at: string
+          description: string | null
+          duration: string | null
+          episode_number: number | null
+          excerpt: string | null
+          guest_id: string | null
+          guest_name_override: string | null
+          id: string
+          image_url: string | null
+          instagram_url: string | null
+          published_at: string | null
+          role_override: string | null
+          slug: string
+          status: Database["public"]["Enums"]["content_status"]
+          tags: string[]
+          title: string
+          type: Database["public"]["Enums"]["content_type"]
+          updated_at: string
+          youtube_id: string | null
+          youtube_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          duration?: string | null
+          episode_number?: number | null
+          excerpt?: string | null
+          guest_id?: string | null
+          guest_name_override?: string | null
+          id?: string
+          image_url?: string | null
+          instagram_url?: string | null
+          published_at?: string | null
+          role_override?: string | null
+          slug: string
+          status?: Database["public"]["Enums"]["content_status"]
+          tags?: string[]
+          title: string
+          type: Database["public"]["Enums"]["content_type"]
+          updated_at?: string
+          youtube_id?: string | null
+          youtube_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          duration?: string | null
+          episode_number?: number | null
+          excerpt?: string | null
+          guest_id?: string | null
+          guest_name_override?: string | null
+          id?: string
+          image_url?: string | null
+          instagram_url?: string | null
+          published_at?: string | null
+          role_override?: string | null
+          slug?: string
+          status?: Database["public"]["Enums"]["content_status"]
+          tags?: string[]
+          title?: string
+          type?: Database["public"]["Enums"]["content_type"]
+          updated_at?: string
+          youtube_id?: string | null
+          youtube_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "episodes_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      guests: {
+        Row: {
+          bio: string | null
+          business: string | null
+          city: string | null
+          created_at: string
+          facebook: string | null
+          headshot_url: string | null
+          id: string
+          instagram: string | null
+          linkedin: string | null
+          name: string
+          role: string | null
+          updated_at: string
+          website: string | null
+          x_handle: string | null
+        }
+        Insert: {
+          bio?: string | null
+          business?: string | null
+          city?: string | null
+          created_at?: string
+          facebook?: string | null
+          headshot_url?: string | null
+          id?: string
+          instagram?: string | null
+          linkedin?: string | null
+          name: string
+          role?: string | null
+          updated_at?: string
+          website?: string | null
+          x_handle?: string | null
+        }
+        Update: {
+          bio?: string | null
+          business?: string | null
+          city?: string | null
+          created_at?: string
+          facebook?: string | null
+          headshot_url?: string | null
+          id?: string
+          instagram?: string | null
+          linkedin?: string | null
+          name?: string
+          role?: string | null
+          updated_at?: string
+          website?: string | null
+          x_handle?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
+      content_status: "draft" | "published"
+      content_type: "podcast" | "thoughtcast"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +324,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+      content_status: ["draft", "published"],
+      content_type: ["podcast", "thoughtcast"],
+    },
   },
 } as const
