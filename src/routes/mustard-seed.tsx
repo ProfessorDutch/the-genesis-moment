@@ -30,46 +30,41 @@ export const Route = createFileRoute("/mustard-seed")({
 function MustardSeed() {
   return (
     <div>
-      {/* HERO */}
-      <section className="bg-mustard px-5 pt-14 pb-16 sm:pt-16 sm:pb-20 md:px-8 md:pt-24 md:pb-28">
-        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-12 md:gap-16">
-          <div className="md:col-span-7">
-            <div className="mb-6 h-3 w-3 rounded-full bg-ember shadow-[0_0_0_12px_oklch(0.68_0.19_45_/_0.14)]" />
-            <div className="eyebrow mb-4">What we fund</div>
-            <h1 className="font-serif font-bold leading-[0.96] tracking-[-0.035em] text-[clamp(2.25rem,8vw,5.75rem)] break-words">
-              Everyone says somebody should do something.
-            </h1>
-            <p className="mt-6 font-serif text-xl leading-snug tracking-[-0.02em] text-ink/85 sm:text-2xl md:mt-8 md:text-4xl">
-              We did.
-            </p>
-            <div className="mt-6 max-w-lg space-y-4 text-base leading-relaxed text-ink/75 md:mt-8 md:text-lg">
-              <p>
-                Every episode of this show exists because somebody bet on
-                somebody else before there was proof it would pay off. That's
-                the whole premise — the moment where belief showed up before
-                the evidence did.
-              </p>
-              <p>The Mustard Seed is that same bet, pointed at a kid.</p>
-            </div>
+      {/* HERO — full-bleed image with dark overlay */}
+      <section className="relative isolate overflow-hidden bg-ink-deep text-cream">
+        <div className="absolute inset-0">
+          <img
+            src={mustardSprout}
+            alt="A single green mustard sprout in a terracotta pot on a weathered wooden windowsill in morning light."
+            className="h-full w-full object-cover object-center"
+            width={1808}
+            height={1200}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, oklch(0.135 0.012 55 / 0.92) 0%, oklch(0.135 0.012 55 / 0.72) 55%, oklch(0.135 0.012 55 / 0.25) 100%)",
+            }}
+          />
+        </div>
+        <div className="relative mx-auto max-w-4xl px-5 pt-20 pb-16 md:px-8 md:pt-32 md:pb-24">
+          <div className="mb-6 h-3 w-3 rounded-full bg-ember shadow-[0_0_0_12px_oklch(0.68_0.19_45_/_0.24)]" />
+          <div className="mb-4 flex items-center gap-2 text-ember">
+            <span className="eyebrow">What we fund</span>
           </div>
-          <div className="md:col-span-5">
-            <figure className="relative">
-              <div className="relative aspect-[4/5] w-full overflow-hidden shadow-[0_30px_60px_-30px_oklch(0.20_0.015_55_/_0.35)]">
-                <img
-                  src={mustardSprout}
-                  alt="A single green mustard sprout in a terracotta pot on a weathered wooden windowsill in morning light."
-                  loading="lazy"
-                  width={1808}
-                  height={1200}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <figcaption className="mt-3 max-w-xs text-xs italic leading-relaxed text-ink/60">
-                Somebody bet on the guest sitting across from you. This is us
-                betting on the next one.
-              </figcaption>
-            </figure>
-          </div>
+          <h1 className="font-serif font-bold leading-[0.94] tracking-[-0.04em] text-[clamp(2.5rem,7vw,4.75rem)]">
+            Everyone says somebody <span className="italic text-ember">should</span> do something.
+          </h1>
+          <p className="mt-6 font-serif text-2xl leading-snug tracking-[-0.02em] text-cream/90 md:mt-8 md:text-4xl">
+            We did.
+          </p>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-cream/85 md:text-xl">
+            Every episode of this show exists because somebody bet on somebody else before there was
+            proof it would pay off. That's the whole premise — the moment where belief showed up
+            before the evidence did. The Mustard Seed is that same bet, pointed at a kid.
+          </p>
         </div>
       </section>
 
