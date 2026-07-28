@@ -30,7 +30,8 @@ export const Route = createFileRoute("/donate")({
 });
 
 function Donate() {
-  const [selected, setSelected] = useState<number | "other">(100);
+  const [frequency, setFrequency] = useState<"monthly" | "once">("monthly");
+  const [selected, setSelected] = useState<number | "other">(25);
   const [custom, setCustom] = useState("");
   const [form, setForm] = useState({
     name: "",
@@ -76,10 +77,12 @@ function Donate() {
           email,
           phone: form.phone.trim(),
           business_name: "The Genesis Moment — Donation",
-          website: `https://thegenesismoment.com/donate?amount=${amount}`,
+          website: `https://thegenesismoment.com/donate?amount=${amount}&freq=${frequency}`,
           message: form.message.trim(),
           amount,
-          source: "genesis-moment-donate",
+          frequency,
+          gift_type: frequency === "monthly" ? "recurring_monthly" : "one_time",
+          source: `genesis-moment-donate-${frequency}`,
         }),
       });
       if (!res.ok) {
