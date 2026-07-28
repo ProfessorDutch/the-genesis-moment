@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/genesis-moment-badge.png.asset.json";
+const logo = { url: "/brand/genesis-moment-badge.png" };
 
 const nav = [
   { to: "/podcast", label: "Podcast" },
