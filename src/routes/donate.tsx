@@ -240,7 +240,37 @@ function Donate() {
               onSubmit={onSubmit}
               className="border border-line bg-cream p-6 md:p-8"
             >
-              <div className="mono-tag text-ember">Choose an amount</div>
+              <div className="mono-tag text-ember">Giving frequency</div>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                {(
+                  [
+                    { id: "monthly" as const, label: "Monthly", sub: "Keeps it going" },
+                    { id: "once" as const, label: "One time", sub: "A single gift" },
+                  ]
+                ).map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => setFrequency(f.id)}
+                    className={`flex flex-col items-start border px-4 py-3 text-left transition-colors ${
+                      frequency === f.id
+                        ? "border-ember bg-ember text-white"
+                        : "border-line text-ink hover:border-ember"
+                    }`}
+                  >
+                    <span className="text-sm font-bold tracking-tight">{f.label}</span>
+                    <span
+                      className={`text-[10px] uppercase tracking-[0.12em] ${
+                        frequency === f.id ? "text-white/80" : "text-ink/55"
+                      }`}
+                    >
+                      {f.sub}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              <div className="mono-tag mt-6 text-ember">Choose an amount</div>
               <div className="mt-4 grid grid-cols-3 gap-2">
                 {AMOUNTS.map((a) => (
                   <button
