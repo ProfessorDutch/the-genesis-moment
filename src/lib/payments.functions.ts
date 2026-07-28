@@ -4,7 +4,7 @@ import Stripe from "stripe";
 const GHL_ENDPOINT = "https://emmy-call-flow-fix.lovable.app/api/public/ghl-lead";
 
 export const createDonationCheckout = createServerFn({ method: "POST" })
-  .validator(
+  .inputValidator(
     (data: {
       amount: number;
       frequency: "monthly" | "once";
