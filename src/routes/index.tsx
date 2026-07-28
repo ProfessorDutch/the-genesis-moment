@@ -205,7 +205,7 @@ function Home() {
                 alt: "A veteran contractor and a young apprentice on a jobsite at golden hour.",
               },
               {
-                num: "03 · The Healing",
+                num: "The Healing",
                 title: "Thoughtcasts",
                 copy: "How to heal the wounds underneath. Short spoken pieces on faith, identity, failure, forgiveness — the work between the stories.",
                 cta: "Listen to a Thoughtcast",
