@@ -372,7 +372,7 @@ function Donate() {
               >
                 {status === "sending"
                   ? "Sending…"
-                  : `Give $${amount || "—"}`}
+                  : `Give $${amount || "—"}${frequency === "monthly" ? " / month" : ""}`}
                 {status !== "sending" && <ArrowRight size={14} />}
               </button>
               <p className="mt-3 text-center text-[11px] uppercase tracking-[0.14em] text-ink/50">
