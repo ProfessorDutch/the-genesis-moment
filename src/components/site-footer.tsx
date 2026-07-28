@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import wordmark from "@/assets/genesis-moment-wordmark.png.asset.json";
+const wordmark = { url: "/brand/genesis-moment-wordmark.png" };
 
 export function SiteFooter() {
   return (
