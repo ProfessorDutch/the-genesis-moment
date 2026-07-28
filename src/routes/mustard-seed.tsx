@@ -94,8 +94,8 @@ function MustardSeed() {
               <p>
                 A percentage of what this show generates funds trade
                 education — scholarships and training for kids who need
-                someone to bet on them before they've earned it, funded by
-                the same industry they're entering.
+                someone to open the door before the work speaks for them,
+                funded by the same industry they're entering.
               </p>
               <p>Not a charity pitch. Not a fundraiser. Just the belief, put into motion.</p>
               <p>
