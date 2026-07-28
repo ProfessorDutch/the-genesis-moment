@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { Play } from "lucide-react";
-import { episodes } from "@/lib/content";
+import { episodes as staticEpisodes } from "@/lib/content";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/podcast")({
   head: () => ({
@@ -24,6 +26,31 @@ export const Route = createFileRoute("/podcast")({
 });
 
 function PodcastIndex() {
+  const { data: dbRows } = useQuery({
+    queryKey: ["public", "episodes", "podcast"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("episodes")
+        .select("slug, title, excerpt, duration, episode_number, image_url, guest_name_override, role_override, guests(name, role)")
+        .eq("type", "podcast")
+        .eq("status", "published")
+        .order("published_at", { ascending: false });
+      return data ?? [];
+    },
+  });
+  const episodes =
+    dbRows && dbRows.length > 0
+      ? dbRows.map((r, i) => ({
+          slug: r.slug,
+          number: r.episode_number ?? i + 1,
+          guest: r.guest_name_override || r.guests?.name || "",
+          role: r.role_override || r.guests?.role || "",
+          title: r.title,
+          excerpt: r.excerpt ?? "",
+          duration: r.duration ?? "",
+          image: r.image_url ?? undefined,
+        }))
+      : staticEpisodes;
   const [featured, ...rest] = episodes;
   return (
     <div>
