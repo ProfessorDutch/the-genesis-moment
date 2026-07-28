@@ -196,7 +196,7 @@ function Home() {
                 alt: "A carpenter pauses at his workbench beside a window of warm afternoon light.",
               },
               {
-                num: "02 · The How",
+                num: "The How",
                 title: "The Genesis Moment",
                 copy: "How it happened for them. Long-form conversations about the seasons before anyone knew — and the person who believed first.",
                 cta: "See what's coming",
