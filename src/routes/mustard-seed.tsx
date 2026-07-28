@@ -8,17 +8,17 @@ import chapelQuiet from "@/assets/chapel-quiet.jpg";
 export const Route = createFileRoute("/mustard-seed")({
   head: () => ({
     meta: [
-      { title: "The Mustard Seed — Betting on the next kid" },
+      { title: "The Mustard Seed — Opening the door" },
       {
         name: "description",
         content:
-          "A percentage of everything this show generates funds trade education — scholarships and training for the next plumber, electrician, roofer who needs someone to go first for them.",
+          "A percentage of everything this show generates funds trade education — scholarships and training for the next plumber, electrician, roofer who needs someone to open the door before the work speaks for them.",
       },
       { property: "og:title", content: "The Mustard Seed — The Reason" },
       {
         property: "og:description",
         content:
-          "Somebody bet on the guest sitting across from us. This is us betting on the next one.",
+          "We open the door before the work speaks for him. We open the door, and invest in people who don't totally believe in themselves.",
       },
       { property: "og:url", content: "/mustard-seed" },
     ],
@@ -61,9 +61,9 @@ function MustardSeed() {
             We did.
           </p>
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-cream/85 md:text-xl">
-            Every episode of this show exists because somebody bet on somebody else before there was
-            proof it would pay off. That's the whole premise — the moment where belief showed up
-            before the evidence did. The Mustard Seed is that same bet, pointed at a kid.
+            Every episode of this show exists because somebody opened a door for somebody else before
+            the work spoke for them. That's the whole premise — the moment where belief showed up
+            before the evidence did. The Mustard Seed is that same door, held open for a kid.
           </p>
         </div>
       </section>
@@ -75,7 +75,7 @@ function MustardSeed() {
             <div className="section-label mb-5">Where the money goes</div>
             <p className="font-serif text-2xl leading-[1.1] tracking-[-0.03em] text-ink sm:text-3xl md:text-4xl">
               Trade education for the next plumber, electrician, and roofer
-              who needs someone to go first for them.
+              who needs someone to open the door before the work speaks for them.
             </p>
             <figure className="mt-10">
               <img
@@ -94,8 +94,8 @@ function MustardSeed() {
               <p>
                 A percentage of what this show generates funds trade
                 education — scholarships and training for kids who need
-                someone to bet on them before they've earned it, funded by
-                the same industry they're entering.
+                someone to open the door before the work speaks for them,
+                funded by the same industry they're entering.
               </p>
               <p>Not a charity pitch. Not a fundraiser. Just the belief, put into motion.</p>
               <p>
@@ -144,8 +144,8 @@ function MustardSeed() {
               <h3 className="font-serif text-2xl leading-tight tracking-[-0.02em]">The Genesis Moment</h3>
               <p className="mt-3 text-base leading-relaxed text-ink/75">
                 Long-form conversations with faith-driven owners about the
-                exact moment someone bet on them — and what grew from that
-                bet.
+                exact moment someone opened the door for them — and what grew
+                from that yes.
               </p>
             </div>
             <div className="border-t-2 border-ink/25 pt-5">
@@ -181,31 +181,31 @@ function MustardSeed() {
         </div>
       </section>
 
-      {/* WHO WE GO FIRST FOR */}
+      {/* WHO WE OPEN THE DOOR FOR */}
       <section className="bg-paper px-5 py-16 sm:py-20 md:px-8 md:py-28">
         <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-7">
-            <div className="section-label mb-4">Who we go first for</div>
+            <div className="section-label mb-4">Who we open the door for</div>
             <h2 className="font-serif text-3xl leading-[1.06] tracking-[-0.035em] sm:text-4xl md:text-6xl md:leading-[1.02]">
-              The kid standing at the door of a trade he hasn't been invited into yet.
+              We open the door before the work speaks for him.
             </h2>
             <p className="mt-6 max-w-2xl font-serif text-xl leading-snug tracking-[-0.02em] text-ink/80 sm:text-2xl md:mt-8 md:text-3xl">
-              He isn't asking for a handout. He's asking for a door.
+              We open the door, and invest in people who don't totally believe in themselves.
             </p>
             <div className="mt-8 max-w-2xl space-y-5 text-base leading-relaxed text-ink/80 sm:text-lg md:mt-10 md:text-xl">
               <p>
-                Every owner on this feed can name the person who went first for
-                them before there was proof. A dad who cosigned. A boss who
-                looked past the résumé. A stranger who handed over a set of keys
-                and said, "Figure it out."
+                Every owner on this feed remembers what it felt like to stand
+                outside a trade they weren't sure they belonged in. Not broken.
+                Not lazy. Just young, uncertain, and one conversation away from
+                never trying.
               </p>
               <p>
-                The Mustard Seed is us becoming that person for the next kid —
-                the one who showed up early, tool bag empty, hoping somebody
-                would read the want in his eyes as worthiness.
+                The Mustard Seed is us becoming that yes for the next kid — the
+                one who showed up early, tool bag empty, hoping somebody would
+                read the want in his eyes as worthiness.
               </p>
               <p className="font-semibold text-ink">
-                We open the door before the work speaks for him.
+                He isn't asking for a handout. He's asking for a door.
               </p>
             </div>
           </div>
@@ -226,8 +226,8 @@ function MustardSeed() {
       <section className="bg-ember px-5 py-20 text-white sm:py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-4xl">
           <p className="font-serif text-2xl leading-[1.1] tracking-[-0.035em] sm:text-3xl md:text-5xl md:leading-[1.05]">
-            Somebody bet on the guest sitting across from us. This is us
-            betting on the next one.
+            Somebody opened the door for the guest sitting across from us. This
+            is us opening it for the next one.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap md:mt-12">
             <Link
