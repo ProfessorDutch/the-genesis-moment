@@ -1,4 +1,5 @@
 import heroCraftsman from "@/assets/hero-craftsman.jpg";
+import epFirstToolbox from "@/assets/ep-first-toolbox.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import mustardYouth from "@/assets/mustard-youth.jpg";
 import msDoorway from "@/assets/ms-doorway.jpg";
