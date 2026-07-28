@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import pewLight from "@/assets/pew-light.jpg";
-
-const GHL_ENDPOINT = "https://emmy-call-flow-fix.lovable.app/api/public/ghl-lead";
+import { createDonationCheckout } from "@/lib/payments.functions";
+import { useServerFn } from "@tanstack/react-start";
 
 const AMOUNTS = [25, 50, 100, 250, 500, 1000] as const;
 
@@ -30,6 +30,7 @@ export const Route = createFileRoute("/donate")({
 });
 
 function Donate() {
+  const checkout = useServerFn(createDonationCheckout);
   const [frequency, setFrequency] = useState<"monthly" | "once">("monthly");
   const [selected, setSelected] = useState<number | "other">(25);
   const [custom, setCustom] = useState("");
@@ -66,30 +67,18 @@ function Donate() {
     }
     setStatus("sending");
     try {
-      const [first_name, ...rest] = name.split(" ");
-      const last_name = rest.join(" ") || "—";
-      const res = await fetch(GHL_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          first_name,
-          last_name,
-          email,
-          phone: form.phone.trim(),
-          business_name: "The Genesis Moment — Donation",
-          website: `https://thegenesismoment.com/donate?amount=${amount}&freq=${frequency}`,
-          message: form.message.trim(),
+      const { url } = await checkout({
+        data: {
           amount,
           frequency,
-          gift_type: frequency === "monthly" ? "recurring_monthly" : "one_time",
-          source: `genesis-moment-donate-${frequency}`,
-        }),
+          email,
+          name,
+          phone: form.phone.trim(),
+          message: form.message.trim(),
+        },
       });
-      if (!res.ok) {
-        const t = await res.text();
-        throw new Error(t || "Submission failed");
-      }
       setStatus("sent");
+      window.location.href = url;
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Something went wrong.");
@@ -219,15 +208,13 @@ function Donate() {
 
           {status === "sent" ? (
             <div className="border border-ember bg-cream p-8">
-              <div className="mono-tag text-ember">Received</div>
+              <div className="mono-tag text-ember">Redirecting</div>
               <h3 className="mt-3 font-serif text-2xl leading-snug tracking-[-0.02em]">
                 Thank you, {form.name.split(" ")[0] || "friend"}.
               </h3>
               <p className="mt-3 text-ink/75">
-                We&rsquo;ll reach you at {form.email} within one business day with a secure
-                giving link for ${amount}
-                {frequency === "monthly" ? " / month" : ""}. If you&rsquo;d rather give right now,
-                just reply to that email and we&rsquo;ll get you set up.
+                We&rsquo;re sending you to Stripe now to complete your ${amount}
+                {frequency === "monthly" ? " / month" : ""} gift securely.
               </p>
               <Link
                 to="/mustard-seed"
@@ -377,7 +364,7 @@ function Donate() {
                 {status !== "sending" && <ArrowRight size={14} />}
               </button>
               <p className="mt-3 text-center text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                We&rsquo;ll email a secure giving link · No card entered here
+                You will be redirected to Stripe to complete your gift securely
               </p>
             </form>
           )}
