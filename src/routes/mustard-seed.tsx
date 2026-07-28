@@ -226,8 +226,8 @@ function MustardSeed() {
       <section className="bg-ember px-5 py-20 text-white sm:py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-4xl">
           <p className="font-serif text-2xl leading-[1.1] tracking-[-0.035em] sm:text-3xl md:text-5xl md:leading-[1.05]">
-            Somebody bet on the guest sitting across from us. This is us
-            betting on the next one.
+            Somebody opened the door for the guest sitting across from us. This
+            is us opening it for the next one.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap md:mt-12">
             <Link
