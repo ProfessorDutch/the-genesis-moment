@@ -123,10 +123,31 @@ function TellYourStory() {
 
       <section id="form" className="bg-paper px-5 py-20 md:px-8 md:py-28">
         <div className="mx-auto max-w-2xl">
+          <div className="mb-8 border border-ember/40 bg-cream p-6 md:p-7">
+            <div className="section-label mb-2 text-ember">Rather talk than type?</div>
+            <div className="font-serif text-2xl leading-snug tracking-[-0.02em]">
+              Have Emmy call you and hear your nomination story.
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-ink/70">
+              Emmy is our intake voice. She'll listen, take notes, and pass the story to a founder.
+              No pitch. No script. Just talk.
+            </p>
+            <a
+              href="tel:+18443213669"
+              className="mt-5 inline-flex items-center gap-2 bg-ink-deep px-5 py-3 text-xs font-bold uppercase tracking-[0.14em] text-cream hover:-translate-y-0.5 transition-transform"
+            >
+              Call Emmy · 844-321-3669
+            </a>
+            <p className="mt-3 text-[11px] uppercase tracking-[0.12em] text-ink/50">
+              Or fill out the form below
+            </p>
+          </div>
+
           <div className="section-label mb-4">Or write to us</div>
           <h2 className="font-serif text-3xl leading-tight tracking-[-0.03em] md:text-4xl">
             Send your information.
           </h2>
+
 
           <div className="mt-8 inline-flex border border-line bg-cream">
             {[
