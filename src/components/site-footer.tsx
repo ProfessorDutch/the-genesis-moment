@@ -28,6 +28,7 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/tell-your-story" className="hover:text-ember">Tell your story</Link></li>
             <li><Link to="/tell-your-story" className="hover:text-ember">Nominate someone</Link></li>
+            <li><Link to="/donate" className="hover:text-ember">Support the work</Link></li>
           </ul>
         </div>
       </div>

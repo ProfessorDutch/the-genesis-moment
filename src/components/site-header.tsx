@@ -1,12 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/genesis-moment-logo.png.asset.json";
 
 const nav = [
   { to: "/podcast", label: "Podcast" },
   { to: "/thoughtcasts", label: "Thoughtcasts" },
   { to: "/mustard-seed", label: "The Mustard Seed" },
   { to: "/tell-your-story", label: "Tell Your Story" },
+  { to: "/donate", label: "Donate" },
 ] as const;
 
 export function SiteHeader() {
@@ -17,8 +19,15 @@ export function SiteHeader() {
         <Link
           to="/"
           onClick={() => setOpen(false)}
-          className="flex min-w-0 items-center text-ink"
+          className="flex min-w-0 items-center gap-3 text-ink"
         >
+          <img
+            src={logo.url}
+            alt="The Genesis Moment"
+            width={40}
+            height={46}
+            className="h-10 w-auto shrink-0"
+          />
           <span className="truncate font-serif text-lg font-bold tracking-tight md:text-xl">
             The Genesis Moment
           </span>
