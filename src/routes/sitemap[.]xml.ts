@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { episodes, thoughtcasts } from "@/lib/content";
 
-const BASE_URL = "";
+const BASE_URL = "https://thegenesismoment.com";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -14,6 +14,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/thoughtcasts",
           "/mustard-seed",
           "/tell-your-story",
+          "/donate",
           ...episodes.map((e) => `/podcast/${e.slug}`),
           ...thoughtcasts.map((t) => `/thoughtcasts/${t.slug}`),
         ];
