@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Play } from "lucide-react";
-import { episodes as staticEpisodes } from "@/lib/content";
-import { supabase } from "@/integrations/supabase/client";
+import { entryImage, fetchCollection } from "@/lib/entries";
 import stillMic from "@/assets/still-mic.jpg";
 import {
   abs,
