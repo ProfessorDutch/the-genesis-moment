@@ -61,36 +61,26 @@ export const Route = createFileRoute("/podcast")({
 
 
 function PodcastIndex() {
-  const { data: dbRows } = useQuery({
-    queryKey: ["public", "episodes", "podcast"],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("episodes")
-        .select("slug, title, excerpt, duration, episode_number, image_url, guest_name_override, role_override, guests(name, role, business, city, website, instagram, x_handle, linkedin, bio)")
-        .eq("type", "podcast")
-        .eq("status", "published")
-        .order("published_at", { ascending: false });
-      return data ?? [];
-    },
+  const { data: rows } = useQuery({
+    queryKey: ["public", "collection", "podcast"],
+    queryFn: () => fetchCollection("podcast"),
   });
-  const episodes =
-    dbRows && dbRows.length > 0
-      ? dbRows.map((r, i) => ({
-          slug: r.slug,
-          number: r.episode_number ?? i + 1,
-          guest: r.guest_name_override || r.guests?.name || "",
-          role: r.role_override || r.guests?.role || "",
-          business: r.guests?.business ?? "",
-          city: r.guests?.city ?? "",
-          website: r.guests?.website ?? "",
-          bio: r.guests?.bio ?? "",
-          title: r.title,
-          excerpt: r.excerpt ?? "",
-          duration: r.duration ?? "",
-          image: r.image_url ?? undefined,
-        }))
-      : staticEpisodes.map((e) => ({ ...e, business: "", city: "", website: "", bio: e.description }));
+  const episodes = (rows ?? [])
+    .slice()
+    .sort((a, b) => Number(b.featured) - Number(a.featured))
+    .map((r, i) => ({
+      slug: r.slug,
+      number: r.episode_number ?? i + 1,
+      guest: r.guest_name_override ?? "",
+      role: r.role_override ?? "",
+      city: "",
+      title: r.title,
+      excerpt: r.short_description ?? "",
+      duration: r.audio_duration || r.duration || "",
+      image: entryImage(r),
+    }));
   const [featured, ...rest] = episodes;
+
   return (
     <div>
       {/* HERO */}
