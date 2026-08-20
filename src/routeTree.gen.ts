@@ -82,9 +82,9 @@ const PodcastIndexRoute = PodcastIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ThoughtcastsSlugRoute = ThoughtcastsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ThoughtcastsRoute,
+  id: '/thoughtcasts/$slug',
+  path: '/thoughtcasts/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PreviewTokenRoute = PreviewTokenRouteImport.update({
   id: '/preview/$token',
@@ -92,9 +92,9 @@ const PreviewTokenRoute = PreviewTokenRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const PodcastSlugRoute = PodcastSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => PodcastRoute,
+  id: '/podcast/$slug',
+  path: '/podcast/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
@@ -238,7 +238,9 @@ export interface RootRouteChildren {
   PaymentSuccessRoute: typeof PaymentSuccessRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TellYourStoryRoute: typeof TellYourStoryRoute
+  PodcastSlugRoute: typeof PodcastSlugRoute
   PreviewTokenRoute: typeof PreviewTokenRoute
+  ThoughtcastsSlugRoute: typeof ThoughtcastsSlugRoute
   PodcastIndexRoute: typeof PodcastIndexRoute
   ThoughtcastsIndexRoute: typeof ThoughtcastsIndexRoute
 }
@@ -324,10 +326,10 @@ declare module '@tanstack/react-router' {
     }
     '/thoughtcasts/$slug': {
       id: '/thoughtcasts/$slug'
-      path: '/$slug'
+      path: '/thoughtcasts/$slug'
       fullPath: '/thoughtcasts/$slug'
       preLoaderRoute: typeof ThoughtcastsSlugRouteImport
-      parentRoute: typeof ThoughtcastsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/preview/$token': {
       id: '/preview/$token'
@@ -338,10 +340,10 @@ declare module '@tanstack/react-router' {
     }
     '/podcast/$slug': {
       id: '/podcast/$slug'
-      path: '/$slug'
+      path: '/podcast/$slug'
       fullPath: '/podcast/$slug'
       preLoaderRoute: typeof PodcastSlugRouteImport
-      parentRoute: typeof PodcastRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
@@ -402,7 +404,9 @@ const rootRouteChildren: RootRouteChildren = {
   PaymentSuccessRoute: PaymentSuccessRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TellYourStoryRoute: TellYourStoryRoute,
+  PodcastSlugRoute: PodcastSlugRoute,
   PreviewTokenRoute: PreviewTokenRoute,
+  ThoughtcastsSlugRoute: ThoughtcastsSlugRoute,
   PodcastIndexRoute: PodcastIndexRoute,
   ThoughtcastsIndexRoute: ThoughtcastsIndexRoute,
 }
