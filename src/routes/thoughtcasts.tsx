@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { thoughtcasts as staticThoughtcasts } from "@/lib/content";
-import { supabase } from "@/integrations/supabase/client";
+import { entryImage, fetchCollection } from "@/lib/entries";
 import chapelQuiet from "@/assets/chapel-quiet.jpg";
 import {
   abs,
