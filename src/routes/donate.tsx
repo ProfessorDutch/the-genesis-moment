@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { abs } from "@/lib/site";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import pewLight from "@/assets/pew-light.jpg";
@@ -22,9 +23,11 @@ export const Route = createFileRoute("/donate")({
         content:
           "Help us gather and preserve the stories that let a young person recognize themselves in the beginning.",
       },
-      { property: "og:url", content: "/donate" },
+      { property: "og:url", content: abs("/donate") },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/donate" }],
+    links: [{ rel: "canonical", href: abs("/donate") }],
   }),
   component: Donate,
 });

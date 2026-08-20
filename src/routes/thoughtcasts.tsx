@@ -4,27 +4,75 @@ import { useQuery } from "@tanstack/react-query";
 import { thoughtcasts as staticThoughtcasts } from "@/lib/content";
 import { supabase } from "@/integrations/supabase/client";
 import chapelQuiet from "@/assets/chapel-quiet.jpg";
+import {
+  abs,
+  CREATOR_ID,
+  CREATOR_URL,
+  jsonLd,
+  personNode,
+  SITE_URL,
+  THOUGHTCAST_SERIES_ID,
+  THOUGHTCAST_TERM_ID,
+  THOUGHTCAST_TERM_URL,
+  WEBSITE_ID,
+} from "@/lib/site";
+
+const TC_DESCRIPTION =
+  "Thoughtcasts are short spoken works created by Jason \u201CDutch\u201D Brown that isolate the thought inside a larger human story.";
+const TC_TITLE = "Thoughtcasts\u2122 — The Thought Inside the Story | The Genesis Moment";
 
 export const Route = createFileRoute("/thoughtcasts")({
   head: () => ({
     meta: [
-      { title: "Thoughtcasts — The Genesis Moment" },
-      {
-        name: "description",
-        content:
-          "Short spoken pieces about faith, identity, failure, forgiveness, and the way human beings affect one another.",
-      },
-      { property: "og:title", content: "Thoughtcasts — The Genesis Moment" },
-      {
-        property: "og:description",
-        content: "Short thoughts worth stopping for. Faith, becoming, and the moments in between.",
-      },
-      { property: "og:url", content: "/thoughtcasts" },
+      { title: TC_TITLE },
+      { name: "description", content: TC_DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: TC_TITLE },
+      { property: "og:description", content: TC_DESCRIPTION },
+      { property: "og:url", content: abs("/thoughtcasts") },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TC_TITLE },
+      { name: "twitter:description", content: TC_DESCRIPTION },
     ],
-    links: [{ rel: "canonical", href: "/thoughtcasts" }],
+    links: [{ rel: "canonical", href: abs("/thoughtcasts") }],
+    scripts: jsonLd([
+      {
+        "@type": "CollectionPage",
+        "@id": `${SITE_URL}/thoughtcasts#page`,
+        url: abs("/thoughtcasts"),
+        name: TC_TITLE,
+        description: TC_DESCRIPTION,
+        isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": THOUGHTCAST_TERM_ID },
+        creator: { "@id": CREATOR_ID },
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "CreativeWorkSeries",
+        "@id": THOUGHTCAST_SERIES_ID,
+        name: "Thoughtcasts",
+        alternateName: "Thoughtcasts\u2122",
+        url: abs("/thoughtcasts"),
+        description: TC_DESCRIPTION,
+        creator: { "@id": CREATOR_ID },
+        about: { "@id": THOUGHTCAST_TERM_ID },
+        isPartOf: { "@id": WEBSITE_ID },
+        hasPart: staticThoughtcasts.map((t) => ({
+          "@id": `${abs(`/thoughtcasts/${t.slug}`)}#article`,
+        })),
+      },
+      {
+        "@type": "DefinedTerm",
+        "@id": THOUGHTCAST_TERM_ID,
+        name: "Thoughtcast",
+        url: THOUGHTCAST_TERM_URL,
+      },
+      personNode,
+    ]),
   }),
   component: ThoughtcastsIndex,
 });
+
 
 function ThoughtcastsIndex() {
   const { data: dbRows } = useQuery({
@@ -92,6 +140,48 @@ function ThoughtcastsIndex() {
           </p>
         </div>
       </section>
+
+      {/* THE FORM — definition of record */}
+      <section className="bg-cream px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.7fr_1.3fr] md:gap-16">
+          <div className="section-label text-ember">The form</div>
+          <div className="space-y-6 text-lg leading-relaxed text-ink/85 md:text-xl">
+            <p>
+              A Thoughtcast&trade; is the name Jason &ldquo;Dutch&rdquo; Brown gave to a short
+              spoken work that isolates the thought inside a larger human story. It does not
+              summarize the story or celebrate its outcome. It names the belief, decision, failure,
+              forgiveness, or act of recognition that changed what became possible, so another
+              person can carry that thought into a life of their own.
+            </p>
+            <p>
+              Thoughtcasts&trade; were created by Jason &ldquo;Dutch&rdquo; Brown as part of The
+              Genesis Moment&trade;.
+            </p>
+            <p className="text-base text-ink/65">
+              The term, its definition, and its use as a distinct spoken form within this body of
+              work originate with{" "}
+              <a
+                href={CREATOR_URL}
+                className="underline decoration-ink/25 underline-offset-4 hover:text-ember"
+              >
+                Jason &ldquo;Dutch&rdquo; Brown
+              </a>
+              .
+            </p>
+            <div className="border-l-[3px] border-ember pl-5">
+              <p className="text-base text-ink/70">The form has a definition of record.</p>
+              <a
+                href={THOUGHTCAST_TERM_URL}
+                className="mt-2 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember"
+              >
+                Read the Thoughtcast&trade; definition &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
 
       {/* FILTER */}
       <section className="border-y border-line bg-paper px-5 py-4 md:px-8">

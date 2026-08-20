@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { abs } from "@/lib/site";
 import { ArrowRight } from "lucide-react";
 import mustardSprout from "@/assets/mustard-sprout.jpg";
 import shopWindow from "@/assets/shop-window-light.jpg";
@@ -20,9 +21,11 @@ export const Route = createFileRoute("/mustard-seed")({
         content:
           "We open the door before the work speaks for him. We open the door, and invest in people who don't totally believe in themselves.",
       },
-      { property: "og:url", content: "/mustard-seed" },
+      { property: "og:url", content: abs("/mustard-seed") },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/mustard-seed" }],
+    links: [{ rel: "canonical", href: abs("/mustard-seed") }],
   }),
   component: MustardSeed,
 });
@@ -120,6 +123,24 @@ function MustardSeed() {
           </div>
         </div>
       </section>
+
+      {/* THE LOOP — relationship of record */}
+      <section className="bg-ink-deep px-5 py-16 text-cream sm:py-20 md:px-8 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.7fr_1.3fr] md:gap-16">
+          <div className="section-label text-ember">The loop</div>
+          <div>
+            <p className="font-serif text-2xl leading-[1.1] tracking-[-0.03em] sm:text-3xl md:text-4xl">
+              The Mustard Seed is the reason. The Genesis Moment records how it happens.
+            </p>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-cream/80 md:text-xl">
+              The Genesis Moment records the people who opened doors before proof existed. The
+              Mustard Seed opens that kind of door for a young person entering the skilled trades.
+            </p>
+          </div>
+        </div>
+      </section>
+
+
 
       {/* THREE — how the pieces fit */}
       <section className="bg-cream px-5 py-16 sm:py-20 md:px-8 md:py-24">

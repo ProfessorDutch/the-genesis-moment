@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { abs } from "@/lib/site";
 import { useState } from "react";
 import stillMic from "@/assets/still-mic.jpg";
 import pewLight from "@/assets/pew-light.jpg";
@@ -19,9 +20,11 @@ export const Route = createFileRoute("/tell-your-story")({
         property: "og:description",
         content: "Maybe your story is the one somebody needs to hear.",
       },
-      { property: "og:url", content: "/tell-your-story" },
+      { property: "og:url", content: abs("/tell-your-story") },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/tell-your-story" }],
+    links: [{ rel: "canonical", href: abs("/tell-your-story") }],
   }),
   component: TellYourStory,
 });

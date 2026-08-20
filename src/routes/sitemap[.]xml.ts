@@ -15,7 +15,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/mustard-seed",
           "/tell-your-story",
           "/donate",
-          ...episodes.map((e) => `/podcast/${e.slug}`),
+          ...episodes.filter((e) => !e.placeholder).map((e) => `/podcast/${e.slug}`),
           ...thoughtcasts.map((t) => `/thoughtcasts/${t.slug}`),
         ];
         const xml = [

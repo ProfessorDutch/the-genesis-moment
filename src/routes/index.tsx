@@ -5,31 +5,83 @@ import heroCraftsman from "@/assets/hero-craftsman.jpg";
 import tcMentor from "@/assets/tc-mentor.jpg";
 import msDoorway from "@/assets/ms-doorway.jpg";
 import stillBible from "@/assets/still-bible.jpg";
+import {
+  abs,
+  CREATOR_ID,
+  CREATOR_URL,
+  GENESIS_TERM_ID,
+  GENESIS_TERM_URL,
+  jsonLd,
+  personNode,
+  PODCAST_SERIES_ID,
+  SITE_URL,
+  WEBSITE_ID,
+} from "@/lib/site";
 
 
 
+
+
+const HOME_DESCRIPTION =
+  "The Genesis Moment is a conversation series created by Jason \u201CDutch\u201D Brown, recording who people were before anyone knew and who believed in them before proof existed.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Genesis Moment — Who believed in you first?" },
-      {
-        name: "description",
-        content:
-          "A gathering of faith-based business owners telling the story of who they were before anyone knew — so the next generation can see themselves in the beginning.",
-      },
-      { property: "og:title", content: "The Genesis Moment — Who believed in you first?" },
-      {
-        property: "og:description",
-        content:
-          "The Mustard Seed is the reason. The Genesis Moment is how it happened. Thoughtcasts are how we heal.",
-      },
-      { property: "og:url", content: "/" },
+      { title: "The Genesis Moment\u2122 — Who Believed in You First?" },
+      { name: "description", content: HOME_DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: "The Genesis Moment\u2122 — Who Believed in You First?" },
+      { property: "og:description", content: HOME_DESCRIPTION },
+      { property: "og:url", content: abs("/") },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "The Genesis Moment\u2122 — Who Believed in You First?" },
+      { name: "twitter:description", content: HOME_DESCRIPTION },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: abs("/") }],
+    scripts: jsonLd([
+      {
+        "@type": "WebSite",
+        "@id": WEBSITE_ID,
+        url: abs("/"),
+        name: "The Genesis Moment",
+        alternateName: "The Genesis Moment\u2122",
+        description: HOME_DESCRIPTION,
+        inLanguage: "en-US",
+        creator: { "@id": CREATOR_ID },
+        about: { "@id": GENESIS_TERM_ID },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/#page`,
+        url: abs("/"),
+        name: "The Genesis Moment\u2122 — Who Believed in You First?",
+        isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": GENESIS_TERM_ID },
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "PodcastSeries",
+        "@id": PODCAST_SERIES_ID,
+        url: abs("/podcast"),
+        name: "The Genesis Moment",
+        description:
+          "Long-form conversations with faith-based business owners about who they were before the success was visible and who believed in them first.",
+        creator: { "@id": CREATOR_ID },
+        isPartOf: { "@id": WEBSITE_ID },
+      },
+      personNode,
+      {
+        "@type": "DefinedTerm",
+        "@id": GENESIS_TERM_ID,
+        name: "The Genesis Moment",
+        url: GENESIS_TERM_URL,
+      },
+    ]),
   }),
   component: Home,
 });
+
 
 function Home() {
   return (
@@ -118,6 +170,54 @@ function Home() {
           </aside>
         </div>
       </section>
+
+      {/* THE DEFINITION — definition of record */}
+      <section className="bg-cream px-5 py-20 md:px-8 md:py-28">
+        <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-20">
+          <div>
+            <div className="section-label mb-4 text-ember">The definition</div>
+            <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.035em] md:text-5xl">
+              Belief before proof.
+            </h2>
+          </div>
+          <div className="space-y-6 text-lg leading-relaxed text-ink/85 md:text-xl">
+            <p>
+              The Genesis Moment&trade; is the name Jason &ldquo;Dutch&rdquo; Brown gave to the
+              moment someone believes in who another person can become before there is enough
+              proof to justify that belief. It may arrive as an opportunity, an introduction, an
+              investment, a prayer, or a single yes. The outcome belongs to the person who
+              eventually becomes visible; the Genesis Moment belongs to the person who saw them
+              before anyone knew.
+            </p>
+            <p>
+              The Genesis Moment&trade; is also the conversation series created by Jason
+              &ldquo;Dutch&rdquo; Brown to record those stories&mdash;who people were before the
+              outcome was visible, who believed in them first, and what that belief made possible.
+            </p>
+            <p className="text-base text-ink/65">
+              The term, its definition, and its use within this body of work originate with{" "}
+              <a
+                href={CREATOR_URL}
+                className="underline decoration-ink/25 underline-offset-4 hover:text-ember"
+              >
+                Jason &ldquo;Dutch&rdquo; Brown
+              </a>
+              .
+            </p>
+            <div className="border-l-[3px] border-ember pl-5">
+              <p className="text-base text-ink/70">The canonical definition lives with its creator.</p>
+              <a
+                href={GENESIS_TERM_URL}
+                className="mt-2 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ember"
+              >
+                Read the definition of record &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
 
 
       {/* THE MUSTARD SEED — the reason (with imagery) */}
