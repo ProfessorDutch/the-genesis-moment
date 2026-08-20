@@ -14,68 +14,128 @@ export type Database = {
   }
   public: {
     Tables: {
+      content_redirects: {
+        Row: {
+          created_at: string
+          from_slug: string
+          id: string
+          to_slug: string
+          type: Database["public"]["Enums"]["content_type"]
+        }
+        Insert: {
+          created_at?: string
+          from_slug: string
+          id?: string
+          to_slug: string
+          type: Database["public"]["Enums"]["content_type"]
+        }
+        Update: {
+          created_at?: string
+          from_slug?: string
+          id?: string
+          to_slug?: string
+          type?: Database["public"]["Enums"]["content_type"]
+        }
+        Relationships: []
+      }
       episodes: {
         Row: {
+          audio_duration: string | null
+          audio_url: string | null
+          author_id: string | null
+          author_name: string | null
+          body: string | null
           created_at: string
           description: string | null
           duration: string | null
           episode_number: number | null
           excerpt: string | null
+          featured: boolean
+          guest_description: string | null
           guest_id: string | null
           guest_name_override: string | null
           id: string
           image_url: string | null
           instagram_url: string | null
+          preview_token: string
           published_at: string | null
           role_override: string | null
+          scheduled_at: string | null
+          short_description: string | null
           slug: string
+          social_image: string | null
           status: Database["public"]["Enums"]["content_status"]
           tags: string[]
           title: string
+          transcript: string | null
           type: Database["public"]["Enums"]["content_type"]
           updated_at: string
           youtube_id: string | null
           youtube_url: string | null
         }
         Insert: {
+          audio_duration?: string | null
+          audio_url?: string | null
+          author_id?: string | null
+          author_name?: string | null
+          body?: string | null
           created_at?: string
           description?: string | null
           duration?: string | null
           episode_number?: number | null
           excerpt?: string | null
+          featured?: boolean
+          guest_description?: string | null
           guest_id?: string | null
           guest_name_override?: string | null
           id?: string
           image_url?: string | null
           instagram_url?: string | null
+          preview_token?: string
           published_at?: string | null
           role_override?: string | null
+          scheduled_at?: string | null
+          short_description?: string | null
           slug: string
+          social_image?: string | null
           status?: Database["public"]["Enums"]["content_status"]
           tags?: string[]
           title: string
+          transcript?: string | null
           type: Database["public"]["Enums"]["content_type"]
           updated_at?: string
           youtube_id?: string | null
           youtube_url?: string | null
         }
         Update: {
+          audio_duration?: string | null
+          audio_url?: string | null
+          author_id?: string | null
+          author_name?: string | null
+          body?: string | null
           created_at?: string
           description?: string | null
           duration?: string | null
           episode_number?: number | null
           excerpt?: string | null
+          featured?: boolean
+          guest_description?: string | null
           guest_id?: string | null
           guest_name_override?: string | null
           id?: string
           image_url?: string | null
           instagram_url?: string | null
+          preview_token?: string
           published_at?: string | null
           role_override?: string | null
+          scheduled_at?: string | null
+          short_description?: string | null
           slug?: string
+          social_image?: string | null
           status?: Database["public"]["Enums"]["content_status"]
           tags?: string[]
           title?: string
+          transcript?: string | null
           type?: Database["public"]["Enums"]["content_type"]
           updated_at?: string
           youtube_id?: string | null
@@ -186,6 +246,49 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_preview_entry: {
+        Args: { _token: string }
+        Returns: {
+          audio_duration: string | null
+          audio_url: string | null
+          author_id: string | null
+          author_name: string | null
+          body: string | null
+          created_at: string
+          description: string | null
+          duration: string | null
+          episode_number: number | null
+          excerpt: string | null
+          featured: boolean
+          guest_description: string | null
+          guest_id: string | null
+          guest_name_override: string | null
+          id: string
+          image_url: string | null
+          instagram_url: string | null
+          preview_token: string
+          published_at: string | null
+          role_override: string | null
+          scheduled_at: string | null
+          short_description: string | null
+          slug: string
+          social_image: string | null
+          status: Database["public"]["Enums"]["content_status"]
+          tags: string[]
+          title: string
+          transcript: string | null
+          type: Database["public"]["Enums"]["content_type"]
+          updated_at: string
+          youtube_id: string | null
+          youtube_url: string | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "episodes"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
