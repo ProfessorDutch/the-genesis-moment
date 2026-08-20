@@ -23,7 +23,7 @@ import { Route as PodcastIndexRouteImport } from './routes/podcast.index'
 import { Route as ThoughtcastsSlugRouteImport } from './routes/thoughtcasts.$slug'
 import { Route as PreviewTokenRouteImport } from './routes/preview.$token'
 import { Route as PodcastSlugRouteImport } from './routes/podcast.$slug'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as AuthenticatedAdminGuestsIdRouteImport } from './routes/_authenticated.admin.guests.$id'
 import { Route as AuthenticatedAdminEpisodesIdRouteImport } from './routes/_authenticated.admin.episodes.$id'
 
@@ -96,22 +96,22 @@ const PodcastSlugRoute = PodcastSlugRouteImport.update({
   path: '/podcast/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedAdminGuestsIdRoute =
   AuthenticatedAdminGuestsIdRouteImport.update({
-    id: '/guests/$id',
-    path: '/guests/$id',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    id: '/admin/guests/$id',
+    path: '/admin/guests/$id',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedAdminEpisodesIdRoute =
   AuthenticatedAdminEpisodesIdRouteImport.update({
-    id: '/episodes/$id',
-    path: '/episodes/$id',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    id: '/admin/episodes/$id',
+    path: '/admin/episodes/$id',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -123,12 +123,12 @@ export interface FileRoutesByFullPath {
   '/payment-success': typeof PaymentSuccessRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
   '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
   '/podcast/': typeof PodcastIndexRoute
   '/thoughtcasts/': typeof ThoughtcastsIndexRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/episodes/$id': typeof AuthenticatedAdminEpisodesIdRoute
   '/admin/guests/$id': typeof AuthenticatedAdminGuestsIdRoute
 }
@@ -141,12 +141,12 @@ export interface FileRoutesByTo {
   '/payment-success': typeof PaymentSuccessRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
   '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
   '/podcast': typeof PodcastIndexRoute
   '/thoughtcasts': typeof ThoughtcastsIndexRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/episodes/$id': typeof AuthenticatedAdminEpisodesIdRoute
   '/admin/guests/$id': typeof AuthenticatedAdminGuestsIdRoute
 }
@@ -161,12 +161,12 @@ export interface FileRoutesById {
   '/payment-success': typeof PaymentSuccessRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
   '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
   '/podcast/': typeof PodcastIndexRoute
   '/thoughtcasts/': typeof ThoughtcastsIndexRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/episodes/$id': typeof AuthenticatedAdminEpisodesIdRoute
   '/_authenticated/admin/guests/$id': typeof AuthenticatedAdminGuestsIdRoute
 }
@@ -181,12 +181,12 @@ export interface FileRouteTypes {
     | '/payment-success'
     | '/sitemap.xml'
     | '/tell-your-story'
-    | '/admin'
     | '/podcast/$slug'
     | '/preview/$token'
     | '/thoughtcasts/$slug'
     | '/podcast/'
     | '/thoughtcasts/'
+    | '/admin/'
     | '/admin/episodes/$id'
     | '/admin/guests/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -199,12 +199,12 @@ export interface FileRouteTypes {
     | '/payment-success'
     | '/sitemap.xml'
     | '/tell-your-story'
-    | '/admin'
     | '/podcast/$slug'
     | '/preview/$token'
     | '/thoughtcasts/$slug'
     | '/podcast'
     | '/thoughtcasts'
+    | '/admin'
     | '/admin/episodes/$id'
     | '/admin/guests/$id'
   id:
@@ -218,12 +218,12 @@ export interface FileRouteTypes {
     | '/payment-success'
     | '/sitemap.xml'
     | '/tell-your-story'
-    | '/_authenticated/admin'
     | '/podcast/$slug'
     | '/preview/$token'
     | '/thoughtcasts/$slug'
     | '/podcast/'
     | '/thoughtcasts/'
+    | '/_authenticated/admin/'
     | '/_authenticated/admin/episodes/$id'
     | '/_authenticated/admin/guests/$id'
   fileRoutesById: FileRoutesById
@@ -345,49 +345,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PodcastSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
       path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/admin/guests/$id': {
       id: '/_authenticated/admin/guests/$id'
-      path: '/guests/$id'
+      path: '/admin/guests/$id'
       fullPath: '/admin/guests/$id'
       preLoaderRoute: typeof AuthenticatedAdminGuestsIdRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/admin/episodes/$id': {
       id: '/_authenticated/admin/episodes/$id'
-      path: '/episodes/$id'
+      path: '/admin/episodes/$id'
       fullPath: '/admin/episodes/$id'
       preLoaderRoute: typeof AuthenticatedAdminEpisodesIdRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedRoute
     }
   }
 }
 
-interface AuthenticatedAdminRouteChildren {
+interface AuthenticatedRouteChildren {
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminEpisodesIdRoute: typeof AuthenticatedAdminEpisodesIdRoute
   AuthenticatedAdminGuestsIdRoute: typeof AuthenticatedAdminGuestsIdRoute
 }
 
-const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedAdminEpisodesIdRoute: AuthenticatedAdminEpisodesIdRoute,
   AuthenticatedAdminGuestsIdRoute: AuthenticatedAdminGuestsIdRoute,
-}
-
-const AuthenticatedAdminRouteWithChildren =
-  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
-
-interface AuthenticatedRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
-}
-
-const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

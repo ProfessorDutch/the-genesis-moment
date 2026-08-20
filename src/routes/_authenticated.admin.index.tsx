@@ -11,7 +11,7 @@ import {
   type EntryStatus,
 } from "@/lib/publishing";
 
-export const Route = createFileRoute("/_authenticated/admin")({
+export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({
     meta: [
       { title: "Admin — The Genesis Moment" },
