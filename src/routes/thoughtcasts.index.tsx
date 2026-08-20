@@ -21,7 +21,7 @@ const TC_DESCRIPTION =
   "Short spoken pieces about faith, identity, failure, forgiveness, and the way human beings affect one another.";
 const TC_TITLE = "Thoughtcasts — The Genesis Moment";
 
-export const Route = createFileRoute("/thoughtcasts")({
+export const Route = createFileRoute("/thoughtcasts/")({
   head: () => ({
     meta: [
       { title: TC_TITLE },

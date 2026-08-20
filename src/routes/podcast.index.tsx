@@ -17,7 +17,7 @@ import {
 const PODCAST_DESCRIPTION =
   "Long-form conversations from The Genesis Moment with faith-based business owners about who they were before success was visible and who believed in them first.";
 
-export const Route = createFileRoute("/podcast")({
+export const Route = createFileRoute("/podcast/")({
   head: () => ({
     meta: [
       { title: "Podcast — The Genesis Moment\u2122" },
