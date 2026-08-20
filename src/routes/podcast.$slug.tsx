@@ -1,8 +1,14 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { ArrowLeft, Share2 } from "lucide-react";
-import { episodes, getEpisode, thoughtcasts } from "@/lib/content";
+import { fetchCollection, fetchEntry, fetchRedirect, entryImage } from "@/lib/entries";
 import {
-  abs,
+  canonicalUrl,
+  effectiveStatus,
+  robotsFor,
+  schemaType,
+  titleTag,
+} from "@/lib/publishing";
+import {
   CREATOR_ID,
   jsonLd,
   personNode,
@@ -11,54 +17,90 @@ import {
 } from "@/lib/site";
 
 export const Route = createFileRoute("/podcast/$slug")({
-  loader: ({ params }) => {
-    const ep = getEpisode(params.slug);
-    if (!ep) throw notFound();
-    return ep;
+  loader: async ({ params }) => {
+    const entry = await fetchEntry("podcast", params.slug);
+    if (!entry) {
+      const to = await fetchRedirect("podcast", params.slug);
+      if (to) throw redirect({ to: "/podcast/$slug", params: { slug: to }, statusCode: 301 });
+      throw notFound();
+    }
+    const others = (await fetchCollection("podcast"))
+      .filter((e) => e.slug !== entry.slug)
+      .slice(0, 3);
+    return { entry, others };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Episode not found" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Episode not found" }, { name: "robots", content: "noindex, nofollow" }],
       };
     }
-    const url = abs(`/podcast/${params.slug}`);
-    const isPlaceholder = loaderData.placeholder === true;
+    const ep = loaderData.entry;
+    const url = canonicalUrl("podcast", params.slug);
+    const description = ep.short_description ?? "";
+    const released = effectiveStatus(ep) === "published";
+    const image = entryImage(ep);
+    const type = schemaType(ep);
     return {
       meta: [
-        { title: `${loaderData.title} — The Genesis Moment\u2122` },
-        { name: "description", content: loaderData.excerpt },
-        { property: "og:title", content: loaderData.title },
-        { property: "og:description", content: loaderData.excerpt },
+        { title: titleTag(ep) },
+        { name: "description", content: description },
+        { name: "robots", content: robotsFor(ep) },
+        { property: "og:title", content: ep.title },
+        { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: loaderData.title },
-        { name: "twitter:description", content: loaderData.excerpt },
-        ...(isPlaceholder ? [{ name: "robots", content: "noindex, follow" }] : []),
+        { name: "twitter:title", content: ep.title },
+        { name: "twitter:description", content: description },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: jsonLd([
-        isPlaceholder
+        type === "PodcastEpisode"
           ? {
-              "@type": "WebPage",
-              "@id": `${url}#page`,
-              url,
-              name: loaderData.title,
-              description: loaderData.excerpt,
-              isPartOf: { "@id": WEBSITE_ID },
-              about: { "@id": PODCAST_SERIES_ID },
-              inLanguage: "en-US",
-            }
-          : {
               "@type": "PodcastEpisode",
               "@id": `${url}#episode`,
               url,
-              name: loaderData.title,
-              description: loaderData.excerpt,
+              name: ep.title,
+              description,
               partOfSeries: { "@id": PODCAST_SERIES_ID },
               creator: { "@id": CREATOR_ID },
               isPartOf: { "@id": WEBSITE_ID },
+              inLanguage: "en-US",
+              ...(released && ep.published_at ? { datePublished: ep.published_at } : {}),
+              ...(ep.episode_number ? { episodeNumber: ep.episode_number } : {}),
+              ...(ep.audio_duration || ep.duration
+                ? { timeRequired: ep.audio_duration || ep.duration }
+                : {}),
+              ...(ep.audio_url
+                ? {
+                    associatedMedia: {
+                      "@type": "AudioObject",
+                      contentUrl: ep.audio_url,
+                      ...(ep.audio_duration ? { duration: ep.audio_duration } : {}),
+                    },
+                  }
+                : {}),
+              ...(ep.guest_name_override
+                ? {
+                    actor: {
+                      "@type": "Person",
+                      name: ep.guest_name_override,
+                      ...(ep.role_override ? { jobTitle: ep.role_override } : {}),
+                    },
+                  }
+                : {}),
+              ...(image ? { image } : {}),
+            }
+          : {
+              "@type": "WebPage",
+              "@id": `${url}#page`,
+              url,
+              name: ep.title,
+              description,
+              isPartOf: { "@id": WEBSITE_ID },
+              about: { "@id": PODCAST_SERIES_ID },
+              inLanguage: "en-US",
             },
         personNode,
       ]),
@@ -82,11 +124,10 @@ export const Route = createFileRoute("/podcast/$slug")({
 });
 
 function EpisodePage() {
-  const ep = Route.useLoaderData();
-  const related = (ep.relatedThoughtcasts ?? [])
-    .map((s: string) => thoughtcasts.find((t) => t.slug === s))
-    .filter(Boolean) as typeof thoughtcasts;
-  const otherEpisodes = episodes.filter((e) => e.slug !== ep.slug).slice(0, 3);
+  const { entry: ep, others } = Route.useLoaderData();
+  const guest = ep.guest_name_override ?? "";
+  const role = ep.role_override ?? "";
+  const runtime = ep.audio_duration || ep.duration || "";
 
   return (
     <article>
@@ -96,14 +137,17 @@ function EpisodePage() {
             <ArrowLeft size={14} /> All episodes
           </Link>
           <div className="mt-10 text-[11px] font-bold uppercase tracking-[0.18em] text-ember">
-            Episode {String(ep.number).padStart(2, "0")} · {ep.duration}
+            {ep.episode_number ? `Episode ${String(ep.episode_number).padStart(2, "0")}` : "Episode"}
+            {runtime ? ` · ${runtime}` : ""}
           </div>
           <h1 className="mt-4 font-serif font-bold leading-[0.96] tracking-[-0.04em] text-[clamp(2.5rem,7vw,5rem)]">
             {ep.title}
           </h1>
-          <div className="mt-6 text-sm uppercase tracking-[0.14em] text-ink/60">
-            {ep.guest} · {ep.role}
-          </div>
+          {(guest || role) && (
+            <div className="mt-6 text-sm uppercase tracking-[0.14em] text-ink/60">
+              {[guest, role].filter(Boolean).join(" · ")}
+            </div>
+          )}
           <p className="mt-6 max-w-2xl text-sm leading-relaxed text-ink/60">
             Part of{" "}
             <Link to="/podcast" className="text-ember hover:underline">
@@ -118,58 +162,46 @@ function EpisodePage() {
             </a>
             . The story belongs to the guest.
           </p>
-          {ep.placeholder && (
-            <p className="mt-4 inline-block border border-line bg-paper px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-ink/60">
-              Preview page — this conversation has not been released yet
-            </p>
-          )}
-
         </div>
       </section>
 
       <section className="bg-paper px-5 py-12 md:px-8 md:py-16">
         <div className="mx-auto max-w-4xl">
-          <div className="aspect-video w-full bg-ink">
-            {ep.youtubeId ? (
+          {ep.youtube_id && (
+            <div className="aspect-video w-full bg-ink">
               <iframe
                 className="h-full w-full"
-                src={`https://www.youtube.com/embed/${ep.youtubeId}`}
+                src={`https://www.youtube.com/embed/${ep.youtube_id}`}
                 title={ep.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-            ) : null}
-          </div>
+            </div>
+          )}
+          {!ep.youtube_id && ep.audio_url && (
+            <audio controls className="w-full" src={ep.audio_url} />
+          )}
 
           <div className="mt-10 grid gap-10 md:grid-cols-[1.4fr_1fr]">
             <div className="space-y-5 text-lg leading-relaxed text-ink/85">
-              <p>{ep.description}</p>
-              <p className="font-serif text-2xl leading-snug tracking-[-0.02em] text-ink">
-                "The hero is who they became. The story is who they were before anyone knew that
-                was possible."
-              </p>
+              {(ep.body ?? "").split("\n\n").filter(Boolean).map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+              {ep.guest_description && (
+                <p className="text-base text-ink/70">{ep.guest_description}</p>
+              )}
             </div>
             <aside className="border border-line bg-cream p-6">
               <div className="text-xs font-bold uppercase tracking-[0.14em] text-ink/60">
                 In this episode
               </div>
               <ul className="mt-4 space-y-3 text-sm text-ink/80">
-                {ep.tags.map((tag: string) => (
+                {ep.tags.map((tag) => (
                   <li key={tag} className="border-b border-line pb-3 last:border-b-0">
                     {tag}
                   </li>
                 ))}
               </ul>
-              {ep.website && (
-                <a
-                  href={ep.website}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-6 block text-xs font-bold uppercase tracking-[0.14em] text-ember"
-                >
-                  Visit {ep.guest}'s business →
-                </a>
-              )}
               <button
                 type="button"
                 className="mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ink/70 hover:text-ember"
@@ -186,60 +218,37 @@ function EpisodePage() {
         </div>
       </section>
 
-      {related.length > 0 && (
-        <section className="bg-cream px-5 py-16 md:px-8 md:py-20">
+      {others.length > 0 && (
+        <section className="bg-paper px-5 py-16 md:px-8 md:py-20">
           <div className="mx-auto max-w-6xl">
-            <div className="section-label mb-6">Related Thoughtcasts</div>
-            <div className="grid gap-5 md:grid-cols-3">
-              {related.map((t) => (
-                <Link
-                  key={t.slug}
-                  to="/thoughtcasts/$slug"
-                  params={{ slug: t.slug }}
-                  className="border border-line bg-paper p-6 hover:border-ember"
-                >
-                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-ember">
-                    {t.topic} · {t.duration}
-                  </div>
-                  <div className="mt-3 font-serif text-2xl leading-tight tracking-[-0.02em]">
-                    {t.title}
-                  </div>
-                </Link>
+            <div className="section-label mb-6">More episodes</div>
+            <ul className="divide-y divide-line border-y border-line">
+              {others.map((e) => (
+                <li key={e.slug}>
+                  <Link
+                    to="/podcast/$slug"
+                    params={{ slug: e.slug }}
+                    className="grid gap-3 py-6 md:grid-cols-[60px_1fr_auto] md:items-center md:gap-8"
+                  >
+                    <div className="font-serif text-2xl text-ember">
+                      {e.episode_number ? String(e.episode_number).padStart(2, "0") : ""}
+                    </div>
+                    <div>
+                      <div className="font-serif text-xl leading-tight md:text-2xl">{e.title}</div>
+                      <div className="mt-1 text-xs uppercase tracking-[0.14em] text-ink/60">
+                        {e.guest_name_override ?? ""}
+                      </div>
+                    </div>
+                    <div className="text-xs uppercase tracking-[0.14em] text-ink/50">
+                      {e.audio_duration || e.duration || ""}
+                    </div>
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
       )}
-
-      <section className="bg-paper px-5 py-16 md:px-8 md:py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="section-label mb-6">More episodes</div>
-          <ul className="divide-y divide-line border-y border-line">
-            {otherEpisodes.map((e) => (
-              <li key={e.slug}>
-                <Link
-                  to="/podcast/$slug"
-                  params={{ slug: e.slug }}
-                  className="grid gap-3 py-6 md:grid-cols-[60px_1fr_auto] md:items-center md:gap-8"
-                >
-                  <div className="font-serif text-2xl text-ember">
-                    {String(e.number).padStart(2, "0")}
-                  </div>
-                  <div>
-                    <div className="font-serif text-xl leading-tight md:text-2xl">{e.title}</div>
-                    <div className="mt-1 text-xs uppercase tracking-[0.14em] text-ink/60">
-                      {e.guest}
-                    </div>
-                  </div>
-                  <div className="text-xs uppercase tracking-[0.14em] text-ink/50">
-                    {e.duration}
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
     </article>
   );
 }

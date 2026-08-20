@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { entryImage, fetchCollection } from "@/lib/entries";
 import { thoughtcasts as staticThoughtcasts } from "@/lib/content";
-import { supabase } from "@/integrations/supabase/client";
 import chapelQuiet from "@/assets/chapel-quiet.jpg";
 import {
   abs,
@@ -21,7 +21,7 @@ const TC_DESCRIPTION =
   "Short spoken pieces about faith, identity, failure, forgiveness, and the way human beings affect one another.";
 const TC_TITLE = "Thoughtcasts — The Genesis Moment";
 
-export const Route = createFileRoute("/thoughtcasts")({
+export const Route = createFileRoute("/thoughtcasts/")({
   head: () => ({
     meta: [
       { title: TC_TITLE },
@@ -75,29 +75,22 @@ export const Route = createFileRoute("/thoughtcasts")({
 
 
 function ThoughtcastsIndex() {
-  const { data: dbRows } = useQuery({
-    queryKey: ["public", "episodes", "thoughtcast"],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("episodes")
-        .select("slug, title, excerpt, duration, image_url, tags")
-        .eq("type", "thoughtcast")
-        .eq("status", "published")
-        .order("published_at", { ascending: false });
-      return data ?? [];
-    },
+  const { data: rows } = useQuery({
+    queryKey: ["public", "collection", "thoughtcast"],
+    queryFn: () => fetchCollection("thoughtcast"),
   });
-  const thoughtcasts =
-    dbRows && dbRows.length > 0
-      ? dbRows.map((r) => ({
-          slug: r.slug,
-          title: r.title,
-          thesis: r.excerpt ?? "",
-          topic: r.tags?.[0] ?? "General",
-          duration: r.duration ?? "",
-          image: r.image_url ?? undefined,
-        }))
-      : staticThoughtcasts;
+  const thoughtcasts = (rows ?? [])
+    .slice()
+    .sort((a, b) => Number(b.featured) - Number(a.featured))
+    .map((r) => ({
+      slug: r.slug,
+      title: r.title,
+      thesis: r.short_description ?? "",
+      topic: r.tags?.[0] ?? "General",
+      duration: r.audio_duration || r.duration || "",
+      image: entryImage(r),
+    }));
+
   const topics = useMemo(
     () => ["All", ...Array.from(new Set(thoughtcasts.map((t) => t.topic)))],
     [thoughtcasts],

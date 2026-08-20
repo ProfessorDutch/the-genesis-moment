@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Play } from "lucide-react";
-import { episodes as staticEpisodes } from "@/lib/content";
-import { supabase } from "@/integrations/supabase/client";
+import { entryImage, fetchCollection } from "@/lib/entries";
 import stillMic from "@/assets/still-mic.jpg";
 import {
   abs,
@@ -18,7 +17,7 @@ import {
 const PODCAST_DESCRIPTION =
   "Long-form conversations from The Genesis Moment with faith-based business owners about who they were before success was visible and who believed in them first.";
 
-export const Route = createFileRoute("/podcast")({
+export const Route = createFileRoute("/podcast/")({
   head: () => ({
     meta: [
       { title: "Podcast — The Genesis Moment\u2122" },
@@ -61,36 +60,26 @@ export const Route = createFileRoute("/podcast")({
 
 
 function PodcastIndex() {
-  const { data: dbRows } = useQuery({
-    queryKey: ["public", "episodes", "podcast"],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("episodes")
-        .select("slug, title, excerpt, duration, episode_number, image_url, guest_name_override, role_override, guests(name, role, business, city, website, instagram, x_handle, linkedin, bio)")
-        .eq("type", "podcast")
-        .eq("status", "published")
-        .order("published_at", { ascending: false });
-      return data ?? [];
-    },
+  const { data: rows } = useQuery({
+    queryKey: ["public", "collection", "podcast"],
+    queryFn: () => fetchCollection("podcast"),
   });
-  const episodes =
-    dbRows && dbRows.length > 0
-      ? dbRows.map((r, i) => ({
-          slug: r.slug,
-          number: r.episode_number ?? i + 1,
-          guest: r.guest_name_override || r.guests?.name || "",
-          role: r.role_override || r.guests?.role || "",
-          business: r.guests?.business ?? "",
-          city: r.guests?.city ?? "",
-          website: r.guests?.website ?? "",
-          bio: r.guests?.bio ?? "",
-          title: r.title,
-          excerpt: r.excerpt ?? "",
-          duration: r.duration ?? "",
-          image: r.image_url ?? undefined,
-        }))
-      : staticEpisodes.map((e) => ({ ...e, business: "", city: "", website: "", bio: e.description }));
+  const episodes = (rows ?? [])
+    .slice()
+    .sort((a, b) => Number(b.featured) - Number(a.featured))
+    .map((r, i) => ({
+      slug: r.slug,
+      number: r.episode_number ?? i + 1,
+      guest: r.guest_name_override ?? "",
+      role: r.role_override ?? "",
+      city: "",
+      title: r.title,
+      excerpt: r.short_description ?? "",
+      duration: r.audio_duration || r.duration || "",
+      image: entryImage(r),
+    }));
   const [featured, ...rest] = episodes;
+
   return (
     <div>
       {/* HERO */}
@@ -189,7 +178,19 @@ function PodcastIndex() {
           </div>
           <hr className="rule-ember" />
 
+          {episodes.length === 0 && (
+            <div className="mt-10 max-w-2xl">
+              <p className="font-serif text-2xl leading-snug tracking-[-0.02em] text-ink md:text-3xl">
+                The first season is being recorded now.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-ink/70">
+                Conversations are published here the day they are released — never before.
+              </p>
+            </div>
+          )}
+
           <ul className="mt-10 flex flex-col divide-y divide-line">
+
             {rest.map((ep) => (
               <li key={ep.slug} className="py-10 first:pt-0 last:pb-0">
                 <Link

@@ -9,10 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ThoughtcastsRouteImport } from './routes/thoughtcasts'
 import { Route as TellYourStoryRouteImport } from './routes/tell-your-story'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as PodcastRouteImport } from './routes/podcast'
 import { Route as PaymentSuccessRouteImport } from './routes/payment-success'
 import { Route as PaymentCanceledRouteImport } from './routes/payment-canceled'
 import { Route as MustardSeedRouteImport } from './routes/mustard-seed'
@@ -20,17 +18,15 @@ import { Route as DonateRouteImport } from './routes/donate'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ThoughtcastsIndexRouteImport } from './routes/thoughtcasts.index'
+import { Route as PodcastIndexRouteImport } from './routes/podcast.index'
 import { Route as ThoughtcastsSlugRouteImport } from './routes/thoughtcasts.$slug'
+import { Route as PreviewTokenRouteImport } from './routes/preview.$token'
 import { Route as PodcastSlugRouteImport } from './routes/podcast.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
 import { Route as AuthenticatedAdminGuestsIdRouteImport } from './routes/_authenticated.admin.guests.$id'
 import { Route as AuthenticatedAdminEpisodesIdRouteImport } from './routes/_authenticated.admin.episodes.$id'
 
-const ThoughtcastsRoute = ThoughtcastsRouteImport.update({
-  id: '/thoughtcasts',
-  path: '/thoughtcasts',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TellYourStoryRoute = TellYourStoryRouteImport.update({
   id: '/tell-your-story',
   path: '/tell-your-story',
@@ -39,11 +35,6 @@ const TellYourStoryRoute = TellYourStoryRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PodcastRoute = PodcastRouteImport.update({
-  id: '/podcast',
-  path: '/podcast',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PaymentSuccessRoute = PaymentSuccessRouteImport.update({
@@ -80,15 +71,30 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThoughtcastsIndexRoute = ThoughtcastsIndexRouteImport.update({
+  id: '/thoughtcasts/',
+  path: '/thoughtcasts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PodcastIndexRoute = PodcastIndexRouteImport.update({
+  id: '/podcast/',
+  path: '/podcast/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThoughtcastsSlugRoute = ThoughtcastsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ThoughtcastsRoute,
+  id: '/thoughtcasts/$slug',
+  path: '/thoughtcasts/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PreviewTokenRoute = PreviewTokenRouteImport.update({
+  id: '/preview/$token',
+  path: '/preview/$token',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PodcastSlugRoute = PodcastSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => PodcastRoute,
+  id: '/podcast/$slug',
+  path: '/podcast/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
@@ -115,13 +121,14 @@ export interface FileRoutesByFullPath {
   '/mustard-seed': typeof MustardSeedRoute
   '/payment-canceled': typeof PaymentCanceledRoute
   '/payment-success': typeof PaymentSuccessRoute
-  '/podcast': typeof PodcastRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
-  '/thoughtcasts': typeof ThoughtcastsRouteWithChildren
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
+  '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
+  '/podcast/': typeof PodcastIndexRoute
+  '/thoughtcasts/': typeof ThoughtcastsIndexRoute
   '/admin/episodes/$id': typeof AuthenticatedAdminEpisodesIdRoute
   '/admin/guests/$id': typeof AuthenticatedAdminGuestsIdRoute
 }
@@ -132,13 +139,14 @@ export interface FileRoutesByTo {
   '/mustard-seed': typeof MustardSeedRoute
   '/payment-canceled': typeof PaymentCanceledRoute
   '/payment-success': typeof PaymentSuccessRoute
-  '/podcast': typeof PodcastRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
-  '/thoughtcasts': typeof ThoughtcastsRouteWithChildren
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
+  '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
+  '/podcast': typeof PodcastIndexRoute
+  '/thoughtcasts': typeof ThoughtcastsIndexRoute
   '/admin/episodes/$id': typeof AuthenticatedAdminEpisodesIdRoute
   '/admin/guests/$id': typeof AuthenticatedAdminGuestsIdRoute
 }
@@ -151,13 +159,14 @@ export interface FileRoutesById {
   '/mustard-seed': typeof MustardSeedRoute
   '/payment-canceled': typeof PaymentCanceledRoute
   '/payment-success': typeof PaymentSuccessRoute
-  '/podcast': typeof PodcastRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
-  '/thoughtcasts': typeof ThoughtcastsRouteWithChildren
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
+  '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
+  '/podcast/': typeof PodcastIndexRoute
+  '/thoughtcasts/': typeof ThoughtcastsIndexRoute
   '/_authenticated/admin/episodes/$id': typeof AuthenticatedAdminEpisodesIdRoute
   '/_authenticated/admin/guests/$id': typeof AuthenticatedAdminGuestsIdRoute
 }
@@ -170,13 +179,14 @@ export interface FileRouteTypes {
     | '/mustard-seed'
     | '/payment-canceled'
     | '/payment-success'
-    | '/podcast'
     | '/sitemap.xml'
     | '/tell-your-story'
-    | '/thoughtcasts'
     | '/admin'
     | '/podcast/$slug'
+    | '/preview/$token'
     | '/thoughtcasts/$slug'
+    | '/podcast/'
+    | '/thoughtcasts/'
     | '/admin/episodes/$id'
     | '/admin/guests/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -187,13 +197,14 @@ export interface FileRouteTypes {
     | '/mustard-seed'
     | '/payment-canceled'
     | '/payment-success'
-    | '/podcast'
     | '/sitemap.xml'
     | '/tell-your-story'
-    | '/thoughtcasts'
     | '/admin'
     | '/podcast/$slug'
+    | '/preview/$token'
     | '/thoughtcasts/$slug'
+    | '/podcast'
+    | '/thoughtcasts'
     | '/admin/episodes/$id'
     | '/admin/guests/$id'
   id:
@@ -205,13 +216,14 @@ export interface FileRouteTypes {
     | '/mustard-seed'
     | '/payment-canceled'
     | '/payment-success'
-    | '/podcast'
     | '/sitemap.xml'
     | '/tell-your-story'
-    | '/thoughtcasts'
     | '/_authenticated/admin'
     | '/podcast/$slug'
+    | '/preview/$token'
     | '/thoughtcasts/$slug'
+    | '/podcast/'
+    | '/thoughtcasts/'
     | '/_authenticated/admin/episodes/$id'
     | '/_authenticated/admin/guests/$id'
   fileRoutesById: FileRoutesById
@@ -224,21 +236,17 @@ export interface RootRouteChildren {
   MustardSeedRoute: typeof MustardSeedRoute
   PaymentCanceledRoute: typeof PaymentCanceledRoute
   PaymentSuccessRoute: typeof PaymentSuccessRoute
-  PodcastRoute: typeof PodcastRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TellYourStoryRoute: typeof TellYourStoryRoute
-  ThoughtcastsRoute: typeof ThoughtcastsRouteWithChildren
+  PodcastSlugRoute: typeof PodcastSlugRoute
+  PreviewTokenRoute: typeof PreviewTokenRoute
+  ThoughtcastsSlugRoute: typeof ThoughtcastsSlugRoute
+  PodcastIndexRoute: typeof PodcastIndexRoute
+  ThoughtcastsIndexRoute: typeof ThoughtcastsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/thoughtcasts': {
-      id: '/thoughtcasts'
-      path: '/thoughtcasts'
-      fullPath: '/thoughtcasts'
-      preLoaderRoute: typeof ThoughtcastsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tell-your-story': {
       id: '/tell-your-story'
       path: '/tell-your-story'
@@ -251,13 +259,6 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/podcast': {
-      id: '/podcast'
-      path: '/podcast'
-      fullPath: '/podcast'
-      preLoaderRoute: typeof PodcastRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/payment-success': {
@@ -309,19 +310,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/thoughtcasts/': {
+      id: '/thoughtcasts/'
+      path: '/thoughtcasts'
+      fullPath: '/thoughtcasts/'
+      preLoaderRoute: typeof ThoughtcastsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/podcast/': {
+      id: '/podcast/'
+      path: '/podcast'
+      fullPath: '/podcast/'
+      preLoaderRoute: typeof PodcastIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/thoughtcasts/$slug': {
       id: '/thoughtcasts/$slug'
-      path: '/$slug'
+      path: '/thoughtcasts/$slug'
       fullPath: '/thoughtcasts/$slug'
       preLoaderRoute: typeof ThoughtcastsSlugRouteImport
-      parentRoute: typeof ThoughtcastsRoute
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview/$token': {
+      id: '/preview/$token'
+      path: '/preview/$token'
+      fullPath: '/preview/$token'
+      preLoaderRoute: typeof PreviewTokenRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/podcast/$slug': {
       id: '/podcast/$slug'
-      path: '/$slug'
+      path: '/podcast/$slug'
       fullPath: '/podcast/$slug'
       preLoaderRoute: typeof PodcastSlugRouteImport
-      parentRoute: typeof PodcastRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
@@ -372,29 +394,6 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
-interface PodcastRouteChildren {
-  PodcastSlugRoute: typeof PodcastSlugRoute
-}
-
-const PodcastRouteChildren: PodcastRouteChildren = {
-  PodcastSlugRoute: PodcastSlugRoute,
-}
-
-const PodcastRouteWithChildren =
-  PodcastRoute._addFileChildren(PodcastRouteChildren)
-
-interface ThoughtcastsRouteChildren {
-  ThoughtcastsSlugRoute: typeof ThoughtcastsSlugRoute
-}
-
-const ThoughtcastsRouteChildren: ThoughtcastsRouteChildren = {
-  ThoughtcastsSlugRoute: ThoughtcastsSlugRoute,
-}
-
-const ThoughtcastsRouteWithChildren = ThoughtcastsRoute._addFileChildren(
-  ThoughtcastsRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
@@ -403,10 +402,13 @@ const rootRouteChildren: RootRouteChildren = {
   MustardSeedRoute: MustardSeedRoute,
   PaymentCanceledRoute: PaymentCanceledRoute,
   PaymentSuccessRoute: PaymentSuccessRoute,
-  PodcastRoute: PodcastRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TellYourStoryRoute: TellYourStoryRoute,
-  ThoughtcastsRoute: ThoughtcastsRouteWithChildren,
+  PodcastSlugRoute: PodcastSlugRoute,
+  PreviewTokenRoute: PreviewTokenRoute,
+  ThoughtcastsSlugRoute: ThoughtcastsSlugRoute,
+  PodcastIndexRoute: PodcastIndexRoute,
+  ThoughtcastsIndexRoute: ThoughtcastsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
