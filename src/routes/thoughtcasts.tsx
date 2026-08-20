@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { entryImage, fetchCollection } from "@/lib/entries";
+import { thoughtcasts as staticThoughtcasts } from "@/lib/content";
 import chapelQuiet from "@/assets/chapel-quiet.jpg";
 import {
   abs,
