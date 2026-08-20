@@ -161,10 +161,6 @@ function ThoughtcastsIndex() {
           </div>
         </div>
       </section>
-
-
-
-
       {/* FILTER */}
       <section className="border-y border-line bg-paper px-5 py-4 md:px-8">
         <div className="mx-auto flex max-w-5xl gap-2 overflow-x-auto">
