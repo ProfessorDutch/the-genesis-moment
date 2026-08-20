@@ -301,6 +301,26 @@ function ThoughtcastsIndex() {
           </div>
         </div>
       </section>
+
+      {/* PROVENANCE */}
+      <section className="bg-ink-deep px-5 pb-10 text-center text-cream/45 md:pb-14">
+        <p className="text-sm">
+          <a
+            href="https://jasondutchbrown.com/thoughtcast"
+            className="underline decoration-cream/20 underline-offset-4 hover:text-ember"
+          >
+            Thoughtcast&trade;
+          </a>{" "}
+          is a spoken form created by{" "}
+          <a
+            href="https://jasondutchbrown.com/"
+            className="underline decoration-cream/20 underline-offset-4 hover:text-ember"
+          >
+            Jason &ldquo;Dutch&rdquo; Brown
+          </a>{" "}
+          as part of The Genesis Moment&trade;.
+        </p>
+      </section>
     </div>
   );
 }
