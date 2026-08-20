@@ -21,6 +21,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ThoughtcastsSlugRouteImport } from './routes/thoughtcasts.$slug'
+import { Route as PreviewTokenRouteImport } from './routes/preview.$token'
 import { Route as PodcastSlugRouteImport } from './routes/podcast.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
 import { Route as AuthenticatedAdminGuestsIdRouteImport } from './routes/_authenticated.admin.guests.$id'
@@ -85,6 +86,11 @@ const ThoughtcastsSlugRoute = ThoughtcastsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ThoughtcastsRoute,
 } as any)
+const PreviewTokenRoute = PreviewTokenRouteImport.update({
+  id: '/preview/$token',
+  path: '/preview/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PodcastSlugRoute = PodcastSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/thoughtcasts': typeof ThoughtcastsRouteWithChildren
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
+  '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
   '/admin/episodes/$id': typeof AuthenticatedAdminEpisodesIdRoute
   '/admin/guests/$id': typeof AuthenticatedAdminGuestsIdRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/thoughtcasts': typeof ThoughtcastsRouteWithChildren
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
+  '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
   '/admin/episodes/$id': typeof AuthenticatedAdminEpisodesIdRoute
   '/admin/guests/$id': typeof AuthenticatedAdminGuestsIdRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/thoughtcasts': typeof ThoughtcastsRouteWithChildren
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
+  '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
   '/_authenticated/admin/episodes/$id': typeof AuthenticatedAdminEpisodesIdRoute
   '/_authenticated/admin/guests/$id': typeof AuthenticatedAdminGuestsIdRoute
@@ -176,6 +185,7 @@ export interface FileRouteTypes {
     | '/thoughtcasts'
     | '/admin'
     | '/podcast/$slug'
+    | '/preview/$token'
     | '/thoughtcasts/$slug'
     | '/admin/episodes/$id'
     | '/admin/guests/$id'
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/thoughtcasts'
     | '/admin'
     | '/podcast/$slug'
+    | '/preview/$token'
     | '/thoughtcasts/$slug'
     | '/admin/episodes/$id'
     | '/admin/guests/$id'
@@ -211,6 +222,7 @@ export interface FileRouteTypes {
     | '/thoughtcasts'
     | '/_authenticated/admin'
     | '/podcast/$slug'
+    | '/preview/$token'
     | '/thoughtcasts/$slug'
     | '/_authenticated/admin/episodes/$id'
     | '/_authenticated/admin/guests/$id'
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TellYourStoryRoute: typeof TellYourStoryRoute
   ThoughtcastsRoute: typeof ThoughtcastsRouteWithChildren
+  PreviewTokenRoute: typeof PreviewTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -315,6 +328,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/thoughtcasts/$slug'
       preLoaderRoute: typeof ThoughtcastsSlugRouteImport
       parentRoute: typeof ThoughtcastsRoute
+    }
+    '/preview/$token': {
+      id: '/preview/$token'
+      path: '/preview/$token'
+      fullPath: '/preview/$token'
+      preLoaderRoute: typeof PreviewTokenRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/podcast/$slug': {
       id: '/podcast/$slug'
@@ -407,6 +427,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TellYourStoryRoute: TellYourStoryRoute,
   ThoughtcastsRoute: ThoughtcastsRouteWithChildren,
+  PreviewTokenRoute: PreviewTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

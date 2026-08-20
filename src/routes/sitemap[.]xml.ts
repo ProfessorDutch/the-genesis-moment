@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { episodes, thoughtcasts } from "@/lib/content";
+import { fetchCollection } from "@/lib/entries";
+import { routePath } from "@/lib/publishing";
 
 const BASE_URL = "https://thegenesismoment.com";
 
@@ -8,6 +9,10 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const [podcasts, thoughtcasts] = await Promise.all([
+          fetchCollection("podcast"),
+          fetchCollection("thoughtcast"),
+        ]);
         const paths = [
           "/",
           "/podcast",
@@ -15,8 +20,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/mustard-seed",
           "/tell-your-story",
           "/donate",
-          ...episodes.filter((e) => !e.placeholder).map((e) => `/podcast/${e.slug}`),
-          ...thoughtcasts.map((t) => `/thoughtcasts/${t.slug}`),
+          ...podcasts.map((e) => routePath("podcast", e.slug)),
+          ...thoughtcasts.map((t) => routePath("thoughtcast", t.slug)),
         ];
         const xml = [
           `<?xml version="1.0" encoding="UTF-8"?>`,
