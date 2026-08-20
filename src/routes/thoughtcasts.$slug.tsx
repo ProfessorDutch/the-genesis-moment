@@ -1,8 +1,8 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import { getEpisode, getThoughtcast, thoughtcasts } from "@/lib/content";
+import { fetchCollection, fetchEntry, fetchRedirect } from "@/lib/entries";
+import { canonicalUrl, robotsFor, titleTag } from "@/lib/publishing";
 import {
-  abs,
   CREATOR_ID,
   CREATOR_URL,
   jsonLd,
@@ -13,27 +13,43 @@ import {
 } from "@/lib/site";
 
 export const Route = createFileRoute("/thoughtcasts/$slug")({
-  loader: ({ params }) => {
-    const t = getThoughtcast(params.slug);
-    if (!t) throw notFound();
-    return t;
+  loader: async ({ params }) => {
+    const entry = await fetchEntry("thoughtcast", params.slug);
+    if (!entry) {
+      const to = await fetchRedirect("thoughtcast", params.slug);
+      if (to) throw redirect({ to: "/thoughtcasts/$slug", params: { slug: to }, statusCode: 301 });
+      throw notFound();
+    }
+    const topic = entry.tags?.[0];
+    const related = (await fetchCollection("thoughtcast"))
+      .filter((t) => t.slug !== entry.slug && (!topic || t.tags?.[0] === topic))
+      .slice(0, 3);
+    return { entry, related, topic: topic ?? "" };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Thoughtcast not found" }, { name: "robots", content: "noindex" }] };
+      return {
+        meta: [
+          { title: "Thoughtcast not found" },
+          { name: "robots", content: "noindex, nofollow" },
+        ],
+      };
     }
-    const url = abs(`/thoughtcasts/${params.slug}`);
+    const t = loaderData.entry;
+    const url = canonicalUrl("thoughtcast", params.slug);
+    const description = t.short_description ?? "";
     return {
       meta: [
-        { title: `${loaderData.title} — Thoughtcasts\u2122` },
-        { name: "description", content: loaderData.thesis },
-        { property: "og:title", content: loaderData.title },
-        { property: "og:description", content: loaderData.thesis },
+        { title: titleTag(t) },
+        { name: "description", content: description },
+        { name: "robots", content: robotsFor(t) },
+        { property: "og:title", content: t.title },
+        { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: loaderData.title },
-        { name: "twitter:description", content: loaderData.thesis },
+        { name: "twitter:title", content: t.title },
+        { name: "twitter:description", content: description },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: jsonLd([
@@ -41,13 +57,24 @@ export const Route = createFileRoute("/thoughtcasts/$slug")({
           "@type": "Article",
           "@id": `${url}#article`,
           url,
-          headline: loaderData.title,
-          description: loaderData.thesis,
+          headline: t.title,
+          description,
           author: { "@id": CREATOR_ID },
           creator: { "@id": CREATOR_ID },
           isPartOf: { "@id": THOUGHTCAST_SERIES_ID },
           about: { "@id": THOUGHTCAST_TERM_ID },
           inLanguage: "en-US",
+          ...(t.published_at ? { datePublished: t.published_at } : {}),
+          ...(t.updated_at ? { dateModified: t.updated_at } : {}),
+          ...(t.audio_url
+            ? {
+                audio: {
+                  "@type": "AudioObject",
+                  contentUrl: t.audio_url,
+                  ...(t.audio_duration ? { duration: t.audio_duration } : {}),
+                },
+              }
+            : {}),
         },
         personNode,
       ]),
@@ -71,9 +98,8 @@ export const Route = createFileRoute("/thoughtcasts/$slug")({
 });
 
 function ThoughtcastPage() {
-  const t = Route.useLoaderData();
-  const related = thoughtcasts.filter((x) => x.slug !== t.slug && x.topic === t.topic).slice(0, 3);
-  const episode = t.relatedEpisode ? getEpisode(t.relatedEpisode) : undefined;
+  const { entry: t, related, topic } = Route.useLoaderData();
+  const runtime = t.audio_duration || t.duration || "";
 
   return (
     <article>
@@ -83,7 +109,7 @@ function ThoughtcastPage() {
             <ArrowLeft size={14} /> All Thoughtcasts
           </Link>
           <div className="mt-10 text-[11px] font-bold uppercase tracking-[0.18em] text-ember">
-            {t.topic} · {t.duration}
+            {[topic, runtime].filter(Boolean).join(" · ")}
           </div>
           <h1 className="mt-4 font-serif font-bold leading-[0.98] tracking-[-0.035em] text-[clamp(2.25rem,6vw,4.25rem)]">
             {t.title}
@@ -105,52 +131,40 @@ function ThoughtcastPage() {
             </a>
             .
           </p>
-
         </div>
       </section>
 
       <section className="bg-paper px-5 py-12 md:px-8 md:py-16">
         <div className="mx-auto max-w-3xl">
-          <div className="mx-auto aspect-[9/16] max-w-md bg-ink">
-            {t.youtubeId ? (
+          {t.youtube_id && (
+            <div className="mx-auto aspect-[9/16] max-w-md bg-ink">
               <iframe
                 className="h-full w-full"
-                src={`https://www.youtube.com/embed/${t.youtubeId}`}
+                src={`https://www.youtube.com/embed/${t.youtube_id}`}
                 title={t.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-            ) : null}
-          </div>
-          <p className="mt-10 font-serif text-2xl leading-snug tracking-[-0.02em] text-ink md:text-3xl">
-            "{t.thesis}"
-          </p>
-          <p className="mt-6 text-lg leading-relaxed text-ink/80">{t.body}</p>
-
-          {episode && (
-            <Link
-              to="/podcast/$slug"
-              params={{ slug: episode.slug }}
-              className="mt-12 block border border-line bg-cream p-6 hover:border-ember"
-            >
-              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-ember">
-                From the podcast
-              </div>
-              <div className="mt-2 font-serif text-2xl leading-tight tracking-[-0.02em]">
-                {episode.title}
-              </div>
-              <div className="mt-2 text-xs uppercase tracking-[0.14em] text-ink/60">
-                {episode.guest} · {episode.role}
-              </div>
-            </Link>
+            </div>
           )}
+          {!t.youtube_id && t.audio_url && (
+            <audio controls className="w-full" src={t.audio_url} />
+          )}
+          <p className="mt-10 font-serif text-2xl leading-snug tracking-[-0.02em] text-ink md:text-3xl">
+            "{t.short_description}"
+          </p>
+          {(t.body ?? "").split("\n\n").filter(Boolean).map((p, i) => (
+            <p key={i} className="mt-6 text-lg leading-relaxed text-ink/80">
+              {p}
+            </p>
+          ))}
         </div>
       </section>
 
       {related.length > 0 && (
         <section className="bg-cream px-5 py-16 md:px-8 md:py-20">
           <div className="mx-auto max-w-6xl">
-            <div className="section-label mb-6">More on {t.topic}</div>
+            <div className="section-label mb-6">{topic ? `More on ${topic}` : "More Thoughtcasts"}</div>
             <div className="grid gap-5 md:grid-cols-3">
               {related.map((r) => (
                 <Link
@@ -160,7 +174,7 @@ function ThoughtcastPage() {
                   className="border border-line bg-paper p-6 hover:border-ember"
                 >
                   <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-ember">
-                    {r.topic} · {r.duration}
+                    {[r.tags?.[0], r.audio_duration || r.duration].filter(Boolean).join(" · ")}
                   </div>
                   <div className="mt-3 font-serif text-xl leading-tight tracking-[-0.02em]">
                     {r.title}
