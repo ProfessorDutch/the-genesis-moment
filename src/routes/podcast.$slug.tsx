@@ -1,6 +1,14 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Share2 } from "lucide-react";
 import { episodes, getEpisode, thoughtcasts } from "@/lib/content";
+import {
+  abs,
+  CREATOR_ID,
+  jsonLd,
+  personNode,
+  PODCAST_SERIES_ID,
+  WEBSITE_ID,
+} from "@/lib/site";
 
 export const Route = createFileRoute("/podcast/$slug")({
   loader: ({ params }) => {
@@ -14,18 +22,49 @@ export const Route = createFileRoute("/podcast/$slug")({
         meta: [{ title: "Episode not found" }, { name: "robots", content: "noindex" }],
       };
     }
+    const url = abs(`/podcast/${params.slug}`);
+    const isPlaceholder = loaderData.placeholder === true;
     return {
       meta: [
-        { title: `${loaderData.title} — The Genesis Moment` },
+        { title: `${loaderData.title} — The Genesis Moment\u2122` },
         { name: "description", content: loaderData.excerpt },
         { property: "og:title", content: loaderData.title },
         { property: "og:description", content: loaderData.excerpt },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `/podcast/${params.slug}` },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: loaderData.title },
+        { name: "twitter:description", content: loaderData.excerpt },
+        ...(isPlaceholder ? [{ name: "robots", content: "noindex, follow" }] : []),
       ],
-      links: [{ rel: "canonical", href: `/podcast/${params.slug}` }],
+      links: [{ rel: "canonical", href: url }],
+      scripts: jsonLd([
+        isPlaceholder
+          ? {
+              "@type": "WebPage",
+              "@id": `${url}#page`,
+              url,
+              name: loaderData.title,
+              description: loaderData.excerpt,
+              isPartOf: { "@id": WEBSITE_ID },
+              about: { "@id": PODCAST_SERIES_ID },
+              inLanguage: "en-US",
+            }
+          : {
+              "@type": "PodcastEpisode",
+              "@id": `${url}#episode`,
+              url,
+              name: loaderData.title,
+              description: loaderData.excerpt,
+              partOfSeries: { "@id": PODCAST_SERIES_ID },
+              creator: { "@id": CREATOR_ID },
+              isPartOf: { "@id": WEBSITE_ID },
+            },
+        personNode,
+      ]),
     };
   },
+
   component: EpisodePage,
   notFoundComponent: () => (
     <div className="mx-auto max-w-2xl px-5 py-24 text-center">
@@ -65,6 +104,26 @@ function EpisodePage() {
           <div className="mt-6 text-sm uppercase tracking-[0.14em] text-ink/60">
             {ep.guest} · {ep.role}
           </div>
+          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-ink/60">
+            Part of{" "}
+            <Link to="/podcast" className="text-ember hover:underline">
+              The Genesis Moment&trade;
+            </Link>
+            , a conversation series created by{" "}
+            <a
+              href="https://jasondutchbrown.com/"
+              className="underline decoration-ink/25 underline-offset-4 hover:text-ember"
+            >
+              Jason &ldquo;Dutch&rdquo; Brown
+            </a>
+            . The story belongs to the guest.
+          </p>
+          {ep.placeholder && (
+            <p className="mt-4 inline-block border border-line bg-paper px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-ink/60">
+              Preview page — this conversation has not been released yet
+            </p>
+          )}
+
         </div>
       </section>
 

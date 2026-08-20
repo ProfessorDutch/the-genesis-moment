@@ -41,7 +41,10 @@ export type Episode = {
   website?: string;
   transcript?: string;
   relatedThoughtcasts?: string[];
+  /** True while the entry is a designed concept page, not a released episode. */
+  placeholder?: boolean;
 };
+
 
 export type Thoughtcast = {
   slug: string;
@@ -74,6 +77,7 @@ export const episodes: Episode[] = [
     youtubeId: "dQw4w9WgXcQ",
     website: "https://example.com",
     relatedThoughtcasts: ["the-thought-you-almost-quit-on", "belief-before-proof"],
+    placeholder: true,
   },
   {
     slug: "she-believed-before-i-did",
@@ -91,6 +95,7 @@ export const episodes: Episode[] = [
     image: guestMarcus,
     youtubeId: "dQw4w9WgXcQ",
     relatedThoughtcasts: ["the-prayer-she-never-told-me-about"],
+    placeholder: true,
   },
   {
     slug: "the-man-who-hired-me-when-nobody-would",
@@ -107,6 +112,7 @@ export const episodes: Episode[] = [
     tags: ["Mentorship", "Trades", "Redemption"],
     image: guestJonah,
     youtubeId: "dQw4w9WgXcQ",
+    placeholder: true,
   },
   {
     slug: "born-again-and-still-scared",
@@ -123,6 +129,7 @@ export const episodes: Episode[] = [
     tags: ["Faith", "Calling", "Community"],
     image: guestElias,
     youtubeId: "dQw4w9WgXcQ",
+    placeholder: true,
   },
 ];
 

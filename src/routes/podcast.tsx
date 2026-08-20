@@ -4,27 +4,61 @@ import { Play } from "lucide-react";
 import { episodes as staticEpisodes } from "@/lib/content";
 import { supabase } from "@/integrations/supabase/client";
 import stillMic from "@/assets/still-mic.jpg";
+import {
+  abs,
+  CREATOR_ID,
+  CREATOR_URL,
+  jsonLd,
+  personNode,
+  PODCAST_SERIES_ID,
+  SITE_URL,
+  WEBSITE_ID,
+} from "@/lib/site";
+
+const PODCAST_DESCRIPTION =
+  "Long-form conversations from The Genesis Moment with faith-based business owners about who they were before success was visible and who believed in them first.";
 
 export const Route = createFileRoute("/podcast")({
   head: () => ({
     meta: [
-      { title: "Podcast — The Genesis Moment" },
-      {
-        name: "description",
-        content:
-          "Long-form conversations with faith-based business owners about who they were before the success was visible.",
-      },
-      { property: "og:title", content: "The Genesis Moment — Podcast" },
-      {
-        property: "og:description",
-        content: "Real stories about faith, family, failure, and the people who believed first.",
-      },
-      { property: "og:url", content: "/podcast" },
+      { title: "Podcast — The Genesis Moment\u2122" },
+      { name: "description", content: PODCAST_DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: "Podcast — The Genesis Moment\u2122" },
+      { property: "og:description", content: PODCAST_DESCRIPTION },
+      { property: "og:url", content: abs("/podcast") },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Podcast — The Genesis Moment\u2122" },
+      { name: "twitter:description", content: PODCAST_DESCRIPTION },
     ],
-    links: [{ rel: "canonical", href: "/podcast" }],
+    links: [{ rel: "canonical", href: abs("/podcast") }],
+    scripts: jsonLd([
+      {
+        "@type": "CollectionPage",
+        "@id": `${SITE_URL}/podcast#page`,
+        url: abs("/podcast"),
+        name: "Podcast \u2014 The Genesis Moment\u2122",
+        description: PODCAST_DESCRIPTION,
+        isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": PODCAST_SERIES_ID },
+        creator: { "@id": CREATOR_ID },
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "PodcastSeries",
+        "@id": PODCAST_SERIES_ID,
+        url: abs("/podcast"),
+        name: "The Genesis Moment",
+        description: PODCAST_DESCRIPTION,
+        creator: { "@id": CREATOR_ID },
+        isPartOf: { "@id": WEBSITE_ID },
+      },
+      personNode,
+    ]),
   }),
   component: PodcastIndex,
 });
+
 
 function PodcastIndex() {
   const { data: dbRows } = useQuery({
@@ -90,7 +124,18 @@ function PodcastIndex() {
             and mentors. Not about how far they have come. About who they were while they were
             still becoming.
           </p>
+          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-cream/60">
+            The Genesis Moment&trade; is a conversation series created by{" "}
+            <a
+              href={CREATOR_URL}
+              className="underline decoration-cream/30 underline-offset-4 hover:text-ember"
+            >
+              Jason &ldquo;Dutch&rdquo; Brown
+            </a>
+            .
+          </p>
         </div>
+
       </section>
 
       {/* FEATURED */}

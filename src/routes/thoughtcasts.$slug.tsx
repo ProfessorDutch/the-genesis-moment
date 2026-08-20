@@ -1,6 +1,16 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { getEpisode, getThoughtcast, thoughtcasts } from "@/lib/content";
+import {
+  abs,
+  CREATOR_ID,
+  CREATOR_URL,
+  jsonLd,
+  personNode,
+  THOUGHTCAST_SERIES_ID,
+  THOUGHTCAST_TERM_ID,
+  THOUGHTCAST_TERM_URL,
+} from "@/lib/site";
 
 export const Route = createFileRoute("/thoughtcasts/$slug")({
   loader: ({ params }) => {
@@ -12,18 +22,38 @@ export const Route = createFileRoute("/thoughtcasts/$slug")({
     if (!loaderData) {
       return { meta: [{ title: "Thoughtcast not found" }, { name: "robots", content: "noindex" }] };
     }
+    const url = abs(`/thoughtcasts/${params.slug}`);
     return {
       meta: [
-        { title: `${loaderData.title} — Thoughtcasts` },
+        { title: `${loaderData.title} — Thoughtcasts\u2122` },
         { name: "description", content: loaderData.thesis },
         { property: "og:title", content: loaderData.title },
         { property: "og:description", content: loaderData.thesis },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `/thoughtcasts/${params.slug}` },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: loaderData.title },
+        { name: "twitter:description", content: loaderData.thesis },
       ],
-      links: [{ rel: "canonical", href: `/thoughtcasts/${params.slug}` }],
+      links: [{ rel: "canonical", href: url }],
+      scripts: jsonLd([
+        {
+          "@type": "Article",
+          "@id": `${url}#article`,
+          url,
+          headline: loaderData.title,
+          description: loaderData.thesis,
+          author: { "@id": CREATOR_ID },
+          creator: { "@id": CREATOR_ID },
+          isPartOf: { "@id": THOUGHTCAST_SERIES_ID },
+          about: { "@id": THOUGHTCAST_TERM_ID },
+          inLanguage: "en-US",
+        },
+        personNode,
+      ]),
     };
   },
+
   component: ThoughtcastPage,
   notFoundComponent: () => (
     <div className="mx-auto max-w-2xl px-5 py-24 text-center">
@@ -58,6 +88,24 @@ function ThoughtcastPage() {
           <h1 className="mt-4 font-serif font-bold leading-[0.98] tracking-[-0.035em] text-[clamp(2.25rem,6vw,4.25rem)]">
             {t.title}
           </h1>
+          <p className="mt-6 text-sm leading-relaxed text-ink/65">
+            A{" "}
+            <a
+              href={THOUGHTCAST_TERM_URL}
+              className="underline decoration-ink/25 underline-offset-4 hover:text-ember"
+            >
+              Thoughtcast&trade;
+            </a>{" "}
+            by{" "}
+            <a
+              href={CREATOR_URL}
+              className="underline decoration-ink/25 underline-offset-4 hover:text-ember"
+            >
+              Jason &ldquo;Dutch&rdquo; Brown
+            </a>
+            .
+          </p>
+
         </div>
       </section>
 

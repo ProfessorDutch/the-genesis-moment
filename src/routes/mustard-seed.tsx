@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { abs } from "@/lib/site";
 import { ArrowRight } from "lucide-react";
 import mustardSprout from "@/assets/mustard-sprout.jpg";
 import shopWindow from "@/assets/shop-window-light.jpg";
@@ -20,9 +21,11 @@ export const Route = createFileRoute("/mustard-seed")({
         content:
           "We open the door before the work speaks for him. We open the door, and invest in people who don't totally believe in themselves.",
       },
-      { property: "og:url", content: "/mustard-seed" },
+      { property: "og:url", content: abs("/mustard-seed") },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/mustard-seed" }],
+    links: [{ rel: "canonical", href: abs("/mustard-seed") }],
   }),
   component: MustardSeed,
 });

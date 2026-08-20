@@ -40,6 +40,29 @@ export function SiteFooter() {
       </div>
       <div className="mx-auto mt-14 max-w-6xl">
         <hr className="rule-ember" />
+        <div className="mt-6 space-y-2 text-xs text-cream/55">
+          <p>
+            The Genesis Moment&trade; and Thoughtcasts&trade; were created by{" "}
+            <a
+              href="https://jasondutchbrown.com/"
+              className="underline decoration-cream/25 underline-offset-4 hover:text-ember"
+            >
+              Jason &ldquo;Dutch&rdquo; Brown
+            </a>
+            .
+          </p>
+          <p className="flex flex-wrap gap-x-5 gap-y-1 text-cream/45">
+            <a
+              href="https://jasondutchbrown.com/the-genesis-moment"
+              className="hover:text-ember"
+            >
+              Definition of The Genesis Moment&trade;
+            </a>
+            <a href="https://jasondutchbrown.com/thoughtcast" className="hover:text-ember">
+              Definition of Thoughtcast&trade;
+            </a>
+          </p>
+        </div>
         <div className="mt-6 flex flex-col justify-between gap-2 text-xs text-cream/45 md:flex-row">
           <div>© {new Date().getFullYear()} The Genesis Moment</div>
           <div className="italic">
@@ -47,6 +70,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
+
     </footer>
   );
 }
