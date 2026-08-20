@@ -4,6 +4,12 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminGuard } from "@/lib/admin-guard";
 import { toast } from "sonner";
+import {
+  effectiveStatus,
+  routePath,
+  STATUSES,
+  type EntryStatus,
+} from "@/lib/publishing";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
@@ -20,7 +26,9 @@ type Episode = {
   type: "podcast" | "thoughtcast";
   slug: string;
   title: string;
-  status: "draft" | "published";
+  status: EntryStatus;
+  scheduled_at: string | null;
+  preview_token: string | null;
   episode_number: number | null;
   published_at: string | null;
   updated_at: string;
@@ -49,7 +57,7 @@ function AdminDashboard() {
       const { data, error } = await supabase
         .from("episodes")
         .select(
-          "id, type, slug, title, status, episode_number, published_at, updated_at, guest_name_override, guests(name)",
+          "id, type, slug, title, status, scheduled_at, preview_token, episode_number, published_at, updated_at, guest_name_override, guests(name)",
         )
         .order("updated_at", { ascending: false });
       if (error) throw error;
@@ -155,6 +163,13 @@ function AdminDashboard() {
   );
 }
 
+function statusTone(s: EntryStatus) {
+  if (s === "published") return "bg-ember/10 text-ember";
+  if (s === "scheduled") return "bg-mustard/20 text-ink/70";
+  if (s === "archived") return "bg-ink/5 text-ink/40";
+  return "bg-ink/10 text-ink/60";
+}
+
 function EpisodeList({
   rows,
   label,
@@ -164,8 +179,10 @@ function EpisodeList({
   label: "podcast" | "thoughtcast";
   refetch: () => void;
 }) {
+  const [filter, setFilter] = useState<EntryStatus | "all">("all");
+
   async function del(id: string) {
-    if (!confirm("Delete this permanently?")) return;
+    if (!confirm("Delete this permanently? Archiving is usually the better choice.")) return;
     const { error } = await supabase.from("episodes").delete().eq("id", id);
     if (error) toast.error(error.message);
     else {
@@ -173,82 +190,117 @@ function EpisodeList({
       refetch();
     }
   }
-  async function togglePublish(row: Episode) {
-    const next = row.status === "published" ? "draft" : "published";
+
+  async function setStatus(row: Episode, next: EntryStatus) {
     const { error } = await supabase
       .from("episodes")
-      .update({
-        status: next,
-        published_at:
-          next === "published" ? row.published_at ?? new Date().toISOString() : row.published_at,
-      })
+      .update({ status: next })
       .eq("id", row.id);
     if (error) toast.error(error.message);
     else {
-      toast.success(next === "published" ? "Published" : "Moved to draft");
+      toast.success(`Moved to ${next}`);
       refetch();
     }
   }
 
+  const counts = STATUSES.reduce<Record<string, number>>((acc, st) => {
+    acc[st] = rows.filter((r) => r.status === st).length;
+    return acc;
+  }, {});
+  const visible = filter === "all" ? rows : rows.filter((r) => r.status === filter);
+
   return (
     <div className="mt-8">
-      <div className="mb-4 flex justify-end">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap gap-2">
+          {(["all", ...STATUSES] as const).map((st) => (
+            <button
+              key={st}
+              onClick={() => setFilter(st as EntryStatus | "all")}
+              className={`px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] ${
+                filter === st ? "bg-ink text-cream" : "border border-line text-ink/55"
+              }`}
+            >
+              {st}
+              {st !== "all" ? ` (${counts[st] ?? 0})` : ` (${rows.length})`}
+            </button>
+          ))}
+        </div>
         <Link
           to="/admin/episodes/$id"
           params={{ id: "new" }}
           search={{ type: label }}
           className="bg-ember px-4 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-white"
         >
-          + New {label}
+          + New {label === "podcast" ? "episode" : "thoughtcast"}
         </Link>
       </div>
-      {rows.length === 0 ? (
+      {visible.length === 0 ? (
         <div className="border border-dashed border-line p-12 text-center text-ink/50">
-          No {label}s yet. Create the first one.
+          Nothing here yet.
         </div>
       ) : (
         <ul className="divide-y divide-line border-y border-line">
-          {rows.map((row) => (
-            <li key={row.id} className="flex items-center gap-4 py-4">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] ${
-                      row.status === "published"
-                        ? "bg-ember/10 text-ember"
-                        : "bg-ink/10 text-ink/60"
-                    }`}
+          {visible.map((row) => {
+            const eff = effectiveStatus(row);
+            return (
+              <li key={row.id} className="flex flex-wrap items-center gap-3 py-4">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span
+                      className={`inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] ${statusTone(row.status)}`}
+                    >
+                      {row.status}
+                      {row.status === "scheduled" && eff === "published" ? " · live" : ""}
+                    </span>
+                    <span className="mono-tag text-ink/50">{routePath(row.type, row.slug)}</span>
+                  </div>
+                  <div className="mt-1 font-serif text-lg leading-tight">{row.title}</div>
+                  <div className="text-sm text-ink/60">
+                    {row.guests?.name || row.guest_name_override || "—"}
+                  </div>
+                </div>
+                {row.status !== "published" && row.preview_token && (
+                  <Link
+                    to="/preview/$token"
+                    params={{ token: row.preview_token }}
+                    target="_blank"
+                    className="border border-ink/30 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] hover:border-ember hover:text-ember"
                   >
-                    {row.status}
-                  </span>
-                  <span className="mono-tag text-ink/50">/{row.slug}</span>
-                </div>
-                <div className="mt-1 font-serif text-lg leading-tight">{row.title}</div>
-                <div className="text-sm text-ink/60">
-                  {row.guests?.name || row.guest_name_override || "—"}
-                </div>
-              </div>
-              <button
-                onClick={() => togglePublish(row)}
-                className="border border-ink/30 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] hover:border-ember hover:text-ember"
-              >
-                {row.status === "published" ? "Unpublish" : "Publish"}
-              </button>
-              <Link
-                to="/admin/episodes/$id"
-                params={{ id: row.id }}
-                className="border border-ink/30 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] hover:border-ember hover:text-ember"
-              >
-                Edit
-              </Link>
-              <button
-                onClick={() => del(row.id)}
-                className="border border-ink/30 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] hover:border-red-600 hover:text-red-600"
-              >
-                Delete
-              </button>
-            </li>
-          ))}
+                    Preview
+                  </Link>
+                )}
+                {row.status === "published" ? (
+                  <button
+                    onClick={() => setStatus(row, "archived")}
+                    className="border border-ink/30 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] hover:border-ember hover:text-ember"
+                  >
+                    Archive
+                  </button>
+                ) : row.status === "archived" ? (
+                  <button
+                    onClick={() => setStatus(row, "published")}
+                    className="border border-ink/30 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] hover:border-ember hover:text-ember"
+                  >
+                    Restore
+                  </button>
+                ) : null}
+                <Link
+                  to="/admin/episodes/$id"
+                  params={{ id: row.id }}
+                  className="border border-ink/30 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] hover:border-ember hover:text-ember"
+                >
+                  Edit
+                </Link>
+                <button
+                  onClick={() => del(row.id)}
+                  className="border border-ink/30 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] hover:border-red-600 hover:text-red-600"
+                >
+                  Delete
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>
