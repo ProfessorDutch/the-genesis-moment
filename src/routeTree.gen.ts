@@ -23,6 +23,7 @@ import { Route as PodcastIndexRouteImport } from './routes/podcast.index'
 import { Route as ThoughtcastsSlugRouteImport } from './routes/thoughtcasts.$slug'
 import { Route as PreviewTokenRouteImport } from './routes/preview.$token'
 import { Route as PodcastSlugRouteImport } from './routes/podcast.$slug'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as AuthenticatedAdminGuestsIdRouteImport } from './routes/_authenticated.admin.guests.$id'
 import { Route as AuthenticatedAdminEpisodesIdRouteImport } from './routes/_authenticated.admin.episodes.$id'
@@ -96,22 +97,27 @@ const PodcastSlugRoute = PodcastSlugRouteImport.update({
   path: '/podcast/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const AuthenticatedAdminGuestsIdRoute =
   AuthenticatedAdminGuestsIdRouteImport.update({
-    id: '/admin/guests/$id',
-    path: '/admin/guests/$id',
-    getParentRoute: () => AuthenticatedRoute,
+    id: '/guests/$id',
+    path: '/guests/$id',
+    getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminEpisodesIdRoute =
   AuthenticatedAdminEpisodesIdRouteImport.update({
-    id: '/admin/episodes/$id',
-    path: '/admin/episodes/$id',
-    getParentRoute: () => AuthenticatedRoute,
+    id: '/episodes/$id',
+    path: '/episodes/$id',
+    getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/payment-success': typeof PaymentSuccessRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
   '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
@@ -161,6 +168,7 @@ export interface FileRoutesById {
   '/payment-success': typeof PaymentSuccessRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tell-your-story': typeof TellYourStoryRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/podcast/$slug': typeof PodcastSlugRoute
   '/preview/$token': typeof PreviewTokenRoute
   '/thoughtcasts/$slug': typeof ThoughtcastsSlugRoute
@@ -181,6 +189,7 @@ export interface FileRouteTypes {
     | '/payment-success'
     | '/sitemap.xml'
     | '/tell-your-story'
+    | '/admin'
     | '/podcast/$slug'
     | '/preview/$token'
     | '/thoughtcasts/$slug'
@@ -218,6 +227,7 @@ export interface FileRouteTypes {
     | '/payment-success'
     | '/sitemap.xml'
     | '/tell-your-story'
+    | '/_authenticated/admin'
     | '/podcast/$slug'
     | '/preview/$token'
     | '/thoughtcasts/$slug'
@@ -345,40 +355,58 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PodcastSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
-      path: '/admin'
+      path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/guests/$id': {
       id: '/_authenticated/admin/guests/$id'
-      path: '/admin/guests/$id'
+      path: '/guests/$id'
       fullPath: '/admin/guests/$id'
       preLoaderRoute: typeof AuthenticatedAdminGuestsIdRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/episodes/$id': {
       id: '/_authenticated/admin/episodes/$id'
-      path: '/admin/episodes/$id'
+      path: '/episodes/$id'
       fullPath: '/admin/episodes/$id'
       preLoaderRoute: typeof AuthenticatedAdminEpisodesIdRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      parentRoute: typeof AuthenticatedAdminRoute
     }
   }
 }
 
-interface AuthenticatedRouteChildren {
+interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminEpisodesIdRoute: typeof AuthenticatedAdminEpisodesIdRoute
   AuthenticatedAdminGuestsIdRoute: typeof AuthenticatedAdminGuestsIdRoute
 }
 
-const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedAdminEpisodesIdRoute: AuthenticatedAdminEpisodesIdRoute,
   AuthenticatedAdminGuestsIdRoute: AuthenticatedAdminGuestsIdRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
