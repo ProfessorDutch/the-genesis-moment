@@ -178,7 +178,19 @@ function PodcastIndex() {
           </div>
           <hr className="rule-ember" />
 
+          {episodes.length === 0 && (
+            <div className="mt-10 max-w-2xl">
+              <p className="font-serif text-2xl leading-snug tracking-[-0.02em] text-ink md:text-3xl">
+                The first season is being recorded now.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-ink/70">
+                Conversations are published here the day they are released — never before.
+              </p>
+            </div>
+          )}
+
           <ul className="mt-10 flex flex-col divide-y divide-line">
+
             {rest.map((ep) => (
               <li key={ep.slug} className="py-10 first:pt-0 last:pb-0">
                 <Link
